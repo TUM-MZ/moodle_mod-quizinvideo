@@ -1,0 +1,10 @@
+{
+    "name": "moodle-mod_quizinvideo-randomquestion",
+    "builds": {
+        "moodle-mod_quizinvideo-randomquestion": {
+            "jsfiles": [
+                "randomquestion.js"
+            ]
+        }
+    }
+}

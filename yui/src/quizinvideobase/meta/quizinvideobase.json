@@ -1,0 +1,8 @@
+{
+    "moodle-mod_quizinvideo-quizinvideobase": {
+        "requires": [
+            "base",
+            "node"
+        ]
+    }
+}

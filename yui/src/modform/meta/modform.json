@@ -1,0 +1,9 @@
+{
+    "moodle-mod_quizinvideo-modform": {
+        "requires": [
+            "base",
+            "node",
+            "event"
+        ]
+    }
+}

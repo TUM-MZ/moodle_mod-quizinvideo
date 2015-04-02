@@ -1,0 +1,14 @@
+{
+    "moodle-mod_quizinvideo-toolboxes": {
+        "requires": [
+            "base",
+            "node",
+            "event",
+            "event-key",
+            "io",
+            "moodle-mod_quizinvideo-quizinvideobase",
+            "moodle-mod_quizinvideo-util-slot",
+            "moodle-core-notification-ajaxexception"
+        ]
+    }
+}

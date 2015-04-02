@@ -1,0 +1,10 @@
+{
+    "name": "moodle-mod_quizinvideo-autosave",
+    "builds": {
+        "moodle-mod_quizinvideo-autosave": {
+            "jsfiles": [
+                "autosave.js"
+            ]
+        }
+    }
+}

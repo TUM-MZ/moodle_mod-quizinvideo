@@ -1,0 +1,12 @@
+{
+    "name": "moodle-mod_quizinvideo-toolboxes",
+    "builds": {
+        "moodle-mod_quizinvideo-toolboxes": {
+            "jsfiles": [
+                "toolbox.js",
+                "resource.js",
+                "section.js"
+            ]
+        }
+    }
+}
