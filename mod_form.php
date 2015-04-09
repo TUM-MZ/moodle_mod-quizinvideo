@@ -76,6 +76,16 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
         $mform->addRule('name', null, 'required', null, 'client');
         $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
 
+        // Video.
+        $mform->addElement('text', 'video', get_string('video', 'quizinvideo'), array('size'=>'64'));
+        if (!empty($CFG->formatstringstriptags)) {
+            $mform->setType('video', PARAM_TEXT);
+        } else {
+            $mform->setType('video', PARAM_CLEANHTML);
+        }
+        $mform->addRule('video', null, 'required', null, 'client');
+        $mform->addRule('video', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
+
         // Introduction.
         $this->add_intro_editor(false, get_string('introduction', 'quizinvideo'));
 

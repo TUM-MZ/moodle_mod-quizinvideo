@@ -911,6 +911,7 @@ $string['wronguse'] = 'You can not use this page like that';
 $string['xhtml'] = 'XHTML';
 $string['youneedtoenrol'] = 'You need to enrol in this course before you can attempt this quizinvideo';
 $string['yourfinalgradeis'] = 'Your final grade for this quizinvideo is {$a}.';
+$string['video'] = 'Video';
 
 // Deprecated since Moodle 2.8.
 
