@@ -117,7 +117,9 @@ switch($requestmethod) {
                     case 'updatetimeofvideo':
                         require_capability('mod/quizinvideo:manage', $modcontext);
                         if(quizinvideo_set_timeofvideo($quizinvideoid, $page, $timeofvideo))
-                            echo json_encode(array('instance_timeofvideo' => $timeofvideo));;
+                            echo json_encode(array('instance_timeofvideo' => $timeofvideo));
+                        else
+                            echo json_encode(array('instance_timeofvideo' => ''));
                         break;
                     case 'updatepagebreak':
                         require_capability('mod/quizinvideo:manage', $modcontext);

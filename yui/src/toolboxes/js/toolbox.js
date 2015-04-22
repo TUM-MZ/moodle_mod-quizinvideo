@@ -28,13 +28,14 @@
         SECTIONIDPREFIX : 'section-',
         SLOT : 'slot',
         SHOW : 'editing_show',
+        VIDEO : 'video_content',
         TITLEEDITOR : 'titleeditor'
     },
     // The CSS selectors we use.
     SELECTOR = {
         ACTIONAREA: '.actions',
         ACTIONLINKTEXT : '.actionlinktext',
-        ACTIVITYACTION : 'a.cm-edit-action[data-action], a.editing_maxmark, a.editing_timeofvideo',
+        ACTIVITYACTION : 'a.cm-edit-action[data-action], a.editing_maxmark, a.editing_timeofvideo, a.copying_timeofvideo',
         //ACTIVITYACTIONTIME :  'a.editing_timeofvideo',
         ACTIVITYFORM : 'span.instancemaxmarkcontainer form',
         ACTIVITYFORMTIME : 'span.instancetimeofvideocontainer form',

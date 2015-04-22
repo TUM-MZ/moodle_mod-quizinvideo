@@ -57,6 +57,9 @@ class edit_renderer extends \plugin_renderer_base {
             format_string($quizinvideoobj->get_quizinvideo_name())), 'editingquizinvideo', 'quizinvideo', '',
             get_string('basicideasofquizinvideo', 'quizinvideo'), 2);
 
+        //video at the top
+        $output .= $this->show_video($quizinvideoobj->get_quizinvideo_videourl());
+
         // Information at the top.
         $output .= $this->quizinvideo_state_warnings($structure);
         $output .= $this->quizinvideo_information($structure);
@@ -410,7 +413,7 @@ class edit_renderer extends \plugin_renderer_base {
 
 //            $output .= html_writer::tag('li', $page . $addmenu . );
 
-            $output .= html_writer::tag('li', $page . $addmenu . $this->time_of_video_field($structure->get_quizinvideo(), $question->page) . $addquestionform,
+            $output .= html_writer::tag('li', $page . $addmenu . $this->time_of_video_div($structure->get_quizinvideo(), $question->page) . $addquestionform,
                 array('class' => 'pagenumber activity yui3-dd-drop page', 'id' => 'page-' . $question->page));
         }
 
@@ -425,7 +428,7 @@ class edit_renderer extends \plugin_renderer_base {
      * @param \stdClass $question data from the question and quizinvideo_slots tables.
      * @return string HTML to output.
      */
-    public function time_of_video_field($quizinvideo, $page) {
+    public function time_of_video_div($quizinvideo, $page) {
         $time = quizinvideo_get_timeofvideo($quizinvideo->id, $page);
         if($time == null){
             $output = html_writer::span('',
@@ -439,6 +442,7 @@ class edit_renderer extends \plugin_renderer_base {
         }
 
 
+
         $output .= html_writer::span(
             html_writer::link(
                 new \moodle_url('#'),
@@ -447,6 +451,18 @@ class edit_renderer extends \plugin_renderer_base {
                     'class' => 'editing_timeofvideo',
                     'data-action' => 'edittimeofvideo',
                     'title' => get_string('edit_timeofvideo', 'quizinvideo'),
+                )
+            )
+        );
+
+        $output .= html_writer::span(
+            html_writer::link(
+                new \moodle_url('#'),
+                $this->pix_icon('t/copy', '', 'moodle', array('class' => 'editicon visibleifjs', 'title' => '')),
+                array(
+                    'class' => 'copying_timeofvideo',
+                    'data-action' => 'copytimeofvideo',
+                    'title' => get_string('copy_timeofvideo', 'quizinvideo'),
                 )
             )
         );
@@ -1061,5 +1077,21 @@ class edit_renderer extends \plugin_renderer_base {
         $qbank = $questionbank->render('editq', $pagevars['qpage'], $pagevars['qperpage'],
             $pagevars['cat'], $pagevars['recurse'], $pagevars['showhidden'], $pagevars['qbshowtext']);
         return html_writer::div(html_writer::div($qbank, 'bd'), 'questionbankformforpopup');
+    }
+
+    /**
+     * Return the video element to be displayed in the edit page.
+     *
+     * @param $url the url of the video.
+     * @return string HTML.
+     */
+    private function show_video($url)
+    {
+        $output = '';
+        $output .= html_writer::start_div('video_div');
+        $output .= html_writer::start_tag('video', array('src'=> $url, 'id'=>'video_content', 'preload'=>'auto', 'controls'=>''));
+        $output .= html_writer::end_tag('video');
+        $output .= html_writer::end_tag('div');
+        return $output;
     }
 }

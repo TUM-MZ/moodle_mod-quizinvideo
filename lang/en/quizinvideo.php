@@ -914,6 +914,7 @@ $string['yourfinalgradeis'] = 'Your final grade for this quizinvideo is {$a}.';
 $string['video'] = 'Video';
 $string['timeofvideo'] = 'Timestamp of page in video';
 $string['edit_timeofvideo'] = 'Edit timestamp of page in video';
+$string['copy_timeofvideo'] = 'Copy timestamp from video';
 
 // Deprecated since Moodle 2.8.
 

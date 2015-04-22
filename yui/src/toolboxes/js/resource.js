@@ -104,6 +104,10 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
                 // The user wishes to edit the timeofvideo of the page.
                 this.edit_timeofvideo(ev, node, activity, action);
                 break;
+            case 'copytimeofvideo':
+                //this user wishes to copy timestamp from video
+                this.copy_timefromvideo(ev, node, activity, action);
+                break;
             case 'delete':
                 // The user is deleting the activity.
                 this.delete_with_confirmation(ev, node, activity, action);
@@ -358,6 +362,41 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
     },
 
     /**
+     * Copy the time from video for the resource
+     *
+     * @protected
+     * @method edit_maxmark
+     * @param {EventFacade} ev The event that was fired.
+     * @param {Node} button The button that triggered this action.
+     * @param {Node} activity The activity node that this action will be performed on.
+     * @param {String} action The action that has been requested.
+     * @return Boolean
+     */
+    copy_timefromvideo : function(ev, button, activity) {
+        ev.preventDefault();
+        var video = document.getElementById(CSS.VIDEO);
+        var page = Y.Moodle.mod_quizinvideo.util.page.getId(activity);
+        var spinner = this.add_spinner(activity);
+        var newtimeofvideo = video.currentTime;
+
+        if (newtimeofvideo !== null && newtimeofvideo !== "") {
+            var data = {
+                'class'   : 'resource',
+                'field'   : 'updatetimeofvideo',
+                'timeofvideo'   : newtimeofvideo,
+                'page'  : page,
+                'id'      : Y.Moodle.mod_quizinvideo.util.page.getId(activity)
+            };
+            this.send_request(data, spinner, function(response) {
+                if (response.instance_timeofvideo) {
+                    activity.one(SELECTOR.INSTANCETIMEOFVIDEO).setContent(response.instance_timeofvideo.toFixed(2));
+                }
+            });
+        }
+
+    },
+
+    /**
      * Edit the timeofvideo for the resource
      *
      * @protected
@@ -471,8 +510,8 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
                 'id'      : Y.Moodle.mod_quizinvideo.util.page.getId(activity)
             };
             this.send_request(data, spinner, function(response) {
-                if (response.instancetimeofvideo) {
-                    activity.one(SELECTOR.INSTANCETIMEOFVIDEO).setContent(response.instancetimeofvideo);
+                if (response.instance_timeofvideo) {
+                    activity.one(SELECTOR.INSTANCETIMEOFVIDEO).setContent(response.instance_timeofvideo.toFixed(2));
                 }
             });
         }

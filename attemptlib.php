@@ -184,6 +184,10 @@ class quizinvideo {
         return $this->quizinvideo;
     }
 
+    public function get_quizinvideo_videourl() {
+        return $this->quizinvideo->video;
+    }
+
     /** @return string the name of this quizinvideo. */
     public function get_quizinvideo_name() {
         return $this->quizinvideo->name;

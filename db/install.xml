@@ -78,7 +78,7 @@
           <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
           <FIELD NAME="quizinvideoid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Foreign key references quizinvideo.id."/>
           <FIELD NAME="page" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Foreign key references quizinvideo_slots.page"/>
-          <FIELD NAME="time" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="The time of video when the quiz page will appear"/>
+          <FIELD NAME="time" TYPE="number" LENGTH="8" NOTNULL="false" DECIMALS="2" SEQUENCE="false" COMMENT="The time of video when the quiz page will appear"/>
       </FIELDS>
       <KEYS>
           <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
