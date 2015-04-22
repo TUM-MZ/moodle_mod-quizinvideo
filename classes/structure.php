@@ -579,7 +579,7 @@ class structure {
 
         //adding new page in quizinvideo_page if it exists in quizinvideo_slots
         $DB->execute("insert into {quizinvideo_page}(quizinvideoid, page)
-                        select {quizinvideo_slots}.quizinvideoid, {quizinvideo_slots}.page
+                        select DISTINCT {quizinvideo_slots}.quizinvideoid, {quizinvideo_slots}.page
                             from {quizinvideo_slots}
                             where not exists (
                                     select * from {quizinvideo_page}

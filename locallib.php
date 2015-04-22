@@ -2079,9 +2079,11 @@ function quizinvideo_set_timeofvideo($quizinvideoid, $page, $time){
  */
 function quizinvideo_insert_timeofvideo($quizinvideoid, $page, $time = null){
     global $DB;
-    $page_to_insert = new stdClass();
-    $page_to_insert->quizinvideoid = $quizinvideoid;
-    $page_to_insert->page = $page;
-    $page_to_insert->time = $time;
-    $DB->insert_record('quizinvideo_page', $page_to_insert);
+    if(!$DB->record_exists('quizinvideo_page', array('quizinvideoid' => $quizinvideoid, 'page' => $page))){
+        $page_to_insert = new stdClass();
+        $page_to_insert->quizinvideoid = $quizinvideoid;
+        $page_to_insert->page = $page;
+        $page_to_insert->time = $time;
+        $DB->insert_record('quizinvideo_page', $page_to_insert);
+    }
 }
