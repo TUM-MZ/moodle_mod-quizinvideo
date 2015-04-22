@@ -45,6 +45,7 @@ $visible    = optional_param('visible', 0, PARAM_INT);
 $pageaction = optional_param('action', '', PARAM_ALPHA); // Used to simulate a DELETE command.
 $maxmark    = optional_param('maxmark', '', PARAM_FLOAT);
 $page       = optional_param('page', '', PARAM_INT);
+$timeofvideo = optional_param('timeofvideo', '', PARAM_INT);
 $PAGE->set_url('/mod/quizinvideo/edit-rest.php',
         array('quizinvideoid' => $quizinvideoid, 'class' => $class));
 
@@ -85,6 +86,12 @@ switch($requestmethod) {
                         echo json_encode(array('visible' => true));
                         break;
 
+                    case 'gettimeofvideo':
+                        require_capability('mod/quizinvideo:manage', $modcontext);
+                        $page = $DB->get_record('quizinvideo_page', array('id' => $quizinvideoid), '*');
+                        echo json_encode(array('instance_timeofvideo' => $page->time));
+                        break;
+
                     case 'getmaxmark':
                         require_capability('mod/quizinvideo:manage', $modcontext);
                         $slot = $DB->get_record('quizinvideo_slots', array('id' => $id), '*', MUST_EXIST);
@@ -105,6 +112,12 @@ switch($requestmethod) {
                         }
                         echo json_encode(array('instancemaxmark' => quizinvideo_format_question_grade($quizinvideo, $maxmark),
                                 'newsummarks' => quizinvideo_format_grade($quizinvideo, $quizinvideo->sumgrades)));
+                        break;
+
+                    case 'updatetimeofvideo':
+                        require_capability('mod/quizinvideo:manage', $modcontext);
+                        if(quizinvideo_set_timeofvideo($quizinvideoid, $page, $timeofvideo))
+                            echo json_encode(array('instance_timeofvideo' => $timeofvideo));;
                         break;
                     case 'updatepagebreak':
                         require_capability('mod/quizinvideo:manage', $modcontext);

@@ -569,6 +569,23 @@ class structure {
             }
             $slot->page = $pagenumbers['new'];
         }
+        //removing page from quizinvideo_page if it does not exist in quizinvideo_slots
+        $DB->execute("delete from {quizinvideo_page}
+                        where not exists (
+                                select * from {quizinvideo_slots}
+                                    where {quizinvideo_page}.quizinvideoid = {quizinvideo_slots}.quizinvideoid and
+                                          {quizinvideo_page}.page = {quizinvideo_slots}.page)"
+            );
+
+        //adding new page in quizinvideo_page if it exists in quizinvideo_slots
+        $DB->execute("insert into {quizinvideo_page}(quizinvideoid, page)
+                        select {quizinvideo_slots}.quizinvideoid, {quizinvideo_slots}.page
+                            from {quizinvideo_slots}
+                            where not exists (
+                                    select * from {quizinvideo_page}
+                                            where {quizinvideo_slots}.quizinvideoid={quizinvideo_page}.quizinvideoid and
+                                                  {quizinvideo_slots}.page={quizinvideo_page}.page)"
+            );
 
         return $slots;
     }
@@ -611,6 +628,7 @@ class structure {
 
         $trans = $DB->start_delegated_transaction();
         $DB->delete_records('quizinvideo_slots', array('id' => $slot->id));
+        $DB->delete_records('quizinvideo_page', array('quizinvideoid' => $quizinvideo->id, 'page' => $slot->page));
         for ($i = $slot->slot + 1; $i <= $maxslot; $i++) {
             $DB->set_field('quizinvideo_slots', 'slot', $i - 1,
                     array('quizinvideoid' => $quizinvideo->id, 'slot' => $i));

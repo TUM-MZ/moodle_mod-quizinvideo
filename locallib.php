@@ -1980,6 +1980,7 @@ function quizinvideo_add_quizinvideo_question($questionid, $quizinvideo, $page =
     }
 
     $DB->insert_record('quizinvideo_slots', $slot);
+    quizinvideo_insert_timeofvideo($slot->quizinvideoid, $slot->page);
     $trans->allow_commit();
 }
 
@@ -2042,4 +2043,45 @@ function quizinvideo_add_random_questions($quizinvideo, $addonpage, $categoryid,
         }
         quizinvideo_add_quizinvideo_question($question->id, $quizinvideo, $addonpage);
     }
+}
+
+/**
+ * Get time of video for a page of a quizinvideo.
+ * @param int $quizinvideoid the id of the quizinvideo.
+ * @param int $page the page whose time of video needs to be returned.
+ */
+function quizinvideo_get_timeofvideo($quizinvideoid, $page){
+    global $DB;
+    $time = $DB->get_field('quizinvideo_page', 'time', array('quizinvideoid' => $quizinvideoid, 'page' => $page));
+    if(!$time)
+        return null;
+    else
+        return $time;
+}
+
+/**
+ * Set time of video for a page of a quizinvideo.
+ * @param int $quizinvideoid the id of the quizinvideo.
+ * @param int $page the page whose time of video needs to be returned.
+ * @param int $time the time to be set.
+ * @return bool false if db operation fails, true if succeeds
+ */
+function quizinvideo_set_timeofvideo($quizinvideoid, $page, $time){
+    global $DB;
+    return $DB->set_field('quizinvideo_page', 'time', $time, array('quizinvideoid' => $quizinvideoid, 'page' => $page));
+}
+
+/**
+ * Set time of video for a page of a quizinvideo.
+ * @param int $quizinvideoid the id of the quizinvideo.
+ * @param int $page the page whose time of video needs to be returned.
+ * @param int $time the time to be set.
+ */
+function quizinvideo_insert_timeofvideo($quizinvideoid, $page, $time = null){
+    global $DB;
+    $page_to_insert = new stdClass();
+    $page_to_insert->quizinvideoid = $quizinvideoid;
+    $page_to_insert->page = $page;
+    $page_to_insert->time = $time;
+    $DB->insert_record('quizinvideo_page', $page_to_insert);
 }

@@ -78,11 +78,11 @@
           <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
           <FIELD NAME="quizinvideoid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Foreign key references quizinvideo.id."/>
           <FIELD NAME="page" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Foreign key references quizinvideo_slots.page"/>
-          <FIELD NAME="time" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="The time of video when the quiz page will appear"/>
+          <FIELD NAME="time" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="The time of video when the quiz page will appear"/>
       </FIELDS>
       <KEYS>
           <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-          <KEY NAME="quizinvideoid" TYPE="foreign" FIELDS="quizinvideoid" REFTABLE="quizinvideo" REFFIELDS="id"/>
+          <KEY NAME="quizinvideoid" TYPE="foreign" FIELDS="quizinvideoid" REFTABLE="quizinvideo_slots" REFFIELDS="quizinvideoid"/>
           <KEY NAME="page" TYPE="foreign" FIELDS="page" REFTABLE="quizinvideo_slots" REFFIELDS="page"/>
       </KEYS>
     </TABLE>

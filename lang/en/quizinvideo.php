@@ -912,6 +912,8 @@ $string['xhtml'] = 'XHTML';
 $string['youneedtoenrol'] = 'You need to enrol in this course before you can attempt this quizinvideo';
 $string['yourfinalgradeis'] = 'Your final grade for this quizinvideo is {$a}.';
 $string['video'] = 'Video';
+$string['timeofvideo'] = 'Timestamp of page in video';
+$string['edit_timeofvideo'] = 'Edit timestamp of page in video';
 
 // Deprecated since Moodle 2.8.
 

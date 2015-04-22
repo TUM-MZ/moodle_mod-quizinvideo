@@ -25,6 +25,7 @@
 namespace mod_quizinvideo\output;
 defined('MOODLE_INTERNAL') || die();
 
+use core\progress\null;
 use \mod_quizinvideo\structure;
 use \html_writer;
 
@@ -48,13 +49,13 @@ class edit_renderer extends \plugin_renderer_base {
      * @return string HTML to output.
      */
     public function edit_page(\quizinvideo $quizinvideoobj, structure $structure,
-            \question_edit_contexts $contexts, \moodle_url $pageurl, array $pagevars) {
+                              \question_edit_contexts $contexts, \moodle_url $pageurl, array $pagevars) {
         $output = '';
 
         // Page title.
         $output .= $this->heading_with_help(get_string('editingquizinvideox', 'quizinvideo',
-                format_string($quizinvideoobj->get_quizinvideo_name())), 'editingquizinvideo', 'quizinvideo', '',
-                get_string('basicideasofquizinvideo', 'quizinvideo'), 2);
+            format_string($quizinvideoobj->get_quizinvideo_name())), 'editingquizinvideo', 'quizinvideo', '',
+            get_string('basicideasofquizinvideo', 'quizinvideo'), 2);
 
         // Information at the top.
         $output .= $this->quizinvideo_state_warnings($structure);
@@ -74,7 +75,7 @@ class edit_renderer extends \plugin_renderer_base {
             if ($section === $lastsection) {
                 $output .= \html_writer::start_div('last-add-menu');
                 $output .= html_writer::tag('span', $this->add_menu_actions($structure, 0,
-                        $pageurl, $contexts, $pagevars), array('class' => 'add-menu-outer'));
+                    $pageurl, $contexts, $pagevars), array('class' => 'add-menu-outer'));
                 $output .= \html_writer::end_div();
             }
             $output .= $this->end_section();
@@ -84,7 +85,7 @@ class edit_renderer extends \plugin_renderer_base {
 
         // Inialise the JavaScript.
         $this->initialise_editing_javascript($quizinvideoobj->get_course(), $quizinvideoobj->get_quizinvideo(),
-                $structure, $contexts, $pagevars, $pageurl);
+            $structure, $contexts, $pagevars, $pageurl);
 
         // Include the contents of any other popups required.
         if ($structure->can_be_edited()) {
@@ -92,12 +93,12 @@ class edit_renderer extends \plugin_renderer_base {
 
             $popups .= $this->question_bank_loading();
             $this->page->requires->yui_module('moodle-mod_quizinvideo-quizinvideoquestionbank',
-                    'M.mod_quizinvideo.quizinvideoquestionbank.init',
-                    array('class' => 'questionbank', 'cmid' => $structure->get_cmid()));
+                'M.mod_quizinvideo.quizinvideoquestionbank.init',
+                array('class' => 'questionbank', 'cmid' => $structure->get_cmid()));
 
             $popups .= $this->random_question_form($pageurl, $contexts, $pagevars);
             $this->page->requires->yui_module('moodle-mod_quizinvideo-randomquestion',
-                    'M.mod_quizinvideo.randomquestion.init');
+                'M.mod_quizinvideo.randomquestion.init');
 
             $output .= html_writer::div($popups, 'mod_quizinvideo_edit_forms');
 
@@ -141,10 +142,10 @@ class edit_renderer extends \plugin_renderer_base {
         list($currentstatus, $explanation) = $structure->get_dates_summary();
 
         $output = html_writer::span(
-                    get_string('numquestionsx', 'quizinvideo', $structure->get_question_count()),
-                    'numberofquestions') . ' | ' .
-                html_writer::span($currentstatus, 'quizinvideoopeningstatus',
-                    array('title' => $explanation));
+                get_string('numquestionsx', 'quizinvideo', $structure->get_question_count()),
+                'numberofquestions') . ' | ' .
+            html_writer::span($currentstatus, 'quizinvideoopeningstatus',
+                array('title' => $explanation));
 
         return html_writer::div($output, 'statusbar');
     }
@@ -160,17 +161,17 @@ class edit_renderer extends \plugin_renderer_base {
         $output = '';
         $output .= html_writer::start_div('maxgrade');
         $output .= html_writer::start_tag('form', array('method' => 'post', 'action' => 'edit.php',
-                'class' => 'quizinvideosavegradesform'));
+            'class' => 'quizinvideosavegradesform'));
         $output .= html_writer::start_tag('fieldset', array('class' => 'invisiblefieldset'));
         $output .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'sesskey', 'value' => sesskey()));
         $output .= html_writer::input_hidden_params($pageurl);
         $a = html_writer::empty_tag('input', array('type' => 'text', 'id' => 'inputmaxgrade',
-                'name' => 'maxgrade', 'size' => ($quizinvideo->decimalpoints + 2),
-                'value' => quizinvideo_format_grade($quizinvideo, $quizinvideo->grade)));
+            'name' => 'maxgrade', 'size' => ($quizinvideo->decimalpoints + 2),
+            'value' => quizinvideo_format_grade($quizinvideo, $quizinvideo->grade)));
         $output .= html_writer::tag('label', get_string('maximumgradex', '', $a),
-                array('for' => 'inputmaxgrade'));
+            array('for' => 'inputmaxgrade'));
         $output .= html_writer::empty_tag('input', array('type' => 'submit',
-                'name' => 'savechanges', 'value' => get_string('save', 'quizinvideo')));
+            'name' => 'savechanges', 'value' => get_string('save', 'quizinvideo')));
         $output .= html_writer::end_tag('fieldset');
         $output .= html_writer::end_tag('form');
         $output .= html_writer::end_tag('div');
@@ -188,10 +189,10 @@ class edit_renderer extends \plugin_renderer_base {
         $header = html_writer::tag('span', get_string('repaginatecommand', 'quizinvideo'), array('class' => 'repaginatecommand'));
         $form = $this->repaginate_form($structure, $pageurl);
         $containeroptions = array(
-                'class'  => 'rpcontainerclass',
-                'cmid'   => $structure->get_cmid(),
-                'header' => $header,
-                'form'   => $form,
+            'class'  => 'rpcontainerclass',
+            'cmid'   => $structure->get_cmid(),
+            'header' => $header,
+            'form'   => $form,
         );
 
         $buttonoptions = array(
@@ -207,7 +208,7 @@ class edit_renderer extends \plugin_renderer_base {
         }
 
         return html_writer::tag('div',
-                html_writer::empty_tag('input', $buttonoptions), $containeroptions);
+            html_writer::empty_tag('input', $buttonoptions), $containeroptions);
     }
 
     /**
@@ -227,15 +228,15 @@ class edit_renderer extends \plugin_renderer_base {
         $hiddenurl->param('sesskey', sesskey());
 
         $select = html_writer::select($perpage, 'questionsperpage',
-                $structure->get_questions_per_page(), false);
+            $structure->get_questions_per_page(), false);
 
         $buttonattributes = array('type' => 'submit', 'name' => 'repaginate', 'value' => get_string('go'));
 
         $formcontent = html_writer::tag('form', html_writer::div(
-                    html_writer::input_hidden_params($hiddenurl) .
-                    get_string('repaginate', 'quizinvideo', $select) .
-                    html_writer::empty_tag('input', $buttonattributes)
-                ), array('action' => 'edit.php', 'method' => 'post'));
+            html_writer::input_hidden_params($hiddenurl) .
+            get_string('repaginate', 'quizinvideo', $select) .
+            html_writer::empty_tag('input', $buttonattributes)
+        ), array('action' => 'edit.php', 'method' => 'post'));
 
         return html_writer::div($formcontent, '', array('id' => 'repaginatedialog'));
     }
@@ -249,8 +250,8 @@ class edit_renderer extends \plugin_renderer_base {
     public function total_marks($quizinvideo) {
         $totalmark = html_writer::span(quizinvideo_format_grade($quizinvideo, $quizinvideo->sumgrades), 'mod_quizinvideo_summarks');
         return html_writer::tag('span',
-                get_string('totalmarksx', 'quizinvideo', $totalmark),
-                array('class' => 'totalpoints'));
+            get_string('totalmarksx', 'quizinvideo', $totalmark),
+            array('class' => 'totalpoints'));
     }
 
     /**
@@ -339,7 +340,7 @@ class edit_renderer extends \plugin_renderer_base {
      * @return string HTML to output.
      */
     public function questions_in_section(structure $structure, $section,
-            $contexts, $pagevars, $pageurl) {
+                                         $contexts, $pagevars, $pageurl) {
 
         $output = '';
         foreach ($structure->get_questions_in_section($section->id) as $question) {
@@ -368,7 +369,7 @@ class edit_renderer extends \plugin_renderer_base {
         $joinhtml = '';
         if ($structure->can_be_edited() && !$structure->is_last_slot_in_quizinvideo($question->slot)) {
             $joinhtml = $this->page_split_join_button($structure->get_quizinvideo(),
-                    $question, !$structure->is_last_slot_on_page($question->slot));
+                $question, !$structure->is_last_slot_on_page($question->slot));
         }
 
         // Question HTML.
@@ -376,7 +377,7 @@ class edit_renderer extends \plugin_renderer_base {
         $questionclasses = 'activity ' . $question->qtype . ' qtype_' . $question->qtype . ' slot';
 
         $output .= html_writer::tag('li', $questionhtml . $joinhtml,
-                array('class' => $questionclasses, 'id' => 'slot-' . $question->slotid));
+            array('class' => $questionclasses, 'id' => 'slot-' . $question->slotid));
 
         return $output;
     }
@@ -396,23 +397,62 @@ class edit_renderer extends \plugin_renderer_base {
 
         // Put page in a span for easier styling.
         $page = html_writer::tag('span', get_string('page') . ' ' . $question->page,
-                array('class' => 'text'));
+            array('class' => 'text'));
 
         if ($structure->is_first_slot_on_page($question->slot)) {
             // Add the add-menu at the page level.
             $addmenu = html_writer::tag('span', $this->add_menu_actions($structure,
-                    $question->page, $pageurl, $contexts, $pagevars),
-                    array('class' => 'add-menu-outer'));
+                $question->page, $pageurl, $contexts, $pagevars),
+                array('class' => 'add-menu-outer'));
 
             $addquestionform = $this->add_question_form($structure,
-                    $question->page, $pageurl, $pagevars);
+                $question->page, $pageurl, $pagevars);
 
-            $output .= html_writer::tag('li', $page . $addmenu . $addquestionform,
-                    array('class' => 'pagenumber activity yui3-dd-drop page', 'id' => 'page-' . $question->page));
+//            $output .= html_writer::tag('li', $page . $addmenu . );
+
+            $output .= html_writer::tag('li', $page . $addmenu . $this->time_of_video_field($structure->get_quizinvideo(), $question->page) . $addquestionform,
+                array('class' => 'pagenumber activity yui3-dd-drop page', 'id' => 'page-' . $question->page));
         }
 
         return $output;
     }
+
+
+    /**
+     * Display the 'time in video' information for a question.
+     * Along with the regrade action.
+     * @param \stdClass $quizinvideo the quizinvideo settings from the database.
+     * @param \stdClass $question data from the question and quizinvideo_slots tables.
+     * @return string HTML to output.
+     */
+    public function time_of_video_field($quizinvideo, $page) {
+        $time = quizinvideo_get_timeofvideo($quizinvideo->id, $page);
+        if($time == null){
+            $output = html_writer::span('',
+                'instance_timeofvideo',
+                array('title' => get_string('timeofvideo', 'quizinvideo')));
+        }
+        else{
+            $output = html_writer::span($time,
+                'instance_timeofvideo',
+                array('title' => get_string('timeofvideo', 'quizinvideo')));
+        }
+
+
+        $output .= html_writer::span(
+            html_writer::link(
+                new \moodle_url('#'),
+                $this->pix_icon('t/editstring', '', 'moodle', array('class' => 'editicon visibleifjs', 'title' => '')),
+                array(
+                    'class' => 'editing_timeofvideo',
+                    'data-action' => 'edittimeofvideo',
+                    'title' => get_string('edit_timeofvideo', 'quizinvideo'),
+                )
+            )
+        );
+        return html_writer::span($output, 'instancetimeofvideocontainer');
+    }
+
 
     /**
      * Returns the add menu that is output once per page.
@@ -424,7 +464,7 @@ class edit_renderer extends \plugin_renderer_base {
      * @return string HTML to output.
      */
     public function add_menu_actions(structure $structure, $page, \moodle_url $pageurl,
-            \question_edit_contexts $contexts, array $pagevars) {
+                                     \question_edit_contexts $contexts, array $pagevars) {
 
         $actions = $this->edit_menu_actions($structure, $page, $pageurl, $pagevars);
         if (empty($actions)) {
@@ -467,12 +507,12 @@ class edit_renderer extends \plugin_renderer_base {
      * @return array the actions.
      */
     public function edit_menu_actions(structure $structure, $page,
-            \moodle_url $pageurl, array $pagevars) {
+                                      \moodle_url $pageurl, array $pagevars) {
         $questioncategoryid = question_get_category_id_from_pagevars($pagevars);
         static $str;
         if (!isset($str)) {
             $str = get_strings(array('addaquestion', 'addarandomquestion',
-                    'addarandomselectedquestion', 'questionbank'), 'quizinvideo');
+                'addarandomselectedquestion', 'questionbank'), 'quizinvideo');
         }
 
         // Get section, page, slotnumber and maxmark.
@@ -481,8 +521,8 @@ class edit_renderer extends \plugin_renderer_base {
         // Add a new question to the quizinvideo.
         $returnurl = new \moodle_url($pageurl, array('addonpage' => $page));
         $params = array('returnurl' => $returnurl->out_as_local_url(false),
-                'cmid' => $structure->get_cmid(), 'category' => $questioncategoryid,
-                'addonpage' => $page, 'appendqnumstring' => 'addquestion');
+            'cmid' => $structure->get_cmid(), 'category' => $questioncategoryid,
+            'addonpage' => $page, 'appendqnumstring' => 'addquestion');
 
         $actions['addaquestion'] = new \action_menu_link_secondary(
             new \moodle_url('/question/addquestion.php', $params),
@@ -494,7 +534,7 @@ class edit_renderer extends \plugin_renderer_base {
         $icon = new \pix_icon('t/add', $str->questionbank, 'moodle', array('class' => 'iconsmall', 'title' => ''));
         $title = get_string('addquestionfrombanktopage', 'quizinvideo', $page);
         $attributes = array('class' => 'cm-edit-action questionbank',
-                'data-header' => $title, 'data-action' => 'questionbank', 'data-addonpage' => $page);
+            'data-header' => $title, 'data-action' => 'questionbank', 'data-addonpage' => $page);
         $actions['questionbank'] = new \action_menu_link_secondary($pageurl, $icon, $str->questionbank, $attributes);
 
         // Add a random question.
@@ -524,18 +564,18 @@ class edit_renderer extends \plugin_renderer_base {
         $questioncategoryid = question_get_category_id_from_pagevars($pagevars);
 
         $output = html_writer::tag('input', null,
-                array('type' => 'hidden', 'name' => 'returnurl',
-                        'value' => $pageurl->out_as_local_url(false, array('addonpage' => $page))));
+            array('type' => 'hidden', 'name' => 'returnurl',
+                'value' => $pageurl->out_as_local_url(false, array('addonpage' => $page))));
         $output .= html_writer::tag('input', null,
-                array('type' => 'hidden', 'name' => 'cmid', 'value' => $structure->get_cmid()));
+            array('type' => 'hidden', 'name' => 'cmid', 'value' => $structure->get_cmid()));
         $output .= html_writer::tag('input', null,
-                array('type' => 'hidden', 'name' => 'appendqnumstring', 'value' => 'addquestion'));
+            array('type' => 'hidden', 'name' => 'appendqnumstring', 'value' => 'addquestion'));
         $output .= html_writer::tag('input', null,
-                array('type' => 'hidden', 'name' => 'category', 'value' => $questioncategoryid));
+            array('type' => 'hidden', 'name' => 'category', 'value' => $questioncategoryid));
 
         return html_writer::tag('form', html_writer::div($output),
-                array('class' => 'addnewquestion', 'method' => 'post',
-                        'action' => new \moodle_url('/question/addquestion.php')));
+            array('class' => 'addnewquestion', 'method' => 'post',
+                'action' => new \moodle_url('/question/addquestion.php')));
     }
 
     /**
@@ -612,7 +652,7 @@ class edit_renderer extends \plugin_renderer_base {
     public function question_number($number) {
         if (is_numeric($number)) {
             $number = html_writer::span(get_string('question'), 'accesshide') .
-                    ' ' . $number;
+                ' ' . $number;
         }
         return html_writer::tag('span', $number, array('class' => 'slotnumber'));
     }
@@ -639,10 +679,10 @@ class edit_renderer extends \plugin_renderer_base {
         $image = $this->pix_icon('t/preview', $strpreviewquestion);
 
         $action = new \popup_action('click', $url, 'questionpreview',
-                                        question_preview_popup_params());
+            question_preview_popup_params());
 
         return $this->action_link($url, $image . $strpreviewlabel, $action,
-                array('title' => $strpreviewquestion, 'class' => 'preview'));
+            array('title' => $strpreviewquestion, 'class' => 'preview'));
     }
 
     /**
@@ -659,7 +699,7 @@ class edit_renderer extends \plugin_renderer_base {
         $image = $this->pix_icon('t/delete', $strdelete);
 
         return $this->action_link($url, $image, null, array('title' => $strdelete,
-                    'class' => 'cm-edit-action editing_delete', 'data-action' => 'delete'));
+            'class' => 'cm-edit-action editing_delete', 'data-action' => 'delete'));
     }
 
     /**
@@ -673,7 +713,7 @@ class edit_renderer extends \plugin_renderer_base {
      */
     public function page_split_join_button($quizinvideo, $question, $insertpagebreak) {
         $url = new \moodle_url('repaginate.php', array('cmid' => $quizinvideo->cmid, 'quizinvideoid' => $quizinvideo->id,
-                    'slot' => $question->slot, 'repag' => $insertpagebreak ? 2 : 1, 'sesskey' => sesskey()));
+            'slot' => $question->slot, 'repag' => $insertpagebreak ? 2 : 1, 'sesskey' => sesskey()));
 
         if ($insertpagebreak) {
             $title = get_string('addpagebreak', 'quizinvideo');
@@ -691,8 +731,8 @@ class edit_renderer extends \plugin_renderer_base {
             $disabled = "disabled";
         }
         return html_writer::span($this->action_link($url, $image, null, array('title' => $title,
-                    'class' => 'page_split_join cm-edit-action', 'disabled' => $disabled, 'data-action' => $action)),
-                'page_split_join_wrapper');
+            'class' => 'page_split_join cm-edit-action', 'disabled' => $disabled, 'data-action' => $action)),
+            'page_split_join_wrapper');
     }
 
     /**
@@ -710,8 +750,8 @@ class edit_renderer extends \plugin_renderer_base {
         $output = '';
 
         $editurl = new \moodle_url('/question/question.php', array(
-                'returnurl' => $pageurl->out_as_local_url(),
-                'cmid' => $structure->get_cmid(), 'id' => $question->id));
+            'returnurl' => $pageurl->out_as_local_url(),
+            'cmid' => $structure->get_cmid(), 'id' => $question->id));
 
         $instancename = quizinvideo_question_tostring($question);
 
@@ -719,7 +759,7 @@ class edit_renderer extends \plugin_renderer_base {
         $namestr = $qtype->local_name();
 
         $icon = $this->pix_icon('icon', $namestr, $qtype->plugin_name(), array('title' => $namestr,
-                'class' => 'icon activityicon', 'alt' => ' ', 'role' => 'presentation'));
+            'class' => 'icon activityicon', 'alt' => ' ', 'role' => 'presentation'));
 
         $editicon = $this->pix_icon('t/edit', '', 'moodle', array('title' => ''));
 
@@ -729,7 +769,7 @@ class edit_renderer extends \plugin_renderer_base {
         // Display the link itself.
         $activitylink = $icon . html_writer::tag('span', $editicon . $instancename, array('class' => 'instancename'));
         $output .= html_writer::link($editurl, $activitylink,
-                array('title' => get_string('editquestion', 'quizinvideo').' '.$title));
+            array('title' => get_string('editquestion', 'quizinvideo').' '.$title));
 
         return $output;
     }
@@ -746,8 +786,8 @@ class edit_renderer extends \plugin_renderer_base {
     public function random_question(structure $structure, $question, $pageurl) {
 
         $editurl = new \moodle_url('/question/question.php', array(
-                'returnurl' => $pageurl->out_as_local_url(),
-                'cmid' => $structure->get_cmid(), 'id' => $question->id));
+            'returnurl' => $pageurl->out_as_local_url(),
+            'cmid' => $structure->get_cmid(), 'id' => $question->id));
 
         $temp = clone($question);
         $temp->questiontext = '';
@@ -757,21 +797,21 @@ class edit_renderer extends \plugin_renderer_base {
         $qtype = \question_bank::get_qtype($question->qtype, false);
         $namestr = $qtype->local_name();
         $icon = $this->pix_icon('icon', $namestr, $qtype->plugin_name(), array('title' => $namestr,
-                'class' => 'icon activityicon', 'alt' => ' ', 'role' => 'presentation'));
+            'class' => 'icon activityicon', 'alt' => ' ', 'role' => 'presentation'));
 
         $editicon = $this->pix_icon('t/edit', $configuretitle, 'moodle', array('title' => ''));
 
         // If this is a random question, display a link to show the questions
         // selected from in the question bank.
         $qbankurl = new \moodle_url('/question/edit.php', array(
-                'cmid' => $structure->get_cmid(),
-                'cat' => $question->category . ',' . $question->contextid,
-                'recurse' => !empty($question->questiontext)));
+            'cmid' => $structure->get_cmid(),
+            'cat' => $question->category . ',' . $question->contextid,
+            'recurse' => !empty($question->questiontext)));
         $qbanklink = ' ' . \html_writer::link($qbankurl,
                 get_string('seequestions', 'quizinvideo'), array('class' => 'mod_quizinvideo_random_qbank_link'));
 
         return html_writer::link($editurl, $icon . $editicon, array('title' => $configuretitle)) .
-                ' ' . $instancename . ' ' . $qbanklink;
+        ' ' . $instancename . ' ' . $qbanklink;
     }
 
     /**
@@ -784,17 +824,17 @@ class edit_renderer extends \plugin_renderer_base {
     public function marked_out_of_field($quizinvideo, $question) {
         if ($question->length == 0) {
             $output = html_writer::span('',
-                    'instancemaxmark decimalplaces_' . quizinvideo_get_grade_format($quizinvideo));
+                'instancemaxmark decimalplaces_' . quizinvideo_get_grade_format($quizinvideo));
 
             $output .= html_writer::span(
-                    $this->pix_icon('spacer', '', 'moodle', array('class' => 'editicon visibleifjs', 'title' => '')),
-                    'editing_maxmark');
+                $this->pix_icon('spacer', '', 'moodle', array('class' => 'editicon visibleifjs', 'title' => '')),
+                'editing_maxmark');
             return html_writer::span($output, 'instancemaxmarkcontainer infoitem');
         }
 
         $output = html_writer::span(quizinvideo_format_question_grade($quizinvideo, $question->maxmark),
-                'instancemaxmark decimalplaces_' . quizinvideo_get_grade_format($quizinvideo),
-                array('title' => get_string('maxmark', 'quizinvideo')));
+            'instancemaxmark decimalplaces_' . quizinvideo_get_grade_format($quizinvideo),
+            array('title' => get_string('maxmark', 'quizinvideo')));
 
         $output .= html_writer::span(
             html_writer::link(
@@ -816,7 +856,7 @@ class edit_renderer extends \plugin_renderer_base {
      */
     public function question_chooser() {
         $container = html_writer::div(print_choose_qtype_to_add_form(array(), null, false), '',
-                array('id' => 'qtypechoicecontainer'));
+            array('id' => 'qtypechoicecontainer'));
         return html_writer::div($container, 'createnewquestion');
     }
 
@@ -827,8 +867,8 @@ class edit_renderer extends \plugin_renderer_base {
      */
     public function question_bank_loading() {
         return html_writer::div(html_writer::empty_tag('img',
-                array('alt' => 'loading', 'class' => 'loading-icon', 'src' => $this->pix_url('i/loading'))),
-                'questionbankloading');
+            array('alt' => 'loading', 'class' => 'loading-icon', 'src' => $this->pix_url('i/loading'))),
+            'questionbankloading');
     }
 
     /**
@@ -844,12 +884,12 @@ class edit_renderer extends \plugin_renderer_base {
             return '';
         }
         $randomform = new \quizinvideo_add_random_form(new \moodle_url('/mod/quizinvideo/addrandom.php'),
-                                 array('contexts' => $contexts, 'cat' => $pagevars['cat']));
+            array('contexts' => $contexts, 'cat' => $pagevars['cat']));
         $randomform->set_data(array(
-                'category' => $pagevars['cat'],
-                'returnurl' => $thispageurl->out_as_local_url(true),
-                'randomnumber' => 1,
-                'cmid' => $thispageurl->param('cmid'),
+            'category' => $pagevars['cat'],
+            'returnurl' => $thispageurl->out_as_local_url(true),
+            'randomnumber' => 1,
+            'cmid' => $thispageurl->param('cmid'),
         ));
         return html_writer::div($randomform->render(), 'randomquestionformforpopup');
     }
@@ -867,7 +907,7 @@ class edit_renderer extends \plugin_renderer_base {
      * @return bool Always returns true
      */
     protected function initialise_editing_javascript($course, $quizinvideo, structure $structure,
-            \question_edit_contexts $contexts, array $pagevars, \moodle_url $pageurl) {
+                                                     \question_edit_contexts $contexts, array $pagevars, \moodle_url $pageurl) {
 
         $config = new \stdClass();
         $config->resourceurl = '/mod/quizinvideo/edit_rest.php';
@@ -878,73 +918,73 @@ class edit_renderer extends \plugin_renderer_base {
         $config->addpageiconhtml = $this->add_page_icon_template($structure, $quizinvideo);
 
         $this->page->requires->yui_module('moodle-mod_quizinvideo-toolboxes',
-                'M.mod_quizinvideo.init_resource_toolbox',
-                array(array(
-                        'courseid' => $course->id,
-                        'quizinvideoid' => $quizinvideo->id,
-                        'ajaxurl' => $config->resourceurl,
-                        'config' => $config,
-                ))
+            'M.mod_quizinvideo.init_resource_toolbox',
+            array(array(
+                'courseid' => $course->id,
+                'quizinvideoid' => $quizinvideo->id,
+                'ajaxurl' => $config->resourceurl,
+                'config' => $config,
+            ))
         );
         unset($config->pagehtml);
         unset($config->addpageiconhtml);
 
         $this->page->requires->yui_module('moodle-mod_quizinvideo-toolboxes',
-                'M.mod_quizinvideo.init_section_toolbox',
-                array(array(
-                        'courseid' => $course->id,
-                        'quizinvideoid' => $quizinvideo->id,
-                        'format' => $course->format,
-                        'ajaxurl' => $config->sectionurl,
-                        'config' => $config,
-                ))
+            'M.mod_quizinvideo.init_section_toolbox',
+            array(array(
+                'courseid' => $course->id,
+                'quizinvideoid' => $quizinvideo->id,
+                'format' => $course->format,
+                'ajaxurl' => $config->sectionurl,
+                'config' => $config,
+            ))
         );
 
         $this->page->requires->yui_module('moodle-mod_quizinvideo-dragdrop', 'M.mod_quizinvideo.init_section_dragdrop',
-                array(array(
-                        'courseid' => $course->id,
-                        'quizinvideoid' => $quizinvideo->id,
-                        'ajaxurl' => $config->sectionurl,
-                        'config' => $config,
-                )), null, true);
+            array(array(
+                'courseid' => $course->id,
+                'quizinvideoid' => $quizinvideo->id,
+                'ajaxurl' => $config->sectionurl,
+                'config' => $config,
+            )), null, true);
 
         $this->page->requires->yui_module('moodle-mod_quizinvideo-dragdrop', 'M.mod_quizinvideo.init_resource_dragdrop',
-                array(array(
-                        'courseid' => $course->id,
-                        'quizinvideoid' => $quizinvideo->id,
-                        'ajaxurl' => $config->resourceurl,
-                        'config' => $config,
-                )), null, true);
+            array(array(
+                'courseid' => $course->id,
+                'quizinvideoid' => $quizinvideo->id,
+                'ajaxurl' => $config->resourceurl,
+                'config' => $config,
+            )), null, true);
 
         // Require various strings for the command toolbox.
         $this->page->requires->strings_for_js(array(
-                'clicktohideshow',
-                'deletechecktype',
-                'deletechecktypename',
-                'edittitle',
-                'edittitleinstructions',
-                'emptydragdropregion',
-                'hide',
-                'markedthistopic',
-                'markthistopic',
-                'move',
-                'movecontent',
-                'moveleft',
-                'movesection',
-                'page',
-                'question',
-                'selectall',
-                'show',
-                'tocontent',
+            'clicktohideshow',
+            'deletechecktype',
+            'deletechecktypename',
+            'edittitle',
+            'edittitleinstructions',
+            'emptydragdropregion',
+            'hide',
+            'markedthistopic',
+            'markthistopic',
+            'move',
+            'movecontent',
+            'moveleft',
+            'movesection',
+            'page',
+            'question',
+            'selectall',
+            'show',
+            'tocontent',
         ), 'moodle');
 
         $this->page->requires->strings_for_js(array(
-                'addpagebreak',
-                'confirmremovequestion',
-                'dragtoafter',
-                'dragtostart',
-                'numquestionsx',
-                'removepagebreak',
+            'addpagebreak',
+            'confirmremovequestion',
+            'dragtoafter',
+            'dragtostart',
+            'numquestionsx',
+            'removepagebreak',
         ), 'quizinvideo');
 
         foreach (\question_bank::get_all_qtypes() as $qtype => $notused) {
@@ -964,7 +1004,7 @@ class edit_renderer extends \plugin_renderer_base {
      * @return string HTML for a new page.
      */
     protected function new_page_template(structure $structure,
-            \question_edit_contexts $contexts, array $pagevars, \moodle_url $pageurl) {
+                                         \question_edit_contexts $contexts, array $pagevars, \moodle_url $pageurl) {
         if (!$structure->has_questions()) {
             return '';
         }
@@ -1019,7 +1059,7 @@ class edit_renderer extends \plugin_renderer_base {
     public function question_bank_contents(\mod_quizinvideo\question\bank\custom_view $questionbank, array $pagevars) {
 
         $qbank = $questionbank->render('editq', $pagevars['qpage'], $pagevars['qperpage'],
-                $pagevars['cat'], $pagevars['recurse'], $pagevars['showhidden'], $pagevars['qbshowtext']);
+            $pagevars['cat'], $pagevars['recurse'], $pagevars['showhidden'], $pagevars['qbshowtext']);
         return html_writer::div(html_writer::div($qbank, 'bd'), 'questionbankformforpopup');
     }
 }

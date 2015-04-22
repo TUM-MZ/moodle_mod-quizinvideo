@@ -36,21 +36,26 @@ YUI.add('moodle-mod_quizinvideo-toolboxes', function (Y, NAME) {
     SELECTOR = {
         ACTIONAREA: '.actions',
         ACTIONLINKTEXT : '.actionlinktext',
-        ACTIVITYACTION : 'a.cm-edit-action[data-action], a.editing_maxmark',
+        ACTIVITYACTION : 'a.cm-edit-action[data-action], a.editing_maxmark, a.editing_timeofvideo',
+        //ACTIVITYACTIONTIME :  'a.editing_timeofvideo',
         ACTIVITYFORM : 'span.instancemaxmarkcontainer form',
+        ACTIVITYFORMTIME : 'span.instancetimeofvideocontainer form',
         ACTIVITYICON : 'img.activityicon',
         ACTIVITYINSTANCE : '.' + CSS.ACTIVITYINSTANCE,
         ACTIVITYLINK: '.' + CSS.ACTIVITYINSTANCE + ' > a',
         ACTIVITYLI : 'li.activity',
         ACTIVITYMAXMARK : 'input[name=maxmark]',
+        ACTIVITYTIMEOFVIDEO : 'input[name=timeofvideo]',
         COMMANDSPAN : '.commands',
         CONTENTAFTERLINK : 'div.contentafterlink',
         CONTENTWITHOUTLINK : 'div.contentwithoutlink',
         EDITMAXMARK: 'a.editing_maxmark',
+        EDITTIMEOFVIDEO : 'a.editing_timeofvideo',
         HIDE : 'a.editing_hide',
         HIGHLIGHT : 'a.editing_highlight',
         INSTANCENAME : 'span.instancename',
         INSTANCEMAXMARK : 'span.instancemaxmark',
+        INSTANCETIMEOFVIDEO : 'span.instance_timeofvideo',
         MODINDENTDIV : '.mod-indent',
         MODINDENTOUTER : '.mod-indent-outer',
         NUMQUESTIONS : '.numberofquestions',
@@ -249,6 +254,7 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
      * @protected
      */
     editmaxmarkevents: [],
+    edittimeofvideoevents: [],
 
     /**
      *
@@ -276,6 +282,8 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
         M.mod_quizinvideo.quizinvideobase.register_module(this);
         BODY.delegate('key', this.handle_data_action, 'down:enter', SELECTOR.ACTIVITYACTION, this);
         Y.delegate('click', this.handle_data_action, BODY, SELECTOR.ACTIVITYACTION, this);
+        //BODY.delegate('key', this.handle_data_action, 'down:enter', SELECTOR.ACTIVITYACTIONTIME, this);
+        //Y.delegate('click', this.handle_data_action, BODY, SELECTOR.ACTIVITYACTIONTIME, this);
     },
 
     /**
@@ -310,6 +318,10 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
             case 'editmaxmark':
                 // The user wishes to edit the maxmark of the resource.
                 this.edit_maxmark(ev, node, activity, action);
+                break;
+            case 'edittimeofvideo':
+                // The user wishes to edit the timeofvideo of the page.
+                this.edit_timeofvideo(ev, node, activity, action);
                 break;
             case 'delete':
                 // The user is deleting the activity.
@@ -561,6 +573,179 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
         // https://github.com/Behat/MinkSelenium2Driver/issues/80.
         if (!Y.one('input[name=maxmark')) {
             Y.one('body').append('<input type="text" name="maxmark" style="display: none">');
+        }
+    },
+
+    /**
+     * Edit the timeofvideo for the resource
+     *
+     * @protected
+     * @method edit_maxmark
+     * @param {EventFacade} ev The event that was fired.
+     * @param {Node} button The button that triggered this action.
+     * @param {Node} activity The activity node that this action will be performed on.
+     * @param {String} action The action that has been requested.
+     * @return Boolean
+     */
+    edit_timeofvideo : function(ev, button, activity) {
+        // Get the element we're working on
+        var pageid = Y.Moodle.mod_quizinvideo.util.page.getId(activity),
+            instancetimeofvideo  = activity.one(SELECTOR.INSTANCETIMEOFVIDEO),
+            instance = activity.one(SELECTOR.ACTIVITYINSTANCE),
+            currenttimeofvideo = instancetimeofvideo.get('firstChild');
+        var oldtimeofvideo;
+        if(currenttimeofvideo){
+            oldtimeofvideo= currenttimeofvideo.get('data');
+        }
+        else{
+            oldtimeofvideo= '';
+        }
+
+        var timeofvideotext = oldtimeofvideo;
+        var thisevent;
+        var anchor = instancetimeofvideo;// Grab the anchor so that we can swap it with the edit form.
+        var data = {
+            'class'   : 'resource',
+            'field'   : 'gettimeofvideo',
+            'id'      : pageid
+        };
+
+        // Prevent the default actions.
+        ev.preventDefault();
+
+        this.send_request(data, null, function(response) {
+            if (M.core.actionmenu && M.core.actionmenu.instance) {
+                M.core.actionmenu.instance.hideMenu();
+            }
+
+            // Try to retrieve the existing string from the server.
+            if (response.instancetimeofvideo) {
+                timeofvideotext = response.instancetimeofvideo;
+            }
+
+            // Create the editor and submit button.
+            var editform = Y.Node.create('<form action="#" />');
+            var editinstructions = Y.Node.create('<span class="' + CSS.EDITINSTRUCTIONS + '" id="id_editinstructions" />')
+                .set('innerHTML', M.util.get_string('edittitleinstructions', 'moodle'));
+            var editor = Y.Node.create('<input name="timeofvideo" type="text" class="' + CSS.TITLEEDITOR + '" />').setAttrs({
+                'value' : timeofvideotext,
+                'autocomplete' : 'off',
+                'aria-describedby' : 'id_editinstructions',
+                'maxLength' : '12',
+                'size' : parseInt(this.get('config').questiondecimalpoints, 10) + 2
+            });
+
+            // Clear the existing content and put the editor in.
+            editform.appendChild(editor);
+            editform.setData('anchor', anchor);
+            //instance.insert(editinstructions, 'before');
+            anchor.replace(editform);
+
+            // Force the editing instruction to match the mod-indent position.
+            var padside = 'left';
+            if (right_to_left()) {
+                padside = 'right';
+            }
+
+            // We hide various components whilst editing:
+            activity.addClass(CSS.EDITINGMAXMARK);
+
+            // Focus and select the editor text.
+            editor.focus().select();
+
+            // Cancel the edit if we lose focus or the escape key is pressed.
+            thisevent = editor.on('blur', this.edit_timeofvideo_cancel, this, activity, false);
+            this.edittimeofvideoevents.push(thisevent);
+            thisevent = editor.on('key', this.edit_timeofvideo_cancel, 'esc', this, activity, true);
+            this.edittimeofvideoevents.push(thisevent);
+
+            // Handle form submission.
+            thisevent = editform.on('submit', this.edit_timeofvideo_submit, this, activity, oldtimeofvideo);
+            this.edittimeofvideoevents.push(thisevent);
+        });
+    },
+    /**
+     * Handles the submit event when editing the activity or resources maxmark.
+     *
+     * @protected
+     * @method edit_maxmark_submit
+     * @param {EventFacade} ev The event that triggered this.
+     * @param {Node} activity The activity whose maxmark we are altering.
+     * @param {String} originaltimeofvideo The original maxmark the activity or resource had.
+     */
+    edit_timeofvideo_submit : function(ev, activity, originaltimeofvideo) {
+        // We don't actually want to submit anything.
+        ev.preventDefault();
+        var newtimeofvideo= Y.Lang.trim(activity.one(SELECTOR.ACTIVITYFORMTIME + ' ' + SELECTOR.ACTIVITYTIMEOFVIDEO).get('value'));
+        var page = Y.Moodle.mod_quizinvideo.util.page.getId(activity);
+        var spinner = this.add_spinner(activity);
+        this.edit_timeofvideo_clear(activity);
+        activity.one(SELECTOR.INSTANCETIMEOFVIDEO).setContent(newtimeofvideo);
+        if (newtimeofvideo !== null && newtimeofvideo !== "" && newtimeofvideo !== originaltimeofvideo) {
+            var data = {
+                'class'   : 'resource',
+                'field'   : 'updatetimeofvideo',
+                'timeofvideo'   : newtimeofvideo,
+                'page'  : page,
+                'id'      : Y.Moodle.mod_quizinvideo.util.page.getId(activity)
+            };
+            this.send_request(data, spinner, function(response) {
+                if (response.instancetimeofvideo) {
+                    activity.one(SELECTOR.INSTANCETIMEOFVIDEO).setContent(response.instancetimeofvideo);
+                }
+            });
+        }
+    },
+
+    /**
+     * Handles the cancel event when editing the activity or resources maxmark.
+     *
+     * @protected
+     * @method edit_maxmark_cancel
+     * @param {EventFacade} ev The event that triggered this.
+     * @param {Node} activity The activity whose maxmark we are altering.
+     * @param {Boolean} preventdefault If true we should prevent the default action from occuring.
+     */
+    edit_timeofvideo_cancel : function(ev, activity, preventdefault) {
+        if (preventdefault) {
+            ev.preventDefault();
+        }
+        this.edit_timeofvideo_clear(activity);
+    },
+
+    /**
+     * Handles clearing the editing UI and returning things to the original state they were in.
+     *
+     * @protected
+     * @method edit_maxmark_clear
+     * @param {Node} activity  The activity whose maxmark we were altering.
+     */
+    edit_timeofvideo_clear : function(activity) {
+        // Detach all listen events to prevent duplicate triggers
+        new Y.EventHandle(this.edittimeofvideoevents).detach();
+
+        var editform = activity.one(SELECTOR.ACTIVITYFORMTIME),
+            instructions = activity.one('#id_editinstructions');
+        if (editform) {
+            editform.replace(editform.getData('anchor'));
+        }
+        if (instructions) {
+            instructions.remove();
+        }
+
+        // Remove the editing class again to revert the display.
+        activity.removeClass(CSS.EDITINGMAXMARK);
+
+        // Refocus the link which was clicked originally so the user can continue using keyboard nav.
+        Y.later(100, this, function() {
+            activity.one(SELECTOR.EDITTIMEOFVIDEO).focus();
+        });
+
+        // This hack is to keep Behat happy until they release a version of
+        // MinkSelenium2Driver that fixes
+        // https://github.com/Behat/MinkSelenium2Driver/issues/80.
+        if (!Y.one('input[name=timeofvideo')) {
+            Y.one('body').append('<input type="text" name="timeofvideo" style="display: none">');
         }
     },
 
