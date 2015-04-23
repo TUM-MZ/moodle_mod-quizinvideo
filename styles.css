@@ -739,6 +739,21 @@ table.quizinvideoreviewsummary td.cell {
 #page-mod-quizinvideo-edit span.editinstructions {
     right: 0;
 }
+#page-mod-quizinvideo-edit span.edittimeinstructions {
+    left: 0;
+    position: absolute;
+    top: 0;
+    z-index: 9999;
+    padding: .1em .4em;
+    margin-top: -22px;
+    margin-left: 30px;
+    font-size: 11.9px;
+    line-height: 16px;
+    color: #3a87ad;
+    text-decoration: none;
+    background-color: #d9edf7;
+    border: 1px solid #bce8f1;
+}
 #page-mod-quizinvideo-edit.dir-rtl span.editinstructions {
     left: 0;
     right: auto;

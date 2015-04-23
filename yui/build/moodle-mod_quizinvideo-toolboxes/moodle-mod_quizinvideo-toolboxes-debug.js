@@ -19,6 +19,7 @@ YUI.add('moodle-mod_quizinvideo-toolboxes', function (Y, NAME) {
         DIMCLASS : 'dimmed',
         DIMMEDTEXT : 'dimmed_text',
         EDITINSTRUCTIONS : 'editinstructions',
+        EDITTIMEINSTRUCTIONS : 'edittimeinstructions',
         EDITINGMAXMARK: 'editor_displayed',
         HIDE : 'hide',
         JOIN: 'page_join',
@@ -665,14 +666,14 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
 
             // Create the editor and submit button.
             var editform = Y.Node.create('<form action="#" />');
-            var editinstructions = Y.Node.create('<span class="' + CSS.EDITINSTRUCTIONS + '" id="id_editinstructions" />')
+            var editinstructions = Y.Node.create('<span class="' + CSS.EDITTIMEINSTRUCTIONS + '" id="id_editinstructions" />')
                 .set('innerHTML', M.util.get_string('edittitleinstructions', 'moodle'));
             var editor = Y.Node.create('<input name="timeofvideo" type="text" class="' + CSS.TITLEEDITOR + '" />').setAttrs({
                 'value' : timeofvideotext,
                 'autocomplete' : 'off',
                 'aria-describedby' : 'id_editinstructions',
                 'maxLength' : '9',
-                'size' : parseInt(this.get('config').questiondecimalpoints, 10) + 2
+                'size' : '9'
             });
 
             // Clear the existing content and put the editor in.

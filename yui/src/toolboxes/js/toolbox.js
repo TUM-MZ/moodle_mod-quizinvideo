@@ -17,6 +17,7 @@
         DIMCLASS : 'dimmed',
         DIMMEDTEXT : 'dimmed_text',
         EDITINSTRUCTIONS : 'editinstructions',
+        EDITTIMEINSTRUCTIONS : 'edittimeinstructions',
         EDITINGMAXMARK: 'editor_displayed',
         HIDE : 'hide',
         JOIN: 'page_join',
