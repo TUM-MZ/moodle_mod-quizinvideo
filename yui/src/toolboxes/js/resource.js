@@ -427,7 +427,6 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
         var data = {
             'class'   : 'resource',
             'field'   : 'gettimeofvideo',
-            'quizinvideoid' : Y.Moodle.mod_quizinvideo.util.page.getId(activity),
             'page'      : pageid
         };
 

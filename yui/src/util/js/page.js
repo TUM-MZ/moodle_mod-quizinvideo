@@ -188,7 +188,7 @@ Y.Moodle.mod_quizinvideo.util.page = {
 
         // Create the page node.
         var page = Y.Node.create(pagehtml);
-
+        page.one('span.instance_timeofvideo').setContent('');
         // Assign is as a drop target.
         YUI().use('dd-drop', function(Y) {
             var drop = new Y.DD.Drop({
