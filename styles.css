@@ -941,3 +941,10 @@ table#categoryquestions {
 #page-mod-quizinvideo-edit ul.slots li.section ul.section {
     list-style: none;
 }
+
+#page-mod-quizinvideo-edit div.video_div #video_content {
+    display: block;
+    margin: auto;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}

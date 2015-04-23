@@ -36,7 +36,7 @@
         ACTIONAREA: '.actions',
         ACTIONLINKTEXT : '.actionlinktext',
         ACTIVITYACTION : 'a.cm-edit-action[data-action], a.editing_maxmark, a.editing_timeofvideo, a.copying_timeofvideo',
-        //ACTIVITYACTIONTIME :  'a.editing_timeofvideo',
+        TIMECONTAINER :  'span.instancetimeofvideocontainer',
         ACTIVITYFORM : 'span.instancemaxmarkcontainer form',
         ACTIVITYFORMTIME : 'span.instancetimeofvideocontainer form',
         ACTIVITYICON : 'img.activityicon',

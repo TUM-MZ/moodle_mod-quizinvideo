@@ -38,7 +38,7 @@ YUI.add('moodle-mod_quizinvideo-toolboxes', function (Y, NAME) {
         ACTIONAREA: '.actions',
         ACTIONLINKTEXT : '.actionlinktext',
         ACTIVITYACTION : 'a.cm-edit-action[data-action], a.editing_maxmark, a.editing_timeofvideo, a.copying_timeofvideo',
-        //ACTIVITYACTIONTIME :  'a.editing_timeofvideo',
+        TIMECONTAINER :  'span.instancetimeofvideocontainer',
         ACTIVITYFORM : 'span.instancemaxmarkcontainer form',
         ACTIVITYFORMTIME : 'span.instancetimeofvideocontainer form',
         ACTIVITYICON : 'img.activityicon',
@@ -631,7 +631,7 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
         // Get the element we're working on
         var pageid = Y.Moodle.mod_quizinvideo.util.page.getId(activity),
             instancetimeofvideo  = activity.one(SELECTOR.INSTANCETIMEOFVIDEO),
-            instance = activity.one(SELECTOR.ACTIVITYINSTANCE),
+            instance = activity.one(SELECTOR.TIMECONTAINER),
             currenttimeofvideo = instancetimeofvideo.get('firstChild');
         var oldtimeofvideo;
         if(currenttimeofvideo){
@@ -671,14 +671,14 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
                 'value' : timeofvideotext,
                 'autocomplete' : 'off',
                 'aria-describedby' : 'id_editinstructions',
-                'maxLength' : '12',
+                'maxLength' : '9',
                 'size' : parseInt(this.get('config').questiondecimalpoints, 10) + 2
             });
 
             // Clear the existing content and put the editor in.
             editform.appendChild(editor);
             editform.setData('anchor', anchor);
-            //instance.insert(editinstructions, 'before');
+            instance.insert(editinstructions, 'after');
             anchor.replace(editform);
 
             // Force the editing instruction to match the mod-indent position.
@@ -718,10 +718,12 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
         ev.preventDefault();
         var newtimeofvideo= Y.Lang.trim(activity.one(SELECTOR.ACTIVITYFORMTIME + ' ' + SELECTOR.ACTIVITYTIMEOFVIDEO).get('value'));
         var page = Y.Moodle.mod_quizinvideo.util.page.getId(activity);
+        var video = document.getElementById(CSS.VIDEO);
+        var maxtime = video.duration;
         var spinner = this.add_spinner(activity);
         this.edit_timeofvideo_clear(activity);
         activity.one(SELECTOR.INSTANCETIMEOFVIDEO).setContent(newtimeofvideo);
-        if (newtimeofvideo !== null && newtimeofvideo !== "" && newtimeofvideo !== originaltimeofvideo) {
+        if (newtimeofvideo !== null && newtimeofvideo !== "" && newtimeofvideo !== originaltimeofvideo && newtimeofvideo <= maxtime) {
             var data = {
                 'class'   : 'resource',
                 'field'   : 'updatetimeofvideo',
@@ -733,8 +735,15 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
                 if (response.instance_timeofvideo) {
                     activity.one(SELECTOR.INSTANCETIMEOFVIDEO).setContent(response.instance_timeofvideo.toFixed(2));
                 }
+                else{
+                    activity.one(SELECTOR.INSTANCETIMEOFVIDEO).setContent(originaltimeofvideo);
+                }
             });
         }
+        else{
+            activity.one(SELECTOR.INSTANCETIMEOFVIDEO).setContent(originaltimeofvideo);
+        }
+
     },
 
     /**
