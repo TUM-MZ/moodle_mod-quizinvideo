@@ -648,7 +648,8 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
         var data = {
             'class'   : 'resource',
             'field'   : 'gettimeofvideo',
-            'id'      : pageid
+            'quizinvideoid' : Y.Moodle.mod_quizinvideo.util.page.getId(activity),
+            'page'      : pageid
         };
 
         // Prevent the default actions.
@@ -857,6 +858,10 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
         Y.Moodle.mod_quizinvideo.util.slot.reorderSlots();
         Y.Moodle.mod_quizinvideo.util.slot.reorderPageBreaks();
         Y.Moodle.mod_quizinvideo.util.page.reorderPages();
+        this.get_time_from_db_for_all_pages();
+    },
+    get_time_from_db_for_all_pages: function(){
+
     },
 
     NAME : 'mod_quizinvideo-resource-toolbox',

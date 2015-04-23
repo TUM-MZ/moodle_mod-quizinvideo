@@ -88,7 +88,7 @@ switch($requestmethod) {
 
                     case 'gettimeofvideo':
                         require_capability('mod/quizinvideo:manage', $modcontext);
-                        $page = $DB->get_record('quizinvideo_page', array('id' => $quizinvideoid), '*');
+                        $page = $DB->get_record('quizinvideo_page', array('quizinvideoid' => $quizinvideoid, 'page' => $page), '*');
                         echo json_encode(array('instance_timeofvideo' => $page->time));
                         break;
 
