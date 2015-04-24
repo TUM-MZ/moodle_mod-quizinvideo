@@ -53,8 +53,8 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
         $output .= $this->header();
         $output .= $this->review_summary_table($summarydata, $page);
         $output .= $this->review_form($page, $showall, $displayoptions,
-                $this->questions($attemptobj, true, $slots, $page, $showall, $displayoptions),
-                $attemptobj);
+            $this->questions($attemptobj, true, $slots, $page, $showall, $displayoptions),
+            $attemptobj);
 
         $output .= $this->review_next_navigation($attemptobj, $page, $lastpage);
         $output .= $this->footer();
@@ -72,7 +72,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
      * @return $output containing html data.
      */
     public function review_question_page(quizinvideo_attempt $attemptobj, $slot, $seq,
-            mod_quizinvideo_display_options $displayoptions, $summarydata) {
+                                         mod_quizinvideo_display_options $displayoptions, $summarydata) {
 
         $output = '';
         $output .= $this->header();
@@ -99,7 +99,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
         $output = '';
         $output .= $this->header();
         $output .= $this->heading(format_string($attemptobj->get_quizinvideo_name(), true,
-                                  array("context" => $attemptobj->get_quizinvideoobj()->get_context())));
+            array("context" => $attemptobj->get_quizinvideoobj()->get_context())));
         $output .= $this->notification($message);
         $output .= $this->close_window_button();
         $output .= $this->footer();
@@ -142,7 +142,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
 
         $output = '';
         $output .= html_writer::start_tag('table', array(
-                'class' => 'generaltable generalbox quizinvideoreviewsummary'));
+            'class' => 'generaltable generalbox quizinvideoreviewsummary'));
         $output .= html_writer::start_tag('tbody');
         foreach ($summarydata as $rowdata) {
             if ($rowdata['title'] instanceof renderable) {
@@ -159,7 +159,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
 
             $output .= html_writer::tag('tr',
                 html_writer::tag('th', $title, array('class' => 'cell', 'scope' => 'row')) .
-                        html_writer::tag('td', $content, array('class' => 'cell'))
+                html_writer::tag('td', $content, array('class' => 'cell'))
             );
         }
 
@@ -183,7 +183,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
         $output = '';
         foreach ($slots as $slot) {
             $output .= $attemptobj->render_question($slot, $reviewing,
-                    $attemptobj->review_url($slot, $page, $showall));
+                $attemptobj->review_url($slot, $page, $showall));
         }
         return $output;
     }
@@ -204,19 +204,19 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
         }
 
         $this->page->requires->js_init_call('M.mod_quizinvideo.init_review_form', null, false,
-                quizinvideo_get_js_module());
+            quizinvideo_get_js_module());
 
         $output = '';
         $output .= html_writer::start_tag('form', array('action' => $attemptobj->review_url(null,
-                $page, $showall), 'method' => 'post', 'class' => 'questionflagsaveform'));
+            $page, $showall), 'method' => 'post', 'class' => 'questionflagsaveform'));
         $output .= html_writer::start_tag('div');
         $output .= $content;
         $output .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'sesskey',
-                'value' => sesskey()));
+            'value' => sesskey()));
         $output .= html_writer::start_tag('div', array('class' => 'submitbtns'));
         $output .= html_writer::empty_tag('input', array('type' => 'submit',
-                'class' => 'questionflagsavebutton', 'name' => 'savingflags',
-                'value' => get_string('saveflags', 'question')));
+            'class' => 'questionflagsavebutton', 'name' => 'savingflags',
+            'value' => get_string('saveflags', 'question')));
         $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('form');
@@ -234,10 +234,10 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
 
         if ($attemptobj->get_access_manager(time())->attempt_must_be_in_popup()) {
             $this->page->requires->js_init_call('M.mod_quizinvideo.secure_window.init_close_button',
-                    array($url), quizinvideo_get_js_module());
+                array($url), quizinvideo_get_js_module());
             return html_writer::empty_tag('input', array('type' => 'button',
-                    'value' => get_string('finishreview', 'quizinvideo'),
-                    'id' => 'secureclosebutton'));
+                'value' => get_string('finishreview', 'quizinvideo'),
+                'id' => 'secureclosebutton'));
 
         } else {
             return html_writer::link($url, get_string('finishreview', 'quizinvideo'));
@@ -279,9 +279,9 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
         }
 
         return html_writer::tag('div', get_string('timeleft', 'quizinvideo') . ' ' .
-                html_writer::tag('span', '', array('id' => 'quizinvideo-time-left')),
-                array('id' => 'quizinvideo-timer', 'role' => 'timer',
-                    'aria-atomic' => 'true', 'aria-relevant' => 'text'));
+            html_writer::tag('span', '', array('id' => 'quizinvideo-time-left')),
+            array('id' => 'quizinvideo-timer', 'role' => 'timer',
+                'aria-atomic' => 'true', 'aria-relevant' => 'text'));
     }
 
     /**
@@ -308,7 +308,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
                 $fullname = html_writer::div($fullname);
             }
             $output .= html_writer::tag('div', $this->render($userpicture) . $fullname,
-                    array('id' => 'user-picture', 'class' => 'clearfix'));
+                array('id' => 'user-picture', 'class' => 'clearfix'));
         }
         $output .= $panel->render_before_button_bits($this);
 
@@ -320,10 +320,10 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
         $output .= html_writer::end_tag('div');
 
         $output .= html_writer::tag('div', $panel->render_end_bits($this),
-                array('class' => 'othernav'));
+            array('class' => 'othernav'));
 
         $this->page->requires->js_init_call('M.mod_quizinvideo.nav.init', null, false,
-                quizinvideo_get_js_module());
+            quizinvideo_get_js_module());
 
         return $output;
     }
@@ -361,10 +361,10 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
         $a->number = $button->number;
         $a->attributes = implode(' ', $extrainfo);
         $tagcontents = html_writer::tag('span', '', array('class' => 'thispageholder')) .
-                        html_writer::tag('span', '', array('class' => 'trafficlight')) .
-                        get_string($qnostring, 'quizinvideo', $a);
+            html_writer::tag('span', '', array('class' => 'trafficlight')) .
+            get_string($qnostring, 'quizinvideo', $a);
         $tagattributes = array('class' => implode(' ', $classes), 'id' => $button->id,
-                                  'title' => $button->statestring, 'data-quizinvideo-page' => $button->page);
+            'title' => $button->statestring, 'data-quizinvideo-page' => $button->page);
 
         if ($button->url) {
             return html_writer::link($button->url, $tagcontents, $tagattributes);
@@ -379,7 +379,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
      * @param mod_quizinvideo_links_to_other_attempts $links
      */
     protected function render_mod_quizinvideo_links_to_other_attempts(
-            mod_quizinvideo_links_to_other_attempts $links) {
+        mod_quizinvideo_links_to_other_attempts $links) {
         $attemptlinks = array();
         foreach ($links->links as $attempt => $url) {
             if ($url) {
@@ -395,7 +395,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
         $output = '';
         $output .= $this->header();
         $output .= $this->heading(format_string($quizinvideoobj->get_quizinvideo_name(), true,
-                                  array("context" => $quizinvideoobj->get_context())));
+            array("context" => $quizinvideoobj->get_context())));
         $output .= $this->quizinvideo_intro($quizinvideoobj->get_quizinvideo(), $quizinvideoobj->get_cm());
         ob_start();
         $mform->display();
@@ -415,12 +415,11 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
      * @param int $id The ID of an attempt
      * @param int $nextpage The number of the next page
      */
-    public function attempt_page($attemptobj, $page, $accessmanager, $messages, $slots, $id,
-            $nextpage) {
+    public function attempt_page($attemptobj, $accessmanager, $messages, $slots, $id) {
         $output = '';
         $output .= $this->header();
         $output .= $this->quizinvideo_notices($messages);
-        $output .= $this->attempt_form($attemptobj, $page, $slots, $id, $nextpage);
+        $output .= $this->attempt_form($attemptobj, $slots, $id);
         $output .= $this->footer();
         return $output;
     }
@@ -435,7 +434,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
             return '';
         }
         return $this->box($this->heading(get_string('accessnoticesheader', 'quizinvideo'), 3) .
-                $this->access_messages($messages), 'quizinvideoaccessnotices');
+            $this->access_messages($messages), 'quizinvideoaccessnotices');
     }
 
     /**
@@ -447,12 +446,12 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
      * @param int $id ID of the attempt
      * @param int $nextpage Next page number
      */
-    public function attempt_form($attemptobj, $page, $slots, $id, $nextpage) {
+    public function attempt_form($attemptobj, $slots, $id) {
         $output = '';
 
         // Start the form.
         $output .= html_writer::start_tag('form',
-                array('action' => $attemptobj->processattempt_url(), 'method' => 'post',
+            array('action' => $attemptobj->processattempt_url(), 'method' => 'post',
                 'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
                 'id' => 'responseform'));
         $output .= html_writer::start_tag('div');
@@ -460,33 +459,29 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
         // Print all the questions.
         foreach ($slots as $slot) {
             $output .= $attemptobj->render_question($slot, false,
-                    $attemptobj->attempt_url($slot, $page));
+                $attemptobj->attempt_url($slot));
         }
 
         $output .= html_writer::start_tag('div', array('class' => 'submitbtns'));
         $output .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next',
-                'value' => get_string('next')));
+            'value' => get_string('next')));
         $output .= html_writer::end_tag('div');
 
         // Some hidden fields to trach what is going on.
         $output .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'attempt',
-                'value' => $attemptobj->get_attemptid()));
-        $output .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'thispage',
-                'value' => $page, 'id' => 'followingpage'));
-        $output .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'nextpage',
-                'value' => $nextpage));
+            'value' => $attemptobj->get_attemptid()));
         $output .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'timeup',
-                'value' => '0', 'id' => 'timeup'));
+            'value' => '0', 'id' => 'timeup'));
         $output .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'sesskey',
-                'value' => sesskey()));
+            'value' => sesskey()));
         $output .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'scrollpos',
-                'value' => '', 'id' => 'scrollpos'));
+            'value' => '', 'id' => 'scrollpos'));
 
         // Add a hidden field with questionids. Do this at the end of the form, so
         // if you navigate before the form has finished loading, it does not wipe all
         // the student's answers.
         $output .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'slots',
-                'value' => implode(',', $slots)));
+            'value' => implode(',', $slots)));
 
         // Finish the form.
         $output .= html_writer::end_tag('div');
@@ -527,7 +522,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
             $delay = 0;
         }
         $this->page->requires->js_init_call('M.mod_quizinvideo.secure_window.close',
-                array($url, $delay), false, quizinvideo_get_js_module());
+            array($url, $delay), false, quizinvideo_get_js_module());
 
         $output .= $this->box_end();
         $output .= $this->footer();
@@ -600,15 +595,15 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
             $flag = '';
             if ($attemptobj->is_question_flagged($slot)) {
                 $flag = html_writer::empty_tag('img', array('src' => $this->pix_url('i/flagged'),
-                        'alt' => get_string('flagged', 'question'), 'class' => 'questionflag icon-post'));
+                    'alt' => get_string('flagged', 'question'), 'class' => 'questionflag icon-post'));
             }
             if ($attemptobj->can_navigate_to($slot)) {
                 $row = array(html_writer::link($attemptobj->attempt_url($slot),
-                        $attemptobj->get_question_number($slot) . $flag),
-                        $attemptobj->get_question_status($slot, $displayoptions->correctness));
+                    $attemptobj->get_question_number($slot) . $flag),
+                    $attemptobj->get_question_status($slot, $displayoptions->correctness));
             } else {
                 $row = array($attemptobj->get_question_number($slot) . $flag,
-                                $attemptobj->get_question_status($slot, $displayoptions->correctness));
+                    $attemptobj->get_question_status($slot, $displayoptions->correctness));
             }
             if ($markscolumn) {
                 $row[] = $attemptobj->get_question_mark($slot);
@@ -635,10 +630,10 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
         // Return to place button.
         if ($attemptobj->get_state() == quizinvideo_attempt::IN_PROGRESS) {
             $button = new single_button(
-                    new moodle_url($attemptobj->attempt_url(null, $attemptobj->get_currentpage())),
-                    get_string('returnattempt', 'quizinvideo'));
+                new moodle_url($attemptobj->attempt_url(null, $attemptobj->get_currentpage())),
+                get_string('returnattempt', 'quizinvideo'));
             $output .= $this->container($this->container($this->render($button),
-                    'controls'), 'submitbtns mdl-align');
+                'controls'), 'submitbtns mdl-align');
         }
 
         // Finish attempt button.
@@ -651,12 +646,12 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
         );
 
         $button = new single_button(
-                new moodle_url($attemptobj->processattempt_url(), $options),
-                get_string('submitallandfinish', 'quizinvideo'));
+            new moodle_url($attemptobj->processattempt_url(), $options),
+            get_string('submitallandfinish', 'quizinvideo'));
         $button->id = 'responseform';
         if ($attemptobj->get_state() == quizinvideo_attempt::IN_PROGRESS) {
             $button->add_action(new confirm_action(get_string('confirmclose', 'quizinvideo'), null,
-                    get_string('submitallandfinish', 'quizinvideo')));
+                get_string('submitallandfinish', 'quizinvideo')));
         }
 
         $duedate = $attemptobj->get_due_date();
@@ -720,15 +715,15 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
 
         if ($viewobj->buttontext) {
             $output .= $this->start_attempt_button($viewobj->buttontext,
-                    $viewobj->startattempturl, $viewobj->startattemptwarning,
-                    $viewobj->popuprequired, $viewobj->popupoptions);
+                $viewobj->startattempturl, $viewobj->startattemptwarning,
+                $viewobj->popuprequired, $viewobj->popupoptions);
 
         }
 
         if ($viewobj->showbacktocourse) {
             $output .= $this->single_button($viewobj->backtocourseurl,
-                    get_string('backtocourse', 'quizinvideo'), 'get',
-                    array('class' => 'continuebutton'));
+                get_string('backtocourse', 'quizinvideo'), 'get',
+                array('class' => 'continuebutton'));
         }
 
         return $output;
@@ -745,7 +740,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
      * @param string $buttontext
      */
     public function start_attempt_button($buttontext, moodle_url $url,
-            $startattemptwarning, $popuprequired, $popupoptions) {
+                                         $startattemptwarning, $popuprequired, $popupoptions) {
 
         $button = new single_button($url, $buttontext);
         $button->class .= ' quizinvideostartbuttondiv';
@@ -758,19 +753,19 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
 
             $button->class .= ' quizinvideosecuremoderequired';
             $button->add_action(new component_action('click',
-                    'M.mod_quizinvideo.secure_window.start_attempt_action', array(
-                        'url' => $url->out(false),
-                        'windowname' => 'quizinvideopopup',
-                        'options' => $popupaction->get_js_options(),
-                        'fullscreen' => true,
-                        'startattemptwarning' => $startattemptwarning,
-                    )));
+                'M.mod_quizinvideo.secure_window.start_attempt_action', array(
+                    'url' => $url->out(false),
+                    'windowname' => 'quizinvideopopup',
+                    'options' => $popupaction->get_js_options(),
+                    'fullscreen' => true,
+                    'startattemptwarning' => $startattemptwarning,
+                )));
 
             $warning = html_writer::tag('noscript', $this->heading(get_string('noscript', 'quizinvideo')));
 
         } else if ($startattemptwarning) {
             $button->add_action(new confirm_action($startattemptwarning, null,
-                    get_string('startattempt', 'quizinvideo')));
+                get_string('startattempt', 'quizinvideo')));
         }
 
         return $this->render($button) . $warning;
@@ -809,7 +804,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
         $guestno = html_writer::tag('p', get_string('guestsno', 'quizinvideo'));
         $liketologin = html_writer::tag('p', get_string('liketologin'));
         $output .= $this->confirm($guestno."\n\n".$liketologin."\n", get_login_url(),
-                get_referer(false));
+            get_referer(false));
         return $output;
     }
 
@@ -828,7 +823,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
         $output .= $this->view_information($quizinvideo, $cm, $context, $messages);
         $youneedtoenrol = html_writer::tag('p', get_string('youneedtoenrol', 'quizinvideo'));
         $button = html_writer::tag('p',
-                $this->continue_button($CFG->wwwroot . '/course/view.php?id=' . $course->id));
+            $this->continue_button($CFG->wwwroot . '/course/view.php?id=' . $course->id));
         $output .= $this->box($youneedtoenrol."\n\n".$button."\n", 'generalbox', 'notice');
         return $output;
     }
@@ -859,9 +854,9 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
         // Show number of attempts summary to those who can view reports.
         if (has_capability('mod/quizinvideo:viewreports', $context)) {
             if ($strattemptnum = $this->quizinvideo_attempt_summary_link_to_reports($quizinvideo, $cm,
-                    $context)) {
+                $context)) {
                 $output .= html_writer::tag('div', $strattemptnum,
-                        array('class' => 'quizinvideoattemptcounts'));
+                    array('class' => 'quizinvideoattemptcounts'));
             }
         }
         return $output;
@@ -916,13 +911,13 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
         $table->size[] = '';
         if ($viewobj->markcolumn) {
             $table->head[] = get_string('marks', 'quizinvideo') . ' / ' .
-                    quizinvideo_format_grade($quizinvideo, $quizinvideo->sumgrades);
+                quizinvideo_format_grade($quizinvideo, $quizinvideo->sumgrades);
             $table->align[] = 'center';
             $table->size[] = '';
         }
         if ($viewobj->gradecolumn) {
             $table->head[] = get_string('grade') . ' / ' .
-                    quizinvideo_format_grade($quizinvideo, $quizinvideo->grade);
+                quizinvideo_format_grade($quizinvideo, $quizinvideo->grade);
             $table->align[] = 'center';
             $table->size[] = '';
         }
@@ -955,7 +950,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
 
             if ($viewobj->markcolumn) {
                 if ($attemptoptions->marks >= question_display_options::MARK_AND_MAX &&
-                        $attemptobj->is_finished()) {
+                    $attemptobj->is_finished()) {
                     $row[] = quizinvideo_format_grade($quizinvideo, $attemptobj->get_sum_marks());
                 } else {
                     $row[] = '';
@@ -967,14 +962,14 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
 
             if ($viewobj->gradecolumn) {
                 if ($attemptoptions->marks >= question_display_options::MARK_AND_MAX &&
-                        $attemptobj->is_finished()) {
+                    $attemptobj->is_finished()) {
 
                     // Highlight the highest grade if appropriate.
                     if ($viewobj->overallstats && !$attemptobj->is_preview()
-                            && $viewobj->numattempts > 1 && !is_null($viewobj->mygrade)
-                            && $attemptobj->get_state() == quizinvideo_attempt::FINISHED
-                            && $attemptgrade == $viewobj->mygrade
-                            && $quizinvideo->grademethod == quizinvideo_GRADEHIGHEST) {
+                        && $viewobj->numattempts > 1 && !is_null($viewobj->mygrade)
+                        && $attemptobj->get_state() == quizinvideo_attempt::FINISHED
+                        && $attemptgrade == $viewobj->mygrade
+                        && $quizinvideo->grademethod == quizinvideo_GRADEHIGHEST) {
                         $table->rowclasses[$attemptobj->get_attempt_number()] = 'bestrow';
                     }
 
@@ -986,7 +981,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
 
             if ($viewobj->canreviewmine) {
                 $row[] = $viewobj->accessmanager->make_review_link($attemptobj->get_attempt(),
-                        $attemptoptions, $this);
+                    $attemptoptions, $this);
             }
 
             if ($viewobj->feedbackcolumn && $attemptobj->is_finished()) {
@@ -1023,15 +1018,15 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
 
             case quizinvideo_attempt::OVERDUE:
                 return get_string('stateoverdue', 'quizinvideo') . html_writer::tag('span',
-                        get_string('stateoverduedetails', 'quizinvideo',
-                                userdate($attemptobj->get_due_date())),
-                        array('class' => 'statedetails'));
+                    get_string('stateoverduedetails', 'quizinvideo',
+                        userdate($attemptobj->get_due_date())),
+                    array('class' => 'statedetails'));
 
             case quizinvideo_attempt::FINISHED:
                 return get_string('statefinished', 'quizinvideo') . html_writer::tag('span',
-                        get_string('statefinisheddetails', 'quizinvideo',
-                                userdate($attemptobj->get_submitted_date())),
-                        array('class' => 'statedetails'));
+                    get_string('statefinisheddetails', 'quizinvideo',
+                        userdate($attemptobj->get_submitted_date())),
+                    array('class' => 'statedetails'));
 
             case quizinvideo_attempt::ABANDONED:
                 return get_string('stateabandoned', 'quizinvideo');
@@ -1108,7 +1103,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
 
         } else {
             return html_writer::link($url, get_string('review', 'quizinvideo'),
-                    array('title' => get_string('reviewthisattempt', 'quizinvideo')));
+                array('title' => get_string('reviewthisattempt', 'quizinvideo')));
         }
     }
 
@@ -1120,7 +1115,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
      */
     public function no_review_message($message) {
         return html_writer::nonempty_tag('span', $message,
-                array('class' => 'noreviewmessage'));
+            array('class' => 'noreviewmessage'));
     }
 
     /**
@@ -1139,7 +1134,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
      * @return string HTML fragment for the link.
      */
     public function quizinvideo_attempt_summary_link_to_reports($quizinvideo, $cm, $context,
-                                                          $returnzero = false, $currentgroup = 0) {
+                                                                $returnzero = false, $currentgroup = 0) {
         global $CFG;
         $summary = quizinvideo_num_attempt_summary($quizinvideo, $cm, $returnzero, $currentgroup);
         if (!$summary) {
@@ -1148,7 +1143,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
 
         require_once($CFG->dirroot . '/mod/quizinvideo/report/reportlib.php');
         $url = new moodle_url('/mod/quizinvideo/report.php', array(
-                'id' => $cm->id, 'mode' => quizinvideo_report_default_report($context)));
+            'id' => $cm->id, 'mode' => quizinvideo_report_default_report($context)));
         return html_writer::link($url, $summary);
     }
 
@@ -1175,8 +1170,8 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
         $warning = format_text(get_string('connectionerror', 'quizinvideo'), FORMAT_MARKDOWN, $options);
         $ok = format_text(get_string('connectionok', 'quizinvideo'), FORMAT_MARKDOWN, $options);
         return html_writer::tag('div', $warning,
-                    array('id' => 'connection-error', 'style' => 'display: none;', 'role' => 'alert')) .
-                    html_writer::tag('div', $ok, array('id' => 'connection-ok', 'style' => 'display: none;', 'role' => 'alert'));
+            array('id' => 'connection-error', 'style' => 'display: none;', 'role' => 'alert')) .
+        html_writer::tag('div', $ok, array('id' => 'connection-ok', 'style' => 'display: none;', 'role' => 'alert'));
     }
 }
 

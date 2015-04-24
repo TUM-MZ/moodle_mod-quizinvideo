@@ -48,19 +48,19 @@ $transaction = $DB->start_delegated_transaction();
 $attemptobj = quizinvideo_attempt::create($attemptid);
 
 // Set $nexturl now.
-if ($next) {
-    $page = $nextpage;
-} else {
-    $page = $thispage;
-}
-if ($page == -1) {
+//if ($next) {
+//    $page = $nextpage;
+//} else {
+//    $page = $thispage;
+//}
+//if ($page == -1) {
     $nexturl = $attemptobj->summary_url();
-} else {
-    $nexturl = $attemptobj->attempt_url(null, $page);
-    if ($scrollpos !== '') {
-        $nexturl->param('scrollpos', $scrollpos);
-    }
-}
+//} else {
+//    $nexturl = $attemptobj->attempt_url(null, $page);
+//    if ($scrollpos !== '') {
+//        $nexturl->param('scrollpos', $scrollpos);
+//    }
+//}
 
 // If there is only a very small amount of time left, there is no point trying
 // to show the student another page of the quizinvideo. Just finish now.

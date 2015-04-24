@@ -251,9 +251,9 @@ if ($showall) {
 $output = $PAGE->get_renderer('mod_quizinvideo');
 
 // Arrange for the navigation to be displayed.
-$navbc = $attemptobj->get_navigation_panel($output, 'quizinvideo_review_nav_panel', $page, $showall);
-$regions = $PAGE->blocks->get_regions();
-$PAGE->blocks->add_fake_block($navbc, reset($regions));
+//$navbc = $attemptobj->get_navigation_panel($output, 'quizinvideo_review_nav_panel', $page, $showall);
+//$regions = $PAGE->blocks->get_regions();
+//$PAGE->blocks->add_fake_block($navbc, reset($regions));
 
 echo $output->review_page($attemptobj, $slots, $page, $showall, $lastpage, $options, $summarydata);
 

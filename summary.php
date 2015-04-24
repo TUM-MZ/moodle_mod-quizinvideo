@@ -81,9 +81,9 @@ if (empty($attemptobj->get_quizinvideo()->showblocks)) {
     $PAGE->blocks->show_only_fake_blocks();
 }
 
-$navbc = $attemptobj->get_navigation_panel($output, 'quizinvideo_attempt_nav_panel', -1);
-$regions = $PAGE->blocks->get_regions();
-$PAGE->blocks->add_fake_block($navbc, reset($regions));
+//$navbc = $attemptobj->get_navigation_panel($output, 'quizinvideo_attempt_nav_panel', -1);
+//$regions = $PAGE->blocks->get_regions();
+//$PAGE->blocks->add_fake_block($navbc, reset($regions));
 
 $PAGE->navbar->add(get_string('summaryofattempt', 'quizinvideo'));
 $PAGE->set_title($attemptobj->get_quizinvideo_name());

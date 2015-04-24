@@ -41,8 +41,8 @@ $attemptid = required_param('attempt', PARAM_INT);
 $page = optional_param('page', 0, PARAM_INT);
 
 $attemptobj = quizinvideo_attempt::create($attemptid);
-$page = $attemptobj->force_page_number_into_range($page);
-$PAGE->set_url($attemptobj->attempt_url(null, $page));
+//$page = $attemptobj->force_page_number_into_range($page);
+$PAGE->set_url($attemptobj->attempt_url(null));
 
 // Check login.
 require_login($attemptobj->get_course(), false, $attemptobj->get_cm());
@@ -50,7 +50,7 @@ require_login($attemptobj->get_course(), false, $attemptobj->get_cm());
 // Check that this attempt belongs to this user.
 if ($attemptobj->get_userid() != $USER->id) {
     if ($attemptobj->has_capability('mod/quizinvideo:viewreports')) {
-        redirect($attemptobj->review_url(null, $page));
+        redirect($attemptobj->review_url(null));
     } else {
         throw new moodle_quizinvideo_exception($attemptobj->get_quizinvideoobj(), 'notyourattempt');
     }
@@ -69,7 +69,7 @@ if (!$attemptobj->is_preview_user()) {
 
 // If the attempt is already closed, send them to the review page.
 if ($attemptobj->is_finished()) {
-    redirect($attemptobj->review_url(null, $page));
+    redirect($attemptobj->review_url(null));
 } else if ($attemptobj->get_state() == quizinvideo_attempt::OVERDUE) {
     redirect($attemptobj->summary_url());
 }
@@ -84,7 +84,7 @@ if (!$attemptobj->is_preview_user() && $messages) {
             $output->access_messages($messages));
 }
 if ($accessmanager->is_preflight_check_required($attemptobj->get_attemptid())) {
-    redirect($attemptobj->start_attempt_url(null, $page));
+    redirect($attemptobj->start_attempt_url(null));
 }
 
 // Set up auto-save if required.
@@ -109,40 +109,40 @@ $event->add_record_snapshot('quizinvideo_attempts', $attemptobj->get_attempt());
 $event->trigger();
 
 // Get the list of questions needed by this page.
-$slots = $attemptobj->get_slots($page);
+$slots = $attemptobj->get_slots();
 
 // Check.
 if (empty($slots)) {
     throw new moodle_quizinvideo_exception($attemptobj->get_quizinvideoobj(), 'noquestionsfound');
 }
 
-// Update attempt page.
-if ($attemptobj->get_currentpage() != $page) {
-    if ($attemptobj->get_navigation_method() == quizinvideo_NAVMETHOD_SEQ && $attemptobj->get_currentpage() > $page) {
-        // Prevent out of sequence access.
-        redirect($attemptobj->start_attempt_url(null, $attemptobj->get_currentpage()));
-    }
-    $DB->set_field('quizinvideo_attempts', 'currentpage', $page, array('id' => $attemptid));
-}
+// Update time instead of attempt page.
+//if ($attemptobj->get_currentpage() != $page) {
+//    if ($attemptobj->get_navigation_method() == quizinvideo_NAVMETHOD_SEQ && $attemptobj->get_currentpage() > $page) {
+//        // Prevent out of sequence access.
+//        redirect($attemptobj->start_attempt_url(null, $attemptobj->get_currentpage()));
+//    }
+//    $DB->set_field('quizinvideo_attempts', 'currentpage', $page, array('id' => $attemptid));
+//}
 
 // Initialise the JavaScript.
-$headtags = $attemptobj->get_html_head_contributions($page);
+$headtags = $attemptobj->get_html_head_contributions();
 $PAGE->requires->js_init_call('M.mod_quizinvideo.init_attempt_form', null, false, quizinvideo_get_js_module());
 
 // Arrange for the navigation to be displayed in the first region on the page.
-$navbc = $attemptobj->get_navigation_panel($output, 'quizinvideo_attempt_nav_panel', $page);
-$regions = $PAGE->blocks->get_regions();
-$PAGE->blocks->add_fake_block($navbc, reset($regions));
+//$navbc = $attemptobj->get_navigation_panel($output, 'quizinvideo_attempt_nav_panel', $page);
+//$regions = $PAGE->blocks->get_regions();
+//$PAGE->blocks->add_fake_block($navbc, reset($regions));
 
 $title = get_string('attempt', 'quizinvideo', $attemptobj->get_attempt_number());
-$headtags = $attemptobj->get_html_head_contributions($page);
+$headtags = $attemptobj->get_html_head_contributions();
 $PAGE->set_title($attemptobj->get_quizinvideo_name());
 $PAGE->set_heading($attemptobj->get_course()->fullname);
 
-if ($attemptobj->is_last_page($page)) {
-    $nextpage = -1;
-} else {
-    $nextpage = $page + 1;
-}
+//if ($attemptobj->is_last_page($page)) {
+//    $nextpage = -1;
+//} else {
+//    $nextpage = $page + 1;
+//}
 
-echo $output->attempt_page($attemptobj, $page, $accessmanager, $messages, $slots, $id, $nextpage);
+echo $output->attempt_page($attemptobj, $accessmanager, $messages, $slots, $id);
