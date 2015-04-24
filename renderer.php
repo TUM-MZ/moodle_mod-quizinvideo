@@ -419,6 +419,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
         $output = '';
         $output .= $this->header();
         $output .= $this->quizinvideo_notices($messages);
+        $output .= $this->show_video($attemptobj->get_quizinvideoobj()->get_quizinvideo_videourl());
         $output .= $this->attempt_form($attemptobj, $slots, $id);
         $output .= $this->footer();
         return $output;
@@ -1172,6 +1173,22 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
         return html_writer::tag('div', $warning,
             array('id' => 'connection-error', 'style' => 'display: none;', 'role' => 'alert')) .
         html_writer::tag('div', $ok, array('id' => 'connection-ok', 'style' => 'display: none;', 'role' => 'alert'));
+    }
+
+    /**
+     * Return the video element to be displayed in the attempt page.
+     *
+     * @param $url the url of the video.
+     * @return string HTML.
+     */
+    private function show_video($url)
+    {
+        $output = '';
+        $output .= html_writer::start_div('video_div');
+        $output .= html_writer::start_tag('video', array('src'=> $url, 'id'=>'video_content', 'preload'=>'auto', 'controls'=>'', 'autoplay' => 'autoplay'));
+        $output .= html_writer::end_tag('video');
+        $output .= html_writer::end_tag('div');
+        return $output;
     }
 }
 

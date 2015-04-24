@@ -957,9 +957,15 @@ table#categoryquestions {
     list-style: none;
 }
 
-#page-mod-quizinvideo-edit div.video_div #video_content {
+#page-mod-quizinvideo-edit div.video_div #video_content,
+#page-mod-quizinvideo-attempt div.video_div #video_content{
     display: block;
     margin: auto;
     padding-top: 1em;
     padding-bottom: 1em;
+    width: 100%
+}
+
+#page-mod-quizinvideo-attempt div.video_div{
+    width: 100%;
 }
