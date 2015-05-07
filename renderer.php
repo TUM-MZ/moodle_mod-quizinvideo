@@ -415,12 +415,12 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
      * @param int $id The ID of an attempt
      * @param int $nextpage The number of the next page
      */
-    public function attempt_page($attemptobj, $accessmanager, $messages, $slots, $id) {
+    public function attempt_page($attemptobj, $accessmanager, $messages, $id) {
         $output = '';
         $output .= $this->header();
         $output .= $this->quizinvideo_notices($messages);
         $output .= $this->show_video($attemptobj->get_quizinvideoobj()->get_quizinvideo_videourl());
-        $output .= $this->attempt_form($attemptobj, $slots, $id);
+        $output .= $this->attempt_form($attemptobj, $id);
         $output .= $this->footer();
         return $output;
     }
@@ -447,7 +447,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
      * @param int $id ID of the attempt
      * @param int $nextpage Next page number
      */
-    public function attempt_form($attemptobj, $slots, $id) {
+    public function attempt_form($attemptobj, $id) {
         $output = '';
 
         // Start the form.
@@ -456,12 +456,24 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
                 'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
                 'id' => 'responseform'));
         $output .= html_writer::start_tag('div');
+        $num_pages = $attemptobj->get_num_pages();
 
-        // Print all the questions.
-        foreach ($slots as $slot) {
-            $output .= $attemptobj->render_question($slot, false,
-                $attemptobj->attempt_url($slot));
+        for($i = 0; $i < $num_pages; $i++)
+        {
+            $page = $i + 1;
+            $output .= html_writer::start_tag('div', array('id' => 'page' . $page));
+            $time = quizinvideo_get_timeofvideo($attemptobj->get_quizinvideo()->id, $page);
+            $output .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'timestamp',
+                'value' => $time, 'id' => 'timestamp'. $page));
+            $slots = $attemptobj->get_slots($i);    //$i is offset here, which will be page-1.
+            // Print all the questions.
+            foreach ($slots as $slot) {
+                $output .= $attemptobj->render_question($slot, false,
+                    $attemptobj->attempt_url($slot));
+            }
+            $output .= html_writer::end_tag('div');
         }
+
 
         $output .= html_writer::start_tag('div', array('class' => 'submitbtns'));
         $output .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next',

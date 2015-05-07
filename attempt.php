@@ -145,4 +145,4 @@ $PAGE->set_heading($attemptobj->get_course()->fullname);
 //    $nextpage = $page + 1;
 //}
 
-echo $output->attempt_page($attemptobj, $accessmanager, $messages, $slots, $id);
+echo $output->attempt_page($attemptobj, $accessmanager, $messages, $id);

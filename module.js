@@ -28,6 +28,7 @@ M.mod_quizinvideo.init_attempt_form = function(Y) {
     M.core_question_engine.init_form(Y, '#responseform');
     Y.on('submit', M.mod_quizinvideo.timer.stop, '#responseform');
     M.core_formchangechecker.init({formid: 'responseform'});
+    M.mod_quizinvideo.init_video(Y);
 };
 
 M.mod_quizinvideo.init_review_form = function(Y) {
@@ -312,3 +313,15 @@ M.mod_quizinvideo.secure_window = {
         }, delay*1000);
     }
 };
+
+M.mod_quizinvideo.init_video = function(Y){
+    //Y.Node.DOM_EVENTS.timeupdate = 1;
+    //var video = Y.one('#video_content');
+    //video.on('timeupdate', function () {
+    //    console.log(video.getDOMNode().currentTime);
+    //    //video.getDOMNode().pause();
+    //    //video.getDOMNode().play();
+    //});
+
+};
+
