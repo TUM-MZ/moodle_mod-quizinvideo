@@ -975,7 +975,7 @@ table#categoryquestions {
 }
 
 #page-mod-quizinvideo-attempt form#responseform{
-    overflow-y: scroll;
+    overflow-y: auto;
     top: 0px;
     position: absolute;
     background-color: rgba(50,50,50, 0.7);

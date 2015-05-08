@@ -462,7 +462,6 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
         {
             $page = $i + 1;
             $output .= html_writer::start_tag('div', array('id' => 'page' . $page, 'class' => 'page', 'style' => 'display:none'));
-//            $output .= html_writer::empty_tag('p');
             $time = quizinvideo_get_timeofvideo($attemptobj->get_quizinvideo()->id, $page);
             $output .= html_writer::empty_tag('input', array('type' => 'hidden', 'class' => 'timestamp',
                 'value' => $time, 'id' => 'timestamp'. $page));
