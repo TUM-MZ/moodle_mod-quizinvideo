@@ -315,13 +315,21 @@ M.mod_quizinvideo.secure_window = {
 };
 
 M.mod_quizinvideo.init_video = function(Y){
-    //Y.Node.DOM_EVENTS.timeupdate = 1;
-    //var video = Y.one('#video_content');
-    //video.on('timeupdate', function () {
-    //    console.log(video.getDOMNode().currentTime);
-    //    //video.getDOMNode().pause();
-    //    //video.getDOMNode().play();
-    //});
+    Y.Node.DOM_EVENTS.timeupdate = 1;
+    var yui_video = Y.one('#video_content');
+    var form = Y.one('#responseform');
+    var video= yui_video.getDOMNode();
+    form.setStyle("height", yui_video.getComputedStyle("height"));
+    var timestamps = Y.all('.timestamp').get("value");
+    var i = 0;
+    yui_video.on('timeupdate', function () {
+        while(video.currentTime > timestamps[i] && i < timestamps.length){
+            i++;
+            video.pause();
+            form.setStyle("display", "block");
+            Y.one('#page'+i).setStyle("display", "block");
+        }
+    });
 
 };
 

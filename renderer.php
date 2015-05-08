@@ -461,9 +461,10 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
         for($i = 0; $i < $num_pages; $i++)
         {
             $page = $i + 1;
-            $output .= html_writer::start_tag('div', array('id' => 'page' . $page));
+            $output .= html_writer::start_tag('div', array('id' => 'page' . $page, 'class' => 'page', 'style' => 'display:none'));
+//            $output .= html_writer::empty_tag('p');
             $time = quizinvideo_get_timeofvideo($attemptobj->get_quizinvideo()->id, $page);
-            $output .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'timestamp',
+            $output .= html_writer::empty_tag('input', array('type' => 'hidden', 'class' => 'timestamp',
                 'value' => $time, 'id' => 'timestamp'. $page));
             $slots = $attemptobj->get_slots($i);    //$i is offset here, which will be page-1.
             // Print all the questions.
@@ -476,7 +477,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
 
 
         $output .= html_writer::start_tag('div', array('class' => 'submitbtns'));
-        $output .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next',
+        $output .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'next',
             'value' => get_string('next')));
         $output .= html_writer::end_tag('div');
 

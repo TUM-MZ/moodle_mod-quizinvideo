@@ -960,12 +960,31 @@ table#categoryquestions {
 #page-mod-quizinvideo-edit div.video_div #video_content,
 #page-mod-quizinvideo-attempt div.video_div #video_content{
     display: block;
-    margin: auto;
-    padding-top: 1em;
-    padding-bottom: 1em;
     width: 100%
+}
+
+#page-mod-quizinvideo-attempt div[role=main]{
+    position: relative;
+    overflow: hidden;
 }
 
 #page-mod-quizinvideo-attempt div.video_div{
     width: 100%;
+    padding-bottom: 1000px;
+    margin-bottom: -1000px;
+}
+
+#page-mod-quizinvideo-attempt form#responseform{
+    overflow-y: scroll;
+    top: 0px;
+    position: absolute;
+    background-color: rgba(50,50,50, 0.7);
+    width: 100%;
+    display: none;
+    padding-bottom: 1000px;
+    margin-bottom: -1000px;
+}
+
+#page-mod-quizinvideo-attempt form#responseform div.page{
+    padding: 1em;
 }
