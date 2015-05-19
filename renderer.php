@@ -452,7 +452,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
 
         // Start the form.
         $output .= html_writer::start_tag('form',
-            array('action' => $attemptobj->processattempt_url(), 'method' => 'post',
+            array(/*'action' => $attemptobj->processattempt_url(),*/'method' => 'post',
                 'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
                 'id' => 'responseform'));
         $output .= html_writer::start_tag('div');
@@ -476,6 +476,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
 
 
         $output .= html_writer::start_tag('div', array('class' => 'submitbtns'));
+        $output .= html_writer::empty_tag('input', array('type' => 'button', 'id' => 'btn_checkForm', 'value' => 'Check'));
         $output .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'next',
             'value' => get_string('next')));
         $output .= html_writer::end_tag('div');

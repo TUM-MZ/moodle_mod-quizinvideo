@@ -29,6 +29,9 @@ M.mod_quizinvideo.init_attempt_form = function(Y) {
     Y.on('submit', M.mod_quizinvideo.timer.stop, '#responseform');
     M.core_formchangechecker.init({formid: 'responseform'});
     M.mod_quizinvideo.init_video(Y);
+    Y.one('#btn_checkForm').on("click", function(e){
+        //write form check code here
+    });
 };
 
 M.mod_quizinvideo.init_review_form = function(Y) {
@@ -319,13 +322,13 @@ M.mod_quizinvideo.init_video = function(Y){
     var yui_video = Y.one('#video_content');
     var form = Y.one('#responseform');
     var video= yui_video.getDOMNode();
-    form.setStyle("height", yui_video.getComputedStyle("height"));
     var timestamps = Y.all('.timestamp').get("value");
     var i = 0;
     yui_video.on('timeupdate', function () {
         while(video.currentTime > timestamps[i] && i < timestamps.length){
             i++;
             video.pause();
+            form.setStyle("height", yui_video.getComputedStyle("height"));
             form.setStyle("display", "block");
             Y.one('#page'+i).setStyle("display", "block");
         }
