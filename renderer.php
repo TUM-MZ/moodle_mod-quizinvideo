@@ -50,14 +50,14 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
                                 $summarydata) {
 
         $output = '';
-        $output .= $this->header();
-        $output .= $this->review_summary_table($summarydata, $page);
+//        $output .= $this->header();
+//        $output .= $this->review_summary_table($summarydata, $page);
         $output .= $this->review_form($page, $showall, $displayoptions,
             $this->questions($attemptobj, true, $slots, $page, $showall, $displayoptions),
             $attemptobj);
 
-        $output .= $this->review_next_navigation($attemptobj, $page, $lastpage);
-        $output .= $this->footer();
+//        $output .= $this->review_next_navigation($attemptobj, $page, $lastpage);
+//        $output .= $this->footer();
         return $output;
     }
 
@@ -199,9 +199,10 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
      * @param bool $showall if true display attempt on one page
      */
     public function review_form($page, $showall, $displayoptions, $content, $attemptobj) {
-        if ($displayoptions->flags != question_display_options::EDITABLE) {
-            return $content;
-        }
+//        if ($displayoptions->flags != question_display_options::EDITABLE)
+//        {
+//            return $content;
+//        }
 
         $this->page->requires->js_init_call('M.mod_quizinvideo.init_review_form', null, false,
             quizinvideo_get_js_module());
@@ -214,9 +215,9 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
         $output .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'sesskey',
             'value' => sesskey()));
         $output .= html_writer::start_tag('div', array('class' => 'submitbtns'));
-        $output .= html_writer::empty_tag('input', array('type' => 'submit',
-            'class' => 'questionflagsavebutton', 'name' => 'savingflags',
-            'value' => get_string('saveflags', 'question')));
+//        $output .= html_writer::empty_tag('input', array('type' => 'submit',
+//            'class' => 'questionflagsavebutton', 'name' => 'savingflags',
+//            'value' => get_string('saveflags', 'question')));
         $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('form');
@@ -452,7 +453,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
 
         // Start the form.
         $output .= html_writer::start_tag('form',
-            array(/*'action' => $attemptobj->processattempt_url(),*/'method' => 'post',
+            array('method' => 'post',
                 'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
                 'id' => 'responseform'));
         $output .= html_writer::start_tag('div');
@@ -466,6 +467,8 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
             $output .= html_writer::empty_tag('input', array('type' => 'hidden', 'class' => 'timestamp',
                 'value' => $time, 'id' => 'timestamp'. $page));
             $slots = $attemptobj->get_slots($i);    //$i is offset here, which will be page-1.
+            $output .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'slotsinpage',
+                'value' => implode(',', $slots)));
             // Print all the questions.
             foreach ($slots as $slot) {
                 $output .= $attemptobj->render_question($slot, false,

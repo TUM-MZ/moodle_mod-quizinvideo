@@ -62,18 +62,18 @@ $accessmanager->setup_attempt_page($PAGE);
 $options = $attemptobj->get_display_options(true);
 
 // Check permissions.
-if ($attemptobj->is_own_attempt()) {
-    if (!$attemptobj->is_finished()) {
-        redirect($attemptobj->attempt_url(null, $page));
-
-    } else if (!$options->attempt) {
-        $accessmanager->back_to_view_page($PAGE->get_renderer('mod_quizinvideo'),
-                $attemptobj->cannot_review_message());
-    }
-
-} else if (!$attemptobj->is_review_allowed()) {
-    throw new moodle_quizinvideo_exception($attemptobj->get_quizinvideoobj(), 'noreviewattempt');
-}
+//if ($attemptobj->is_own_attempt()) {
+//    if (!$attemptobj->is_finished()) {
+//        redirect($attemptobj->attempt_url(null, $page));
+//
+//    } else if (!$options->attempt) {
+//        $accessmanager->back_to_view_page($PAGE->get_renderer('mod_quizinvideo'),
+//                $attemptobj->cannot_review_message());
+//    }
+//
+//} else if (!$attemptobj->is_review_allowed()) {
+//    throw new moodle_quizinvideo_exception($attemptobj->get_quizinvideoobj(), 'noreviewattempt');
+//}
 
 // Load the questions and states needed by this page.
 if ($showall) {
@@ -270,3 +270,5 @@ $params = array(
 $event = \mod_quizinvideo\event\attempt_reviewed::create($params);
 $event->add_record_snapshot('quizinvideo_attempts', $attemptobj->get_attempt());
 $event->trigger();
+
+

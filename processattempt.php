@@ -54,7 +54,7 @@ $attemptobj = quizinvideo_attempt::create($attemptid);
 //    $page = $thispage;
 //}
 //if ($page == -1) {
-    $nexturl = $attemptobj->summary_url();
+    $nexturl = $attemptobj->review_url($attemptid);
 //} else {
 //    $nexturl = $attemptobj->attempt_url(null, $page);
 //    if ($scrollpos !== '') {

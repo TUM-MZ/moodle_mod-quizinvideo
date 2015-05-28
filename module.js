@@ -29,8 +29,48 @@ M.mod_quizinvideo.init_attempt_form = function(Y) {
     Y.on('submit', M.mod_quizinvideo.timer.stop, '#responseform');
     M.core_formchangechecker.init({formid: 'responseform'});
     M.mod_quizinvideo.init_video(Y);
+
     Y.one('#btn_checkForm').on("click", function(e){
         //write form check code here
+        var form = Y.one("#responseform");
+        var attemptid = form.one("input[name=attempt]").get("value");
+        var page = form.one(".visiblepage").get("id").substr(4); //4 is "page" string length
+        var slots = form.one(".visiblepage").one("input[name=slotsinpage]").get("value");
+        var sesskey = form.one("input[name=sesskey]").get("value");
+        Y.use("io-base", 'node', 'array-extras', 'querystring-stringify', function(Y) {
+            var cfg, request, uri, query;
+            query = Y.Array.reduce(Y.one(form).all('input[name],select[name],textarea[name]')._nodes, {}, function (init, el, index, array) {
+                var isCheckable = (el.type == "checkbox" || el.type == "radio");
+                if ((isCheckable && el.checked) || !isCheckable) {
+                    init[el.name] = el.value;
+                }
+                return init;
+            });
+            query.attempt = attemptid;
+            query.finishattempt = 1;
+            query.sesskey = sesskey;
+            query.thispage = 0;
+            query.timeup = 0;
+            query.slots = slots;
+            quoted_query = Y.QueryString.stringify(query);
+            uri = "processattempt.php" //The PHP page in which you pass the data to
+            console.log(query);
+            cfg = {
+                method: 'POST',  //you want a POST transaction
+                data: quoted_query,  //your data
+                on:{
+                    success:function(a, b){
+                        console.log(b);
+                        Y.one("#page-footer").setHTML(b.response);
+                    },
+                    failure:function(){
+                        console.log("failed");
+                    }
+                }
+            };
+
+            request = Y.io(uri, cfg);
+        })
     });
 };
 
@@ -330,7 +370,9 @@ M.mod_quizinvideo.init_video = function(Y){
             video.pause();
             form.setStyle("height", yui_video.getComputedStyle("height"));
             form.setStyle("display", "block");
-            Y.one('#page'+i).setStyle("display", "block");
+            var page = Y.one('#page'+i);
+            page.setStyle("display", "block");
+            page.addClass("visiblepage");
         }
     });
 
