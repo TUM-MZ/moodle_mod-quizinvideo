@@ -87,12 +87,12 @@ if ($accessmanager->is_preflight_check_required($attemptobj->get_attemptid())) {
     redirect($attemptobj->start_attempt_url(null));
 }
 
-// Set up auto-save if required.
-$autosaveperiod = get_config('quizinvideo', 'autosaveperiod');
-if ($autosaveperiod) {
-    $PAGE->requires->yui_module('moodle-mod_quizinvideo-autosave',
-            'M.mod_quizinvideo.autosave.init', array($autosaveperiod));
-}
+//// Set up auto-save if required.
+//$autosaveperiod = get_config('quizinvideo', 'autosaveperiod');
+//if ($autosaveperiod) {
+//    $PAGE->requires->yui_module('moodle-mod_quizinvideo-autosave',
+//            'M.mod_quizinvideo.autosave.init', array($autosaveperiod));
+//}
 
 // Log this page view.
 $params = array(

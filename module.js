@@ -34,7 +34,7 @@ M.mod_quizinvideo.init_attempt_form = function(Y) {
         //write form check code here
         var form = Y.one("#responseform");
         var attemptid = form.one("input[name=attempt]").get("value");
-        var page = form.one(".visiblepage").get("id").substr(4); //4 is "page" string length
+        var page = parseInt(form.one(".visiblepage").get("id").substr(4)); //4 is "page" string length
         var slots = form.one(".visiblepage").one("input[name=slotsinpage]").get("value");
         var sesskey = form.one("input[name=sesskey]").get("value");
         Y.use("io-base", 'node', 'array-extras', 'querystring-stringify', function(Y) {
@@ -49,7 +49,7 @@ M.mod_quizinvideo.init_attempt_form = function(Y) {
             query.attempt = attemptid;
             query.finishattempt = 1;
             query.sesskey = sesskey;
-            query.thispage = 0;
+            query.thispage = page - 1;
             query.timeup = 0;
             query.slots = slots;
             quoted_query = Y.QueryString.stringify(query);
@@ -61,7 +61,8 @@ M.mod_quizinvideo.init_attempt_form = function(Y) {
                 on:{
                     success:function(a, b){
                         console.log(b);
-                        Y.one("#page-footer").setHTML(b.response);
+                        Y.one('[id=page'+(String(page))+']').setHTML(b.response);
+                        Y.one('#btn_checkForm').remove();
                     },
                     failure:function(){
                         console.log("failed");

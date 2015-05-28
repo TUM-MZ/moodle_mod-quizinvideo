@@ -32,7 +32,7 @@ require_once($CFG->dirroot . '/mod/quizinvideo/report/reportlib.php');
 
 $attemptid = required_param('attempt', PARAM_INT);
 $page      = optional_param('page', 0, PARAM_INT);
-$showall   = optional_param('showall', null, PARAM_BOOL);
+$showall   = optional_param('showall', false, PARAM_BOOL);
 
 $url = new moodle_url('/mod/quizinvideo/review.php', array('attempt'=>$attemptid));
 if ($page !== 0) {
@@ -197,7 +197,7 @@ if ($options->marks >= question_display_options::MARK_AND_MAX && quizinvideo_has
         );
 
     } else {
-        // Show raw marks only if they are different from the grade (like on the view page).
+        // Show raw marks only if they are disdvbngjhkl;fferent from the grade (like on the view page).
         if ($quizinvideo->grade != $quizinvideo->sumgrades) {
             $a = new stdClass();
             $a->grade = quizinvideo_format_grade($quizinvideo, $attempt->sumgrades);
