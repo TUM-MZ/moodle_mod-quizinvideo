@@ -26,18 +26,25 @@ M.mod_quizinvideo = M.mod_quizinvideo || {};
 
 M.mod_quizinvideo.init_attempt_form = function(Y) {
     M.core_question_engine.init_form(Y, '#responseform');
-    Y.on('submit', M.mod_quizinvideo.timer.stop, '#responseform');
-    M.core_formchangechecker.init({formid: 'responseform'});
-    M.mod_quizinvideo.init_video(Y);
+    var form = Y.one("#responseform");
+    var yui_video = Y.one('#video_content');
+    form.setStyle("height", yui_video.getComputedStyle("height"));
+    form.setStyle("display", "block");
+    //Y.on('submit', M.mod_quizinvideo.timer.stop, '#responseform');
+    //M.core_formchangechecker.init({formid: 'responseform'});
+    //M.mod_quizinvideo.init_video(Y);
 
-    Y.one('#btn_checkForm').on("click", function(e){
+    Y.one('#btn_checkForm').on("click", function (e) {
         //write form check code here
         var form = Y.one("#responseform");
-        var attemptid = form.one("input[name=attempt]").get("value");
-        var page = parseInt(form.one(".visiblepage").get("id").substr(4)); //4 is "page" string length
-        var slots = form.one(".visiblepage").one("input[name=slotsinpage]").get("value");
-        var sesskey = form.one("input[name=sesskey]").get("value");
-        Y.use("io-base", 'node', 'array-extras', 'querystring-stringify', function(Y) {
+        var maindiv = Y.one("div[role=main]");
+        var videodiv = maindiv.one("div#video_div");
+        var attemptid = maindiv.one("input[name=attempt]").get("value");
+        var sesskey = maindiv.one("input[name=sesskey]").get("value");
+        var pagediv = form.one(".page");
+        var page = parseInt(pagediv.get("id").substr(4)); //4 is "page" string length
+        var slots = pagediv.one("input[name=slotsinpage]").get("value");
+        Y.use("io-base", 'node', 'array-extras', 'querystring-stringify', function (Y) {
             var cfg, request, uri, query;
             query = Y.Array.reduce(Y.one(form).all('input[name],select[name],textarea[name]')._nodes, {}, function (init, el, index, array) {
                 var isCheckable = (el.type == "checkbox" || el.type == "radio");
@@ -58,13 +65,22 @@ M.mod_quizinvideo.init_attempt_form = function(Y) {
             cfg = {
                 method: 'POST',  //you want a POST transaction
                 data: quoted_query,  //your data
-                on:{
-                    success:function(a, b){
-                        console.log(b);
-                        Y.one('[id=page'+(String(page))+']').setHTML(b.response);
-                        Y.one('#btn_checkForm').remove();
+                on: {
+                    success: function (a, b) {
+                        form.remove();
+
+                        videodiv.insert("<div id='formwithanswer'> </div>", 'after');
+                        Y.one('div#formwithanswer').setHTML(b.response);
+                        var formwithanswer = Y.one("#formwithanswer");
+                        var yui_video = Y.one('#video_content');
+                        formwithanswer.setStyle("height", yui_video.getComputedStyle("height"));
+                        formwithanswer.setStyle("display", "block");
+                        Y.one('#btn_continuevideo').on("click", function (e) {
+                            Y.one("#formwithanswer").remove();
+                            Y.one('#video_content').getDOMNode().play();
+                        });
                     },
-                    failure:function(){
+                    failure: function () {
                         console.log("failed");
                     }
                 }
@@ -73,11 +89,13 @@ M.mod_quizinvideo.init_attempt_form = function(Y) {
             request = Y.io(uri, cfg);
         })
     });
-};
 
+
+}
 M.mod_quizinvideo.init_review_form = function(Y) {
     M.core_question_engine.init_form(Y, '.questionflagsaveform');
     Y.on('submit', function(e) { e.halt(); }, '.questionflagsaveform');
+
 };
 
 M.mod_quizinvideo.init_comment_popup = function(Y) {
@@ -361,7 +379,6 @@ M.mod_quizinvideo.secure_window = {
 M.mod_quizinvideo.init_video = function(Y){
     Y.Node.DOM_EVENTS.timeupdate = 1;
     var yui_video = Y.one('#video_content');
-    var form = Y.one('#responseform');
     var video= yui_video.getDOMNode();
     var timestamps = Y.all('.timestamp').get("value");
     var i = 0;
@@ -369,11 +386,32 @@ M.mod_quizinvideo.init_video = function(Y){
         while(video.currentTime > timestamps[i] && i < timestamps.length){
             i++;
             video.pause();
-            form.setStyle("height", yui_video.getComputedStyle("height"));
-            form.setStyle("display", "block");
-            var page = Y.one('#page'+i);
-            page.setStyle("display", "block");
-            page.addClass("visiblepage");
+            Y.use("io-base", 'node', 'array-extras', 'querystring-stringify', function(Y) {
+                var cfg, request;
+                var uri = "attemptformrenderer.php"
+                var maindiv = Y.one("div[role=main]");
+                var attemptid = maindiv.one("input[name=attempt]").get("value");
+                var sesskey = maindiv.one("input[name=sesskey]").get("value");
+                cfg = {
+                    method: 'POST',
+                    data: {
+                        'sesskey': sesskey,
+                        'attempt': attemptid,
+                        'page': i
+                    },
+                    on:{
+                        success:function(a, b){
+                            Y.one("#video_div").insert(b.response, 'after');
+                            M.mod_quizinvideo.init_attempt_form(Y, yui_video.getComputedStyle("height"));
+                        },
+                        failure:function(){
+                            console.log("loading form failed");
+                        }
+                    }
+                };
+                request = Y.io(uri, cfg);
+            });
+
         }
     });
 

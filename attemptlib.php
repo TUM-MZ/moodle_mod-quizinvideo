@@ -1840,7 +1840,7 @@ class quizinvideo_attempt_nav_panel extends quizinvideo_nav_panel_base {
     public function render_end_bits(mod_quizinvideo_renderer $output) {
         return html_writer::link($this->attemptobj->summary_url(),
                 get_string('endtest', 'quizinvideo'), array('class' => 'endtestlink')) .
-                $output->countdown_timer($this->attemptobj, time()) .
+//                $output->countdown_timer($this->attemptobj, time()) .
                 $this->render_restart_preview_link($output);
     }
 }

@@ -127,7 +127,7 @@ if (empty($slots)) {
 
 // Initialise the JavaScript.
 $headtags = $attemptobj->get_html_head_contributions();
-$PAGE->requires->js_init_call('M.mod_quizinvideo.init_attempt_form', null, false, quizinvideo_get_js_module());
+$PAGE->requires->js_init_call('M.mod_quizinvideo.init_video', null, false, quizinvideo_get_js_module());
 
 // Arrange for the navigation to be displayed in the first region on the page.
 //$navbc = $attemptobj->get_navigation_panel($output, 'quizinvideo_attempt_nav_panel', $page);

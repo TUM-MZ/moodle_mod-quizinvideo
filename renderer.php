@@ -56,7 +56,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
             $this->questions($attemptobj, true, $slots, $page, $showall, $displayoptions),
             $attemptobj);
 
-//        $output .= $this->review_next_navigation($attemptobj, $page, $lastpage);
+        $output .= $this->review_next_navigation();
 //        $output .= $this->footer();
         return $output;
     }
@@ -231,18 +231,9 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
      * @param quizinvideo_attempt $attemptobj instance of quizinvideo_attempt
      */
     public function finish_review_link(quizinvideo_attempt $attemptobj) {
-        $url = $attemptobj->view_url();
-
-        if ($attemptobj->get_access_manager(time())->attempt_must_be_in_popup()) {
-            $this->page->requires->js_init_call('M.mod_quizinvideo.secure_window.init_close_button',
-                array($url), quizinvideo_get_js_module());
-            return html_writer::empty_tag('input', array('type' => 'button',
-                'value' => get_string('finishreview', 'quizinvideo'),
-                'id' => 'secureclosebutton'));
-
-        } else {
-            return html_writer::link($url, get_string('finishreview', 'quizinvideo'));
-        }
+        return html_writer::empty_tag('input', array('type' => 'button',
+            'value' => get_string('finishreview', 'quizinvideo'),
+            'id' => 'secureclosebutton'));
     }
 
     /**
@@ -252,13 +243,8 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
      * @param int $page the current page
      * @param bool $lastpage if true current page is the last page
      */
-    public function review_next_navigation(quizinvideo_attempt $attemptobj, $page, $lastpage) {
-        if ($lastpage) {
-            $nav = $this->finish_review_link($attemptobj);
-        } else {
-            $nav = link_arrow_right(get_string('next'), $attemptobj->review_url(null, $page + 1));
-        }
-        return html_writer::tag('div', $nav, array('class' => 'submitbtns'));
+    public function review_next_navigation() {
+        return html_writer::empty_tag('input', array('type' => 'button', 'id' => 'btn_continuevideo', 'value' => get_string('next')));
     }
 
     /**
@@ -420,8 +406,9 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
         $output = '';
         $output .= $this->header();
         $output .= $this->quizinvideo_notices($messages);
-        $output .= $this->show_video($attemptobj->get_quizinvideoobj()->get_quizinvideo_videourl());
-        $output .= $this->attempt_form($attemptobj, $id);
+        $output .= $this->show_video($attemptobj);
+        $output .= $this->print_hidden_DOMs($attemptobj);
+//        $output .= $this->attempt_form($attemptobj, $id);
         $output .= $this->footer();
         return $output;
     }
@@ -1197,13 +1184,30 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
      * @param $url the url of the video.
      * @return string HTML.
      */
-    private function show_video($url)
+    private function show_video($attemptobj)
     {
+        $url = $attemptobj->get_quizinvideoobj()->get_quizinvideo_videourl();
         $output = '';
-        $output .= html_writer::start_div('video_div');
+        $output .= html_writer::start_tag('div', array('id'=>'video_div'));
         $output .= html_writer::start_tag('video', array('src'=> $url, 'id'=>'video_content', 'preload'=>'auto', 'controls'=>'', 'autoplay' => 'autoplay'));
         $output .= html_writer::end_tag('video');
         $output .= html_writer::end_tag('div');
+        return $output;
+    }
+
+    private function print_hidden_DOMs($attemptobj){
+        $num_pages = $attemptobj->get_num_pages();
+        $output = '';
+        $output .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'attempt',
+            'value' => $attemptobj->get_attemptid()));
+        $output .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'sesskey',
+            'value' => sesskey()));
+        for($i = 0; $i < $num_pages; $i++){
+            $page = $i + 1;
+            $time = quizinvideo_get_timeofvideo($attemptobj->get_quizinvideo()->id, $page);
+            $output .= html_writer::empty_tag('input', array('type' => 'hidden', 'class' => 'timestamp',
+                'value' => $time, 'id' => 'timestamp'. $page));
+        }
         return $output;
     }
 }

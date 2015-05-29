@@ -957,8 +957,8 @@ table#categoryquestions {
     list-style: none;
 }
 
-#page-mod-quizinvideo-edit div.video_div #video_content,
-#page-mod-quizinvideo-attempt div.video_div #video_content{
+#page-mod-quizinvideo-edit div#video_div #video_content,
+#page-mod-quizinvideo-attempt div#video_div #video_content{
     display: block;
     width: 100%
 }
@@ -968,13 +968,14 @@ table#categoryquestions {
     overflow: hidden;
 }
 
-#page-mod-quizinvideo-attempt div.video_div{
+#page-mod-quizinvideo-attempt div#video_div{
     width: 100%;
     padding-bottom: 1000px;
     margin-bottom: -1000px;
 }
 
-#page-mod-quizinvideo-attempt form#responseform{
+#page-mod-quizinvideo-attempt form#responseform,
+#page-mod-quizinvideo-attempt div#formwithanswer{
     overflow-y: auto;
     top: 0px;
     position: absolute;

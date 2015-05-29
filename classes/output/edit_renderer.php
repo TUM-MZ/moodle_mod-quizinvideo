@@ -1088,7 +1088,7 @@ class edit_renderer extends \plugin_renderer_base {
     private function show_video($url)
     {
         $output = '';
-        $output .= html_writer::start_div('video_div');
+        $output .= html_writer::start_tag('div', array('id'=>'video_div'));
         $output .= html_writer::start_tag('video', array('src'=> $url, 'id'=>'video_content', 'preload'=>'auto', 'controls'=>''));
         $output .= html_writer::end_tag('video');
         $output .= html_writer::end_tag('div');
