@@ -54,7 +54,7 @@ $attemptobj = quizinvideo_attempt::create($attemptid);
 //    $page = $thispage;
 //}
 //if ($page == -1) {
-    $nexturl = $attemptobj->review_url($attemptid);
+    $nexturl = $attemptobj->review_url(null, $thispage);
 //} else {
 //    $nexturl = $attemptobj->attempt_url(null, $page);
 //    if ($scrollpos !== '') {
@@ -182,4 +182,4 @@ try {
 
 // Send the user to the review page.
 $transaction->allow_commit();
-redirect($attemptobj->review_url());
+redirect($attemptobj->review_url(null, $thispage));

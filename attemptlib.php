@@ -1613,6 +1613,16 @@ class quizinvideo_attempt {
                 get_string('gradingattempt', 'quizinvideo_grading', $a));
     }
 
+
+    public function set_state($state = self::IN_PROGRESS) {
+        global $DB;
+
+        $transaction = $DB->start_delegated_transaction();
+        $this->attempt->state = $state;
+        $DB->update_record('quizinvideo_attempts', $this->attempt);
+        $transaction->allow_commit();
+    }
+
     // Private methods =========================================================
 
     /**
@@ -1807,11 +1817,11 @@ abstract class quizinvideo_nav_panel_base {
      */
     public function get_button_container_class() {
         // quizinvideo navigation is set on 'Show all questions on one page'.
-        if ($this->showall) {
+//        if ($this->showall) {
             return 'allquestionsononepage';
-        }
-        // quizinvideo navigation is set on 'Show one page at a time'.
-        return 'multipages';
+//        }
+//        // quizinvideo navigation is set on 'Show one page at a time'.
+//        return 'multipages';
     }
 }
 
@@ -1838,10 +1848,7 @@ class quizinvideo_attempt_nav_panel extends quizinvideo_nav_panel_base {
     }
 
     public function render_end_bits(mod_quizinvideo_renderer $output) {
-        return html_writer::link($this->attemptobj->summary_url(),
-                get_string('endtest', 'quizinvideo'), array('class' => 'endtestlink')) .
-//                $output->countdown_timer($this->attemptobj, time()) .
-                $this->render_restart_preview_link($output);
+        return $this->render_restart_preview_link($output);
     }
 }
 

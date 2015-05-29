@@ -35,8 +35,7 @@ $output .= html_writer::start_tag('div');
         'value' => implode(',', $slots)));
     // Print all the questions.
     foreach ($slots as $slot) {
-        $output .= $attemptobj->render_question($slot, false,
-            $attemptobj->attempt_url($slot));
+        $output .= $attemptobj->render_question($slot, false);
     }
     $output .= html_writer::end_tag('div');
 //}

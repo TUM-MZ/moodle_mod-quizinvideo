@@ -986,6 +986,9 @@ table#categoryquestions {
     margin-bottom: -1000px;
 }
 
+#page-mod-quizinvideo-attempt div#formwithanswer form.questionflagsaveform{
+    padding: 1em;
+}
 #page-mod-quizinvideo-attempt form#responseform div.page{
     padding: 1em;
 }

@@ -383,7 +383,10 @@ M.mod_quizinvideo.init_video = function(Y){
     var timestamps = Y.all('.timestamp').get("value");
     var i = 0;
     yui_video.on('timeupdate', function () {
-        while(video.currentTime > timestamps[i] && i < timestamps.length){
+        var currentTime = video.currentTime;
+        while(currentTime > timestamps[i] &&
+                ((currentTime < video.duration && (i+1) == timestamps.length) || (currentTime < timestamps[i+1] && i < timestamps.length))
+            ){
             i++;
             video.pause();
             Y.use("io-base", 'node', 'array-extras', 'querystring-stringify', function(Y) {
@@ -414,6 +417,23 @@ M.mod_quizinvideo.init_video = function(Y){
 
         }
     });
+
+    video.addEventListener('seeking', function(){
+        i= 0;
+        var currentTime= video.currentTime;
+        var loopLimit = timestamps.length;
+        while(i < loopLimit){
+            if (currentTime > timestamps[i]){
+                i++;
+                video.pause();
+                continue;
+            }
+            else{
+                break;
+            }
+        }
+        console.log(i);
+    })
 
 };
 

@@ -298,13 +298,13 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
                 array('id' => 'user-picture', 'class' => 'clearfix'));
         }
         $output .= $panel->render_before_button_bits($this);
-
-        $bcc = $panel->get_button_container_class();
-        $output .= html_writer::start_tag('div', array('class' => "qn_buttons $bcc"));
-        foreach ($panel->get_question_buttons() as $button) {
-            $output .= $this->render($button);
-        }
-        $output .= html_writer::end_tag('div');
+//
+//        $bcc = $panel->get_button_container_class();
+//        $output .= html_writer::start_tag('div', array('class' => "qn_buttons $bcc"));
+//        foreach ($panel->get_question_buttons() as $button) {
+//            $output .= $this->render($button);
+//        }
+//        $output .= html_writer::end_tag('div');
 
         $output .= html_writer::tag('div', $panel->render_end_bits($this),
             array('class' => 'othernav'));
