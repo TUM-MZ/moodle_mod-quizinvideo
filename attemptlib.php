@@ -1614,11 +1614,12 @@ class quizinvideo_attempt {
     }
 
 
-    public function set_state($state = self::IN_PROGRESS) {
+    public function set_state($state = self::IN_PROGRESS, $timefinish = 0) {
         global $DB;
 
         $transaction = $DB->start_delegated_transaction();
         $this->attempt->state = $state;
+        $this->attempt->timefinish = $timefinish;
         $DB->update_record('quizinvideo_attempts', $this->attempt);
         $transaction->allow_commit();
     }
