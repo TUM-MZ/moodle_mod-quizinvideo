@@ -210,8 +210,9 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
             $currentbehaviour = '';
         }
         $behaviours = question_engine::get_behaviour_options($currentbehaviour);
+//        print_r($behaviours);
         $mform->addElement('select', 'preferredbehaviour',
-                get_string('howquestionsbehave', 'question'), $behaviours);
+                get_string('howquestionsbehave', 'question'), array_intersect_key($behaviours, array_flip(array('quizinvideofeedback'))));
         $mform->addHelpButton('preferredbehaviour', 'howquestionsbehave', 'question');
         $mform->setDefault('preferredbehaviour', $quizinvideoconfig->preferredbehaviour);
 
@@ -226,31 +227,31 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
         }
 
         // -------------------------------------------------------------------------------
-        $mform->addElement('header', 'reviewoptionshdr',
-                get_string('reviewoptionsheading', 'quizinvideo'));
-        $mform->addHelpButton('reviewoptionshdr', 'reviewoptionsheading', 'quizinvideo');
+//        $mform->addElement('header', 'reviewoptionshdr',
+//                get_string('reviewoptionsheading', 'quizinvideo'));
+//        $mform->addHelpButton('reviewoptionshdr', 'reviewoptionsheading', 'quizinvideo');
 
-        // Review options.
-        $this->add_review_options_group($mform, $quizinvideoconfig, 'during',
-                mod_quizinvideo_display_options::DURING, true);
-        $this->add_review_options_group($mform, $quizinvideoconfig, 'immediately',
-                mod_quizinvideo_display_options::IMMEDIATELY_AFTER);
-        $this->add_review_options_group($mform, $quizinvideoconfig, 'open',
-                mod_quizinvideo_display_options::LATER_WHILE_OPEN);
-        $this->add_review_options_group($mform, $quizinvideoconfig, 'closed',
-                mod_quizinvideo_display_options::AFTER_CLOSE);
-
-        foreach ($behaviours as $behaviour => $notused) {
-            $unusedoptions = question_engine::get_behaviour_unused_display_options($behaviour);
-            foreach ($unusedoptions as $unusedoption) {
-                $mform->disabledIf($unusedoption . 'during', 'preferredbehaviour',
-                        'eq', $behaviour);
-            }
-        }
-        $mform->disabledIf('attemptduring', 'preferredbehaviour',
-                'neq', 'wontmatch');
-        $mform->disabledIf('overallfeedbackduring', 'preferredbehaviour',
-                'neq', 'wontmatch');
+//        // Review options.
+//        $this->add_review_options_group($mform, $quizinvideoconfig, 'during',
+//                mod_quizinvideo_display_options::DURING, true);
+//        $this->add_review_options_group($mform, $quizinvideoconfig, 'immediately',
+//                mod_quizinvideo_display_options::IMMEDIATELY_AFTER);
+//        $this->add_review_options_group($mform, $quizinvideoconfig, 'open',
+//                mod_quizinvideo_display_options::LATER_WHILE_OPEN);
+//        $this->add_review_options_group($mform, $quizinvideoconfig, 'closed',
+//                mod_quizinvideo_display_options::AFTER_CLOSE);
+//
+//        foreach ($behaviours as $behaviour => $notused) {
+//            $unusedoptions = question_engine::get_behaviour_unused_display_options($behaviour);
+//            foreach ($unusedoptions as $unusedoption) {
+//                $mform->disabledIf($unusedoption . 'during', 'preferredbehaviour',
+//                        'eq', $behaviour);
+//            }
+//        }
+//        $mform->disabledIf('attemptduring', 'preferredbehaviour',
+//                'neq', 'wontmatch');
+//        $mform->disabledIf('overallfeedbackduring', 'preferredbehaviour',
+//                'neq', 'wontmatch');
 
         // -------------------------------------------------------------------------------
         $mform->addElement('header', 'display', get_string('appearance'));
