@@ -381,11 +381,13 @@ M.mod_quizinvideo.init_video = function(Y){
     var yui_video = Y.one('#video_content');
     var video= yui_video.getDOMNode();
     var timestamps = Y.all('.timestamp').get("value");
+    var t_len = timestamps.length;
     var i = 0;
     yui_video.on('timeupdate', function () {
         var currentTime = video.currentTime;
-        while(currentTime > timestamps[i] &&
-                ((currentTime < video.duration && (i+1) == timestamps.length) || (currentTime < timestamps[i+1] && i < timestamps.length))
+
+        while(i < t_len && currentTime > timestamps[i] &&
+                (((i+1) == t_len && currentTime < video.duration) || ((i+1) < t_len && currentTime < timestamps[i+1]))
             ){
             i++;
             video.pause();
@@ -395,6 +397,7 @@ M.mod_quizinvideo.init_video = function(Y){
                 var maindiv = Y.one("div[role=main]");
                 var attemptid = maindiv.one("input[name=attempt]").get("value");
                 var sesskey = maindiv.one("input[name=sesskey]").get("value");
+                var is_finished = 0;
                 cfg = {
                     method: 'POST',
                     data: {
@@ -405,7 +408,7 @@ M.mod_quizinvideo.init_video = function(Y){
                     on:{
                         success:function(a, b){
                             Y.one("#video_div").insert(b.response, 'after');
-                            M.mod_quizinvideo.init_attempt_form(Y, yui_video.getComputedStyle("height"));
+                            M.mod_quizinvideo.init_attempt_form(Y);
                         },
                         failure:function(){
                             console.log("loading form failed");
@@ -415,7 +418,11 @@ M.mod_quizinvideo.init_video = function(Y){
                 request = Y.io(uri, cfg);
             });
 
+
         }
+
+
+
     });
 
     video.addEventListener('seeking', function(){
@@ -432,7 +439,7 @@ M.mod_quizinvideo.init_video = function(Y){
                 break;
             }
         }
-        console.log(i);
+        //console.log(i);
     })
 
 };

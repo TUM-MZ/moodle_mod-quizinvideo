@@ -257,9 +257,12 @@ $output = $PAGE->get_renderer('mod_quizinvideo');
 
 echo $output->review_page($attemptobj, $slots, $page, $showall, $lastpage, $options, $summarydata);
 
-//if($page < $attemptobj->get_num_pages()){
-//    $attemptobj->set_state();
-//}
+if(($page + 1) < $attemptobj->get_num_pages()){
+    $attemptobj->set_state();
+}
+else if(($page + 1) == $attemptobj->get_num_pages()){
+    $attemptobj->set_state(quizinvideo_attempt::FINISHED, time());
+}
 // Trigger an event for this review.
 $params = array(
     'objectid' => $attemptobj->get_attemptid(),
