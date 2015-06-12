@@ -94,22 +94,22 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
 
         // Open and close dates.
         $mform->addElement('date_time_selector', 'timeopen', get_string('quizinvideoopen', 'quizinvideo'),
-                self::$datefieldoptions);
+            self::$datefieldoptions);
         $mform->addHelpButton('timeopen', 'quizinvideoopenclose', 'quizinvideo');
 
         $mform->addElement('date_time_selector', 'timeclose', get_string('quizinvideoclose', 'quizinvideo'),
-                self::$datefieldoptions);
+            self::$datefieldoptions);
 
         // Time limit.
         $mform->addElement('duration', 'timelimit', get_string('timelimit', 'quizinvideo'),
-                array('optional' => true));
+            array('optional' => true));
         $mform->addHelpButton('timelimit', 'timelimit', 'quizinvideo');
         $mform->setAdvanced('timelimit', $quizinvideoconfig->timelimit_adv);
         $mform->setDefault('timelimit', $quizinvideoconfig->timelimit);
 
         // What to do with overdue attempts.
         $mform->addElement('select', 'overduehandling', get_string('overduehandling', 'quizinvideo'),
-                quizinvideo_get_overdue_handling_options());
+            quizinvideo_get_overdue_handling_options());
         $mform->addHelpButton('overduehandling', 'overduehandling', 'quizinvideo');
         $mform->setAdvanced('overduehandling', $quizinvideoconfig->overduehandling_adv);
         $mform->setDefault('overduehandling', $quizinvideoconfig->overduehandling);
@@ -119,7 +119,7 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
 
         // Grace period time.
         $mform->addElement('duration', 'graceperiod', get_string('graceperiod', 'quizinvideo'),
-                array('optional' => true));
+            array('optional' => true));
         $mform->addHelpButton('graceperiod', 'graceperiod', 'quizinvideo');
         $mform->setAdvanced('graceperiod', $quizinvideoconfig->graceperiod_adv);
         $mform->setDefault('graceperiod', $quizinvideoconfig->graceperiod);
@@ -144,13 +144,13 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
             $attemptoptions[$i] = $i;
         }
         $mform->addElement('select', 'attempts', get_string('attemptsallowed', 'quizinvideo'),
-                $attemptoptions);
+            $attemptoptions);
         $mform->setAdvanced('attempts', $quizinvideoconfig->attempts_adv);
         $mform->setDefault('attempts', $quizinvideoconfig->attempts);
 
         // Grading method.
         $mform->addElement('select', 'grademethod', get_string('grademethod', 'quizinvideo'),
-                quizinvideo_get_grading_options());
+            quizinvideo_get_grading_options());
         $mform->addHelpButton('grademethod', 'grademethod', 'quizinvideo');
         $mform->setAdvanced('grademethod', $quizinvideoconfig->grademethod_adv);
         $mform->setDefault('grademethod', $quizinvideoconfig->grademethod);
@@ -167,29 +167,29 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
             1 => get_string('shuffledrandomly', 'quizinvideo')
         );
         $mform->addElement('select', 'shufflequestions', get_string('questionorder', 'quizinvideo'),
-                $shuffleoptions, array('id' => 'id_shufflequestions'));
+            $shuffleoptions, array('id' => 'id_shufflequestions'));
         $mform->setAdvanced('shufflequestions', $quizinvideoconfig->shufflequestions_adv);
         $mform->setDefault('shufflequestions', $quizinvideoconfig->shufflequestions);
 
         $pagegroup = array();
         $pagegroup[] = $mform->createElement('select', 'questionsperpage',
-                get_string('newpage', 'quizinvideo'), quizinvideo_questions_per_page_options(), array('id' => 'id_questionsperpage'));
+            get_string('newpage', 'quizinvideo'), quizinvideo_questions_per_page_options(), array('id' => 'id_questionsperpage'));
         $mform->setDefault('questionsperpage', $quizinvideoconfig->questionsperpage);
 
         if (!empty($this->_cm)) {
             $pagegroup[] = $mform->createElement('checkbox', 'repaginatenow', '',
-                    get_string('repaginatenow', 'quizinvideo'), array('id' => 'id_repaginatenow'));
+                get_string('repaginatenow', 'quizinvideo'), array('id' => 'id_repaginatenow'));
             $mform->disabledIf('repaginatenow', 'shufflequestions', 'eq', 1);
         }
 
         $mform->addGroup($pagegroup, 'questionsperpagegrp',
-                get_string('newpage', 'quizinvideo'), null, false);
+            get_string('newpage', 'quizinvideo'), null, false);
         $mform->addHelpButton('questionsperpagegrp', 'newpage', 'quizinvideo');
         $mform->setAdvanced('questionsperpagegrp', $quizinvideoconfig->questionsperpage_adv);
 
         // Navigation method.
         $mform->addElement('select', 'navmethod', get_string('navmethod', 'quizinvideo'),
-                quizinvideo_get_navigation_options());
+            quizinvideo_get_navigation_options());
         $mform->addHelpButton('navmethod', 'navmethod', 'quizinvideo');
         $mform->setAdvanced('navmethod', $quizinvideoconfig->navmethod_adv);
         $mform->setDefault('navmethod', $quizinvideoconfig->navmethod);
@@ -212,13 +212,13 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
         $behaviours = question_engine::get_behaviour_options($currentbehaviour);
 //        print_r($behaviours);
         $mform->addElement('select', 'preferredbehaviour',
-                get_string('howquestionsbehave', 'question'), array_intersect_key($behaviours, array_flip(array('quizinvideofeedback'))));
+            get_string('howquestionsbehave', 'question'), array_intersect_key($behaviours, array_flip(array('quizinvideofeedback'))));
         $mform->addHelpButton('preferredbehaviour', 'howquestionsbehave', 'question');
         $mform->setDefault('preferredbehaviour', $quizinvideoconfig->preferredbehaviour);
 
         // Each attempt builds on last.
         $mform->addElement('selectyesno', 'attemptonlast',
-                get_string('eachattemptbuildsonthelast', 'quizinvideo'));
+            get_string('eachattemptbuildsonthelast', 'quizinvideo'));
         $mform->addHelpButton('attemptonlast', 'eachattemptbuildsonthelast', 'quizinvideo');
         $mform->setAdvanced('attemptonlast', $quizinvideoconfig->attemptonlast_adv);
         $mform->setDefault('attemptonlast', $quizinvideoconfig->attemptonlast);
@@ -227,38 +227,38 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
         }
 
         // -------------------------------------------------------------------------------
-//        $mform->addElement('header', 'reviewoptionshdr',
-//                get_string('reviewoptionsheading', 'quizinvideo'));
-//        $mform->addHelpButton('reviewoptionshdr', 'reviewoptionsheading', 'quizinvideo');
+        $mform->addElement('header', 'reviewoptionshdr',
+                get_string('reviewoptionsheading', 'quizinvideo'));
+        $mform->addHelpButton('reviewoptionshdr', 'reviewoptionsheading', 'quizinvideo');
 
-//        // Review options.
+        // Review options.
 //        $this->add_review_options_group($mform, $quizinvideoconfig, 'during',
 //                mod_quizinvideo_display_options::DURING, true);
-//        $this->add_review_options_group($mform, $quizinvideoconfig, 'immediately',
-//                mod_quizinvideo_display_options::IMMEDIATELY_AFTER);
+        $this->add_review_options_group($mform, $quizinvideoconfig, 'immediately',
+                mod_quizinvideo_display_options::IMMEDIATELY_AFTER);
 //        $this->add_review_options_group($mform, $quizinvideoconfig, 'open',
 //                mod_quizinvideo_display_options::LATER_WHILE_OPEN);
 //        $this->add_review_options_group($mform, $quizinvideoconfig, 'closed',
 //                mod_quizinvideo_display_options::AFTER_CLOSE);
-//
-//        foreach ($behaviours as $behaviour => $notused) {
-//            $unusedoptions = question_engine::get_behaviour_unused_display_options($behaviour);
-//            foreach ($unusedoptions as $unusedoption) {
-//                $mform->disabledIf($unusedoption . 'during', 'preferredbehaviour',
-//                        'eq', $behaviour);
-//            }
-//        }
-//        $mform->disabledIf('attemptduring', 'preferredbehaviour',
-//                'neq', 'wontmatch');
-//        $mform->disabledIf('overallfeedbackduring', 'preferredbehaviour',
-//                'neq', 'wontmatch');
+
+        foreach ($behaviours as $behaviour => $notused) {
+            $unusedoptions = question_engine::get_behaviour_unused_display_options($behaviour);
+            foreach ($unusedoptions as $unusedoption) {
+                $mform->disabledIf($unusedoption . 'during', 'preferredbehaviour',
+                        'eq', $behaviour);
+            }
+        }
+        $mform->disabledIf('attemptduring', 'preferredbehaviour',
+                'neq', 'wontmatch');
+        $mform->disabledIf('overallfeedbackduring', 'preferredbehaviour',
+                'neq', 'wontmatch');
 
         // -------------------------------------------------------------------------------
         $mform->addElement('header', 'display', get_string('appearance'));
 
         // Show user picture.
         $mform->addElement('select', 'showuserpicture', get_string('showuserpicture', 'quizinvideo'),
-                quizinvideo_get_user_image_options());
+            quizinvideo_get_user_image_options());
         $mform->addHelpButton('showuserpicture', 'showuserpicture', 'quizinvideo');
         $mform->setAdvanced('showuserpicture', $quizinvideoconfig->showuserpicture_adv);
         $mform->setDefault('showuserpicture', $quizinvideoconfig->showuserpicture);
@@ -269,7 +269,7 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
             $options[$i] = $i;
         }
         $mform->addElement('select', 'decimalpoints', get_string('decimalplaces', 'quizinvideo'),
-                $options);
+            $options);
         $mform->addHelpButton('decimalpoints', 'decimalplaces', 'quizinvideo');
         $mform->setAdvanced('decimalpoints', $quizinvideoconfig->decimalpoints_adv);
         $mform->setDefault('decimalpoints', $quizinvideoconfig->decimalpoints);
@@ -280,7 +280,7 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
             $options[$i] = $i;
         }
         $mform->addElement('select', 'questiondecimalpoints',
-                get_string('decimalplacesquestion', 'quizinvideo'), $options);
+            get_string('decimalplacesquestion', 'quizinvideo'), $options);
         $mform->addHelpButton('questiondecimalpoints', 'decimalplacesquestion', 'quizinvideo');
         $mform->setAdvanced('questiondecimalpoints', $quizinvideoconfig->questiondecimalpoints_adv);
         $mform->setDefault('questiondecimalpoints', $quizinvideoconfig->questiondecimalpoints);
@@ -310,7 +310,7 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
 
         // Enforced time delay between quizinvideo attempts.
         $mform->addElement('duration', 'delay1', get_string('delay1st2nd', 'quizinvideo'),
-                array('optional' => true));
+            array('optional' => true));
         $mform->addHelpButton('delay1', 'delay1st2nd', 'quizinvideo');
         $mform->setAdvanced('delay1', $quizinvideoconfig->delay1_adv);
         $mform->setDefault('delay1', $quizinvideoconfig->delay1);
@@ -319,7 +319,7 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
         }
 
         $mform->addElement('duration', 'delay2', get_string('delaylater', 'quizinvideo'),
-                array('optional' => true));
+            array('optional' => true));
         $mform->addHelpButton('delay2', 'delaylater', 'quizinvideo');
         $mform->setAdvanced('delay2', $quizinvideoconfig->delay2_adv);
         $mform->setDefault('delay2', $quizinvideoconfig->delay2);
@@ -330,7 +330,7 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
 
         // Browser security choices.
         $mform->addElement('select', 'browsersecurity', get_string('browsersecurity', 'quizinvideo'),
-                quizinvideo_access_manager::get_browser_security_choices());
+            quizinvideo_access_manager::get_browser_security_choices());
         $mform->addHelpButton('browsersecurity', 'browsersecurity', 'quizinvideo');
         $mform->setAdvanced('browsersecurity', $quizinvideoconfig->browsersecurity_adv);
         $mform->setDefault('browsersecurity', $quizinvideoconfig->browsersecurity);
@@ -349,43 +349,43 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
         }
         if ($needwarning) {
             $mform->addElement('static', 'nogradewarning', '',
-                    get_string('nogradewarning', 'quizinvideo'));
+                get_string('nogradewarning', 'quizinvideo'));
         }
 
         $mform->addElement('static', 'gradeboundarystatic1',
-                get_string('gradeboundary', 'quizinvideo'), '100%');
+            get_string('gradeboundary', 'quizinvideo'), '100%');
 
         $repeatarray = array();
         $repeatedoptions = array();
         $repeatarray[] = $mform->createElement('editor', 'feedbacktext',
-                get_string('feedback', 'quizinvideo'), array('rows' => 3), array('maxfiles' => EDITOR_UNLIMITED_FILES,
-                        'noclean' => true, 'context' => $this->context));
+            get_string('feedback', 'quizinvideo'), array('rows' => 3), array('maxfiles' => EDITOR_UNLIMITED_FILES,
+                'noclean' => true, 'context' => $this->context));
         $repeatarray[] = $mform->createElement('text', 'feedbackboundaries',
-                get_string('gradeboundary', 'quizinvideo'), array('size' => 10));
+            get_string('gradeboundary', 'quizinvideo'), array('size' => 10));
         $repeatedoptions['feedbacktext']['type'] = PARAM_RAW;
         $repeatedoptions['feedbackboundaries']['type'] = PARAM_RAW;
 
         if (!empty($this->_instance)) {
             $this->_feedbacks = $DB->get_records('quizinvideo_feedback',
-                    array('quizinvideoid' => $this->_instance), 'mingrade DESC');
+                array('quizinvideoid' => $this->_instance), 'mingrade DESC');
         } else {
             $this->_feedbacks = array();
         }
         $numfeedbacks = max(count($this->_feedbacks) * 1.5, 5);
 
         $nextel = $this->repeat_elements($repeatarray, $numfeedbacks - 1,
-                $repeatedoptions, 'boundary_repeats', 'boundary_add_fields', 3,
-                get_string('addmoreoverallfeedbacks', 'quizinvideo'), true);
+            $repeatedoptions, 'boundary_repeats', 'boundary_add_fields', 3,
+            get_string('addmoreoverallfeedbacks', 'quizinvideo'), true);
 
         // Put some extra elements in before the button.
         $mform->insertElementBefore($mform->createElement('editor',
-                "feedbacktext[$nextel]", get_string('feedback', 'quizinvideo'), array('rows' => 3),
-                array('maxfiles' => EDITOR_UNLIMITED_FILES, 'noclean' => true,
-                      'context' => $this->context)),
-                'boundary_add_fields');
+            "feedbacktext[$nextel]", get_string('feedback', 'quizinvideo'), array('rows' => 3),
+            array('maxfiles' => EDITOR_UNLIMITED_FILES, 'noclean' => true,
+                'context' => $this->context)),
+            'boundary_add_fields');
         $mform->insertElementBefore($mform->createElement('static',
-                'gradeboundarystatic2', get_string('gradeboundary', 'quizinvideo'), '0%'),
-                'boundary_add_fields');
+            'gradeboundarystatic2', get_string('gradeboundary', 'quizinvideo'), '0%'),
+            'boundary_add_fields');
 
         // Add the disabledif rules. We cannot do this using the $repeatoptions parameter to
         // repeat_elements because we don't want to dissable the first feedbacktext.
@@ -411,7 +411,7 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
     }
 
     protected function add_review_options_group($mform, $quizinvideoconfig, $whenname,
-            $when, $withhelp = false) {
+                                                $when, $withhelp = false) {
         global $OUTPUT;
 
         $group = array();
@@ -426,7 +426,7 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
             $group[] = $mform->createElement('checkbox', $field . $whenname, '', $label);
         }
         $mform->addGroup($group, $whenname . 'optionsgrp',
-                get_string('review' . $whenname, 'quizinvideo'), null, false);
+            get_string('review' . $whenname, 'quizinvideo'), null, false);
 
         foreach (self::$reviewfields as $field => $notused) {
             $cfgfield = 'review' . $field;
@@ -487,7 +487,7 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
 
                 if ($feedback->mingrade > 0) {
                     $toform['feedbackboundaries['.$key.']'] =
-                            round(100.0 * $feedback->mingrade / $toform['grade'], 6) . '%';
+                        round(100.0 * $feedback->mingrade / $toform['grade'], 6) . '%';
                 }
                 $key++;
             }
@@ -498,13 +498,13 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
         }
 
         $this->preprocessing_review_settings($toform, 'during',
-                mod_quizinvideo_display_options::DURING);
+            mod_quizinvideo_display_options::DURING);
         $this->preprocessing_review_settings($toform, 'immediately',
-                mod_quizinvideo_display_options::IMMEDIATELY_AFTER);
+            mod_quizinvideo_display_options::IMMEDIATELY_AFTER);
         $this->preprocessing_review_settings($toform, 'open',
-                mod_quizinvideo_display_options::LATER_WHILE_OPEN);
+            mod_quizinvideo_display_options::LATER_WHILE_OPEN);
         $this->preprocessing_review_settings($toform, 'closed',
-                mod_quizinvideo_display_options::AFTER_CLOSE);
+            mod_quizinvideo_display_options::AFTER_CLOSE);
         $toform['attemptduring'] = true;
         $toform['overallfeedbackduring'] = false;
 
@@ -529,7 +529,7 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
 
         // Check open and close times are consistent.
         if ($data['timeopen'] != 0 && $data['timeclose'] != 0 &&
-                $data['timeclose'] < $data['timeopen']) {
+            $data['timeclose'] < $data['timeopen']) {
             $errors['timeclose'] = get_string('closebeforeopen', 'quizinvideo');
         }
 
@@ -552,21 +552,21 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
                         $boundary = $boundary * $data['grade'] / 100.0;
                     } else {
                         $errors["feedbackboundaries[$i]"] =
-                                get_string('feedbackerrorboundaryformat', 'quizinvideo', $i + 1);
+                            get_string('feedbackerrorboundaryformat', 'quizinvideo', $i + 1);
                     }
                 } else if (!is_numeric($boundary)) {
                     $errors["feedbackboundaries[$i]"] =
-                            get_string('feedbackerrorboundaryformat', 'quizinvideo', $i + 1);
+                        get_string('feedbackerrorboundaryformat', 'quizinvideo', $i + 1);
                 }
             }
             if (is_numeric($boundary) && $boundary <= 0 || $boundary >= $data['grade'] ) {
                 $errors["feedbackboundaries[$i]"] =
-                        get_string('feedbackerrorboundaryoutofrange', 'quizinvideo', $i + 1);
+                    get_string('feedbackerrorboundaryoutofrange', 'quizinvideo', $i + 1);
             }
             if (is_numeric($boundary) && $i > 0 &&
-                    $boundary >= $data['feedbackboundaries'][$i - 1]) {
+                $boundary >= $data['feedbackboundaries'][$i - 1]) {
                 $errors["feedbackboundaries[$i]"] =
-                        get_string('feedbackerrororder', 'quizinvideo', $i + 1);
+                    get_string('feedbackerrororder', 'quizinvideo', $i + 1);
             }
             $data['feedbackboundaries'][$i] = $boundary;
             $i += 1;
@@ -577,17 +577,17 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
         if (!empty($data['feedbackboundaries'])) {
             for ($i = $numboundaries; $i < count($data['feedbackboundaries']); $i += 1) {
                 if (!empty($data['feedbackboundaries'][$i] ) &&
-                        trim($data['feedbackboundaries'][$i] ) != '') {
+                    trim($data['feedbackboundaries'][$i] ) != '') {
                     $errors["feedbackboundaries[$i]"] =
-                            get_string('feedbackerrorjunkinboundary', 'quizinvideo', $i + 1);
+                        get_string('feedbackerrorjunkinboundary', 'quizinvideo', $i + 1);
                 }
             }
         }
         for ($i = $numboundaries + 1; $i < count($data['feedbacktext']); $i += 1) {
             if (!empty($data['feedbacktext'][$i]['text']) &&
-                    trim($data['feedbacktext'][$i]['text'] ) != '') {
+                trim($data['feedbacktext'][$i]['text'] ) != '') {
                 $errors["feedbacktext[$i]"] =
-                        get_string('feedbackerrorjunkinfeedback', 'quizinvideo', $i + 1);
+                    get_string('feedbackerrorjunkinfeedback', 'quizinvideo', $i + 1);
             }
         }
 
@@ -608,11 +608,11 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
 
         $group = array();
         $group[] = $mform->createElement('advcheckbox', 'completionpass', null, get_string('completionpass', 'quizinvideo'),
-                array('group' => 'cpass'));
+            array('group' => 'cpass'));
 
         $group[] = $mform->createElement('advcheckbox', 'completionattemptsexhausted', null,
-                get_string('completionattemptsexhausted', 'quizinvideo'),
-                array('group' => 'cattempts'));
+            get_string('completionattemptsexhausted', 'quizinvideo'),
+            array('group' => 'cattempts'));
         $mform->disabledIf('completionattemptsexhausted', 'completionpass', 'notchecked');
         $mform->addGroup($group, 'completionpassgroup', get_string('completionpass', 'quizinvideo'), ' &nbsp; ', false);
         $mform->addHelpButton('completionpassgroup', 'completionpass', 'quizinvideo');
@@ -649,7 +649,7 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
                     SELECT MAX(CASE WHEN attempts = 0 THEN 1000 ELSE attempts END)
                       FROM {quizinvideo_overrides}
                      WHERE quizinvideo = ?",
-                    array($this->_instance));
+                array($this->_instance));
             if ($this->maxattemptsanyoverride < 1) {
                 // This happens when no override alters the number of attempts.
                 $this->maxattemptsanyoverride = 1;
