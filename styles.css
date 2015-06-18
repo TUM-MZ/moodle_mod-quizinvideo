@@ -718,7 +718,6 @@ table.quizinvideoreviewsummary td.cell {
     top: 0;
     left: 5em;
     width: 100%;
-    padding-left: 1em;
 }
 #page-mod-quizinvideo-edit.dir-rtl ul.slots li.section li.activity .activityinstance {
     left: auto;
@@ -729,6 +728,9 @@ table.quizinvideoreviewsummary td.cell {
 #page-mod-quizinvideo-edit.dir-rtl ul.slots li.section li.activity .mod-indent-outer {
     padding-left: 0;
     padding-right: 22px;
+}
+#page-mod-quizinvideo-edit .mod-indent-outer {
+    width:auto;
 }
 
 #page-mod-quizinvideo-edit ul.slots .activityinstance form {
