@@ -957,6 +957,11 @@ table#categoryquestions {
     list-style: none;
 }
 
+#page-mod-quizinvideo-edit div.content a.editing_timeofvideo,
+#page-mod-quizinvideo-edit div.content a.copying_timeofvideo{
+    padding-left: 5px;
+}
+
 #page-mod-quizinvideo-edit div#video_div #video_content,
 #page-mod-quizinvideo-attempt div#video_div #video_content{
     display: block;
