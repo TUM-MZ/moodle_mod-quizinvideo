@@ -672,8 +672,7 @@ table.quizinvideoreviewsummary td.cell {
 }
 #page-mod-quizinvideo-edit ul.slots li.section li.activity .page_split_join {
     position: relative;
-    left: -20px;
-    top: -7px;
+    left: -40px;
 }
 #page-mod-quizinvideo-edit.dir-rtl ul.slots li.section li.activity .page_split_join {
     left: auto;
@@ -725,9 +724,7 @@ table.quizinvideoreviewsummary td.cell {
     right: 5em;
 }
 
-#page-mod-quizinvideo-edit ul.slots li.section li.activity .mod-indent-outer {
-    padding-left: 22px;
-}
+
 #page-mod-quizinvideo-edit.dir-rtl ul.slots li.section li.activity .mod-indent-outer {
     padding-left: 0;
     padding-right: 22px;
