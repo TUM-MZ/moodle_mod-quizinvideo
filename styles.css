@@ -16,7 +16,7 @@
 #page-mod-quizinvideo-review .submitbtns {
     clear: left;
     text-align: left;
-    padding-top: 1.5em;
+    padding: 1em;
 }
 
 #page-mod-quizinvideo-attempt.dir-rtl .submitbtns,
@@ -718,6 +718,7 @@ table.quizinvideoreviewsummary td.cell {
     top: 0;
     left: 5em;
     width: 100%;
+    padding-left: 1em;
 }
 #page-mod-quizinvideo-edit.dir-rtl ul.slots li.section li.activity .activityinstance {
     left: auto;
