@@ -50,7 +50,7 @@ require_login($attemptobj->get_course(), false, $attemptobj->get_cm());
 // Check that this attempt belongs to this user.
 if ($attemptobj->get_userid() != $USER->id) {
     if ($attemptobj->has_capability('mod/quizinvideo:viewreports')) {
-        redirect($attemptobj->review_url(null));
+        redirect($attemptobj->review_url(null, -1, true));
     } else {
         throw new moodle_quizinvideo_exception($attemptobj->get_quizinvideoobj(), 'notyourattempt');
     }
@@ -68,11 +68,11 @@ if (!$attemptobj->is_preview_user()) {
 }
 
 // If the attempt is already closed, send them to the review page.
-if ($attemptobj->is_finished()) {
-    redirect($attemptobj->review_url(null));
-} else if ($attemptobj->get_state() == quizinvideo_attempt::OVERDUE) {
-    redirect($attemptobj->summary_url());
-}
+//if ($attemptobj->is_finished()) {
+//    redirect($attemptobj->review_url(null, -1, true));
+//} else if ($attemptobj->get_state() == quizinvideo_attempt::OVERDUE) {
+//    redirect($attemptobj->summary_url());
+//}
 
 // Check the access rules.
 $accessmanager = $attemptobj->get_access_manager(time());

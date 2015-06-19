@@ -52,12 +52,40 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
         $output = '';
 //        $output .= $this->header();
 //        $output .= $this->review_summary_table($summarydata, $page);
-        $output .= $this->review_form($page, $showall, $displayoptions,
-            $this->questions($attemptobj, true, $slots, $page, $showall, $displayoptions),
+        $output .= $this->review_form($page, false, $displayoptions,
+            $this->questions($attemptobj, true, $slots, $page, false, $displayoptions),
             $attemptobj);
 
         $output .= $this->review_next_navigation();
 //        $output .= $this->footer();
+        return $output;
+    }
+
+    /**
+     * Builds the review page
+     *
+     * @param quizinvideo_attempt $attemptobj an instance of quizinvideo_attempt.
+     * @param array $slots an array of intgers relating to questions.
+     * @param int $page the current page number
+     * @param bool $showall whether to show entire attempt on one page.
+     * @param bool $lastpage if true the current page is the last page.
+     * @param mod_quizinvideo_display_options $displayoptions instance of mod_quizinvideo_display_options.
+     * @param array $summarydata contains all table data
+     * @return $output containing html data.
+     */
+    public function review_page_full(quizinvideo_attempt $attemptobj, $slots, $page, $showall,
+                                $lastpage, mod_quizinvideo_display_options $displayoptions,
+                                $summarydata) {
+
+        $output = '';
+        $output .= $this->header();
+        $output .= $this->review_summary_table($summarydata, $page);
+        $output .= $this->review_form($page, $showall, $displayoptions,
+            $this->questions($attemptobj, true, $slots, $page, $showall, $displayoptions),
+            $attemptobj);
+
+//        $output .= $this->review_next_navigation();
+        $output .= $this->footer();
         return $output;
     }
 

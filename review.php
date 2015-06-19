@@ -254,8 +254,10 @@ $output = $PAGE->get_renderer('mod_quizinvideo');
 //$navbc = $attemptobj->get_navigation_panel($output, 'quizinvideo_review_nav_panel', $page, $showall);
 //$regions = $PAGE->blocks->get_regions();
 //$PAGE->blocks->add_fake_block($navbc, reset($regions));
-
-echo $output->review_page($attemptobj, $slots, $page, $showall, $lastpage, $options, $summarydata);
+if ($attemptobj->has_capability('mod/quizinvideo:viewreports'))
+    echo $output->review_page_full($attemptobj, $slots, $page, true, $lastpage, $options, $summarydata);
+else
+    echo $output->review_page($attemptobj, $slots, $page, false, $lastpage, $options, $summarydata);
 
 if(($page + 1) < $attemptobj->get_num_pages()){
     $attemptobj->set_state();

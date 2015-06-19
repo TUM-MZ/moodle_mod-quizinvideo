@@ -139,7 +139,7 @@ abstract class quizinvideo_attempts_report_table extends table_sql {
         }
 
         return $html . html_writer::empty_tag('br') . html_writer::link(
-                new moodle_url('/mod/quizinvideo/review.php', array('attempt' => $attempt->attempt)),
+                new moodle_url('/mod/quizinvideo/review.php', array('attempt' => $attempt->attempt, 'showall' => true)),
                 get_string('reviewattempt', 'quizinvideo'), array('class' => 'reviewlink'));
     }
 
