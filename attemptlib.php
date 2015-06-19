@@ -336,10 +336,14 @@ class quizinvideo {
 
     /**
      * @param int $attemptid the id of an attempt.
+     * * @param bool $showall if show all pages.
      * @return string the URL of the review of that attempt.
      */
-    public function review_url($attemptid) {
-        return new moodle_url('/mod/quizinvideo/review.php', array('attempt' => $attemptid));
+    public function review_url($attemptid, $showall=false) {
+        if($showall)
+            return new moodle_url('/mod/quizinvideo/review.php', array('attempt' => $attemptid, 'showall' => $showall));
+        else
+            return new moodle_url('/mod/quizinvideo/review.php', array('attempt' => $attemptid));
     }
 
     /**
@@ -1679,7 +1683,7 @@ class quizinvideo_attempt {
         } else {
             $url = new moodle_url('/mod/quizinvideo/' . $script . '.php' . $fragment,
                     array('attempt' => $this->attempt->id));
-            if ($page == 0 && $showall != $defaultshowall) {
+            if ($page == 0) {
                 $url->param('showall', (int) $showall);
             } else if ($page > 0) {
                 $url->param('page', $page);

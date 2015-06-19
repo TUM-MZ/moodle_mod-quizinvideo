@@ -47,6 +47,9 @@ $scrollpos     = optional_param('scrollpos',     '',     PARAM_RAW);
 $transaction = $DB->start_delegated_transaction();
 $attemptobj = quizinvideo_attempt::create($attemptid);
 
+
+$review_url = new moodle_url('/mod/quizinvideo/review.php',
+    array('attempt' => $attemptid, 'processingattempt' => true, 'page' => $thispage));
 // Set $nexturl now.
 //if ($next) {
 //    $page = $nextpage;
@@ -54,7 +57,7 @@ $attemptobj = quizinvideo_attempt::create($attemptid);
 //    $page = $thispage;
 //}
 //if ($page == -1) {
-    $nexturl = $attemptobj->review_url(null, $thispage);
+    $nexturl = $review_url;
 //} else {
 //    $nexturl = $attemptobj->attempt_url(null, $page);
 //    if ($scrollpos !== '') {
@@ -182,4 +185,4 @@ try {
 
 // Send the user to the review page.
 $transaction->allow_commit();
-redirect($attemptobj->review_url(null, $thispage));
+redirect($review_url);

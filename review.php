@@ -33,6 +33,7 @@ require_once($CFG->dirroot . '/mod/quizinvideo/report/reportlib.php');
 $attemptid = required_param('attempt', PARAM_INT);
 $page      = optional_param('page', 0, PARAM_INT);
 $showall   = optional_param('showall', false, PARAM_BOOL);
+$processing_attempt = optional_param('processingattempt', false, PARAM_BOOL);
 
 $url = new moodle_url('/mod/quizinvideo/review.php', array('attempt'=>$attemptid));
 if ($page !== 0) {
@@ -254,17 +255,24 @@ $output = $PAGE->get_renderer('mod_quizinvideo');
 //$navbc = $attemptobj->get_navigation_panel($output, 'quizinvideo_review_nav_panel', $page, $showall);
 //$regions = $PAGE->blocks->get_regions();
 //$PAGE->blocks->add_fake_block($navbc, reset($regions));
-if ($attemptobj->has_capability('mod/quizinvideo:viewreports'))
-    echo $output->review_page_full($attemptobj, $slots, $page, true, $lastpage, $options, $summarydata);
-else
-    echo $output->review_page($attemptobj, $slots, $page, false, $lastpage, $options, $summarydata);
+//if (!$processing_attempt)
+//
+//else
 
-if(($page + 1) < $attemptobj->get_num_pages()){
-    $attemptobj->set_state();
+
+if($processing_attempt){
+    echo $output->review_page($attemptobj, $slots, $page, false, $lastpage, $options, $summarydata);
+    if(($page + 1) < $attemptobj->get_num_pages()){
+        $attemptobj->set_state();
+    }
+    else if(($page + 1) == $attemptobj->get_num_pages()){
+        $attemptobj->set_state(quizinvideo_attempt::FINISHED, time());
+    }
 }
-else if(($page + 1) == $attemptobj->get_num_pages()){
-    $attemptobj->set_state(quizinvideo_attempt::FINISHED, time());
-}
+else
+    echo $output->review_page_full($attemptobj, $slots, $page, true, $lastpage, $options, $summarydata);
+
+
 // Trigger an event for this review.
 $params = array(
     'objectid' => $attemptobj->get_attemptid(),

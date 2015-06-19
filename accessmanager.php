@@ -528,7 +528,7 @@ class quizinvideo_access_manager {
             return $output->no_review_message($this->quizinvideoobj->cannot_review_message($when, true));
 
         } else {
-            return $output->review_link($this->quizinvideoobj->review_url($attempt->id),
+            return $output->review_link($this->quizinvideoobj->review_url($attempt->id, true),
                     $this->attempt_must_be_in_popup(), $this->get_popup_options());
         }
     }
