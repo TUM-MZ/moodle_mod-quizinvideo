@@ -56,23 +56,9 @@ if ($attemptobj->get_userid() != $USER->id) {
     }
 }
 
-// Check capabilities and block settings.
-if (!$attemptobj->is_preview_user()) {
-    $attemptobj->require_capability('mod/quizinvideo:attempt');
-    if (empty($attemptobj->get_quizinvideo()->showblocks)) {
-        $PAGE->blocks->show_only_fake_blocks();
-    }
+// render course navigation block.
+navigation_node::override_active_url($attemptobj->start_attempt_url());
 
-} else {
-    navigation_node::override_active_url($attemptobj->start_attempt_url());
-}
-
-// If the attempt is already closed, send them to the review page.
-//if ($attemptobj->is_finished()) {
-//    redirect($attemptobj->review_url(null, -1, true));
-//} else if ($attemptobj->get_state() == quizinvideo_attempt::OVERDUE) {
-//    redirect($attemptobj->summary_url());
-//}
 
 // Check the access rules.
 $accessmanager = $attemptobj->get_access_manager(time());
@@ -87,12 +73,6 @@ if ($accessmanager->is_preflight_check_required($attemptobj->get_attemptid())) {
     redirect($attemptobj->start_attempt_url(null));
 }
 
-//// Set up auto-save if required.
-//$autosaveperiod = get_config('quizinvideo', 'autosaveperiod');
-//if ($autosaveperiod) {
-//    $PAGE->requires->yui_module('moodle-mod_quizinvideo-autosave',
-//            'M.mod_quizinvideo.autosave.init', array($autosaveperiod));
-//}
 
 // Log this page view.
 $params = array(
@@ -116,15 +96,6 @@ if (empty($slots)) {
     throw new moodle_quizinvideo_exception($attemptobj->get_quizinvideoobj(), 'noquestionsfound');
 }
 
-// Update time instead of attempt page.
-//if ($attemptobj->get_currentpage() != $page) {
-//    if ($attemptobj->get_navigation_method() == quizinvideo_NAVMETHOD_SEQ && $attemptobj->get_currentpage() > $page) {
-//        // Prevent out of sequence access.
-//        redirect($attemptobj->start_attempt_url(null, $attemptobj->get_currentpage()));
-//    }
-//    $DB->set_field('quizinvideo_attempts', 'currentpage', $page, array('id' => $attemptid));
-//}
-
 // Initialise the JavaScript.
 $headtags = $attemptobj->get_html_head_contributions();
 $PAGE->requires->js_init_call('M.mod_quizinvideo.init_video', null, false, quizinvideo_get_js_module());
@@ -142,10 +113,5 @@ $headtags = $attemptobj->get_html_head_contributions();
 $PAGE->set_title($attemptobj->get_quizinvideo_name());
 $PAGE->set_heading($attemptobj->get_course()->fullname);
 
-//if ($attemptobj->is_last_page($page)) {
-//    $nextpage = -1;
-//} else {
-//    $nextpage = $page + 1;
-//}
 
 echo $output->attempt_page($attemptobj, $accessmanager, $messages, $id);
