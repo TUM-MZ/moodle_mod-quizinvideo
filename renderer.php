@@ -436,7 +436,8 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
         $output .= $this->quizinvideo_notices($messages);
         $output .= $this->show_video($attemptobj);
         $output .= $this->print_hidden_DOMs($attemptobj);
-//        $output .= $this->attempt_form($attemptobj, $id);
+        $output .= $this->print_review_button($attemptobj);
+
         $output .= $this->footer();
         return $output;
     }
@@ -1221,6 +1222,11 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
         $output .= html_writer::end_tag('video');
         $output .= html_writer::end_tag('div');
         return $output;
+    }
+
+    private function print_review_button($attemptobj)
+    {
+        return $this->render(new single_button($attemptobj->review_url(null, -1, true), get_string('review', 'quizinvideo')));
     }
 
     private function print_hidden_DOMs($attemptobj){

@@ -987,7 +987,6 @@ table#categoryquestions {
     background-color: rgba(50,50,50, 0.7);
     width: 100%;
     display: none;
-    padding-bottom: 1000px;
     margin-bottom: -1000px;
 }
 
@@ -996,4 +995,9 @@ table#categoryquestions {
 }
 #page-mod-quizinvideo-attempt form#responseform div.page{
     padding: 1em;
+}
+
+#page-mod-quizinvideo-attempt div#region-main div[role=main] div.singlebutton{
+    margin-top: 2em;
+    text-align: center;
 }

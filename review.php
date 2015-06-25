@@ -96,7 +96,11 @@ if ($attemptobj->is_preview_user() && $attemptobj->is_own_attempt()) {
     $strreviewtitle = get_string('reviewofpreview', 'quizinvideo');
     navigation_node::override_active_url($attemptobj->start_attempt_url());
 
-} else {
+}
+else if(!$attemptobj->is_preview_user() && $attemptobj->is_own_attempt() && $showall){
+    navigation_node::override_active_url($attemptobj->start_attempt_url());
+}
+else {
     $strreviewtitle = get_string('reviewofattempt', 'quizinvideo', $attemptobj->get_attempt_number());
     if (empty($attemptobj->get_quizinvideo()->showblocks) && !$attemptobj->is_preview_user()) {
         $PAGE->blocks->show_only_fake_blocks();
