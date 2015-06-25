@@ -130,9 +130,12 @@ $headtags = $attemptobj->get_html_head_contributions();
 $PAGE->requires->js_init_call('M.mod_quizinvideo.init_video', null, false, quizinvideo_get_js_module());
 
 // Arrange for the navigation to be displayed in the first region on the page.
-$navbc = $attemptobj->get_navigation_panel($output, 'quizinvideo_attempt_nav_panel', $page);
-$regions = $PAGE->blocks->get_regions();
-$PAGE->blocks->add_fake_block($navbc, reset($regions));
+if($attemptobj->is_preview_user()){
+    $navbc = $attemptobj->get_navigation_panel($output, 'quizinvideo_attempt_nav_panel', $page);
+    $regions = $PAGE->blocks->get_regions();
+    $PAGE->blocks->add_fake_block($navbc, reset($regions));
+}
+
 
 $title = get_string('attempt', 'quizinvideo', $attemptobj->get_attempt_number());
 $headtags = $attemptobj->get_html_head_contributions();

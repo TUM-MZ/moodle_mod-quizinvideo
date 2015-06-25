@@ -84,18 +84,17 @@ $attempts = quizinvideo_get_user_attempts($quizinvideoobj->get_quizinvideoid(), 
 $lastattempt = end($attempts);
 
 // If an in-progress attempt exists, check password then redirect to it.
-if ($lastattempt && ($lastattempt->state == quizinvideo_attempt::IN_PROGRESS ||
-        $lastattempt->state == quizinvideo_attempt::OVERDUE)) {
+if ($lastattempt && !$forcenew) {
     $currentattemptid = $lastattempt->id;
     $messages = $accessmanager->prevent_access();
 
     // If the attempt is now overdue, deal with that.
     $quizinvideoobj->create_attempt_object($lastattempt)->handle_if_time_expired($timenow, true);
 
-    // And, if the attempt is now no longer in progress, redirect to the appropriate place.
-    if ($lastattempt->state == quizinvideo_attempt::ABANDONED || $lastattempt->state == quizinvideo_attempt::FINISHED) {
-        redirect($quizinvideoobj->review_url($lastattempt->id));
-    }
+//    // And, if the attempt is now no longer in progress, redirect to the appropriate place.
+//    if ($lastattempt->state == quizinvideo_attempt::ABANDONED || $lastattempt->state == quizinvideo_attempt::FINISHED) {
+//        redirect($quizinvideoobj->review_url($lastattempt->id));
+//    }
 
     // If the page number was not explicitly in the URL, go to the current page.
     if ($page == -1) {

@@ -204,15 +204,7 @@ if (!$viewobj->quizinvideohasquestions) {
 
     } else {
         if ($canattempt) {
-            $viewobj->preventmessages = $viewobj->accessmanager->prevent_new_attempt(
-                    $viewobj->numattempts, $viewobj->lastfinishedattempt);
-            if ($viewobj->preventmessages) {
-                $viewobj->buttontext = '';
-            } else if ($viewobj->numattempts == 0) {
-                $viewobj->buttontext = get_string('attemptquizinvideonow', 'quizinvideo');
-            } else {
-                $viewobj->buttontext = get_string('reattemptquizinvideo', 'quizinvideo');
-            }
+            $viewobj->buttontext = get_string('attemptquizinvideonow', 'quizinvideo');
 
         } else if ($canpreview) {
             $viewobj->buttontext = get_string('previewquizinvideonow', 'quizinvideo');
@@ -234,7 +226,7 @@ if (!$viewobj->quizinvideohasquestions) {
 $viewobj->showbacktocourse = ($viewobj->buttontext === '' &&
         course_get_format($course)->has_view_page());
 
-echo $OUTPUT->header();
+//echo $OUTPUT->header();
 
 if (isguestuser()) {
     // Guests can't do a quizinvideo, so offer them a choice of logging in or going back.
@@ -244,7 +236,8 @@ if (isguestuser()) {
     // If they are not enrolled in this course in a good enough role, tell them to enrol.
     echo $output->view_page_notenrolled($course, $quizinvideo, $cm, $context, $viewobj->infomessages);
 } else {
-    echo $output->view_page($course, $quizinvideo, $cm, $context, $viewobj);
+//    echo $output->view_page($course, $quizinvideo, $cm, $context, $viewobj);
+    redirect($CFG->wwwroot . '/mod/quizinvideo/startattempt.php?cmid=' . $id . '&sesskey=' . sesskey());
 }
 
 echo $OUTPUT->footer();

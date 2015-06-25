@@ -100,8 +100,8 @@ if (!$attemptobj->is_preview_user()) {
 
 // If the attempt is already closed, send them to the review page.
 if ($attemptobj->is_finished()) {
-    throw new moodle_quizinvideo_exception($attemptobj->get_quizinvideoobj(),
-            'attemptalreadyclosed', null, $attemptobj->review_url());
+    redirect($review_url);
+
 }
 
 // If time is running out, trigger the appropriate action.
