@@ -23,7 +23,7 @@
  */
 
 M.mod_quizinvideo = M.mod_quizinvideo || {};
-
+M.mod_quizinvideo.page_index = 1;
 M.mod_quizinvideo.init_attempt_form = function(Y) {
     M.core_question_engine.init_form(Y, '#responseform');
     var form = Y.one("#responseform");
@@ -73,8 +73,13 @@ M.mod_quizinvideo.init_attempt_form = function(Y) {
                         formwithanswer.setStyle("height", yui_video.getComputedStyle("height"));
                         formwithanswer.setStyle("display", "block");
                         Y.one('#btn_continuevideo').on("click", function (e) {
+                            M.mod_quizinvideo.page_index++;
                             Y.one("#formwithanswer").remove();
-                            Y.one('#video_content_html5_api').getDOMNode().play();
+
+                            var vid = Y.one('#video_content_html5_api').getDOMNode();
+                            if(vid.currentTime < vid.duration){
+                                vid.play();
+                            }
                         });
                     },
                     failure: function () {
@@ -378,16 +383,12 @@ M.mod_quizinvideo.init_video = function(Y){
     var yui_video = Y.one('#video_content_html5_api');
     var video= yui_video.getDOMNode();
     var timestamps = Y.all('.timestamp').get("value");
-    var t_len = timestamps.length;
-    var i = 0;
     yui_video.on('timeupdate', function () {
         var currentTime = video.currentTime;
 
-        while(i < t_len && currentTime > timestamps[i] &&
-                (((i+1) == t_len && currentTime < video.duration) || ((i+1) < t_len && currentTime < timestamps[i+1]))
-            ){
-            i++;
+        if(currentTime > timestamps[0]){
             video.pause();
+            timestamps.shift();
             Y.use("io-base", 'node', 'array-extras', 'querystring-stringify', function(Y) {
                 var cfg, request;
                 var uri = "attemptformrenderer.php"
@@ -400,7 +401,7 @@ M.mod_quizinvideo.init_video = function(Y){
                     data: {
                         'sesskey': sesskey,
                         'attempt': attemptid,
-                        'page': i
+                        'page': M.mod_quizinvideo.page_index
                     },
                     on:{
                         success:function(a, b){
@@ -418,18 +419,9 @@ M.mod_quizinvideo.init_video = function(Y){
     });
 
     video.addEventListener('seeking', function(){
-        i= 0;
         var currentTime= video.currentTime;
-        var loopLimit = timestamps.length;
-        while(i < loopLimit){
-            if (currentTime > timestamps[i]){
-                i++;
-                video.pause();
-                continue;
-            }
-            else{
-                break;
-            }
+        if(currentTime > timestamps[0]){
+            video.currentTime = timestamps[0];
         }
     })
 };
