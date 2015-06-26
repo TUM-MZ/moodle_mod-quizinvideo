@@ -649,7 +649,7 @@ table.quizinvideoreviewsummary td.cell {
 #page-mod-quizinvideo-edit ul.slots li.section li.activity .instancetimeofvideocontainer form input {
     margin: 0;
     padding: 0.2em;
-    height: 1em;
+    height: 100%;
 }
 
 #page-mod-quizinvideo-edit ul.slots li.section li.activity .instancetimeofvideocontainer {
