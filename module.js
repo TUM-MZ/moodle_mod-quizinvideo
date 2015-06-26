@@ -380,15 +380,16 @@ M.mod_quizinvideo.secure_window = {
 
 M.mod_quizinvideo.init_video = function(Y){
     Y.Node.DOM_EVENTS.timeupdate = 1;
+    var i = 0;
     var yui_video = Y.one('#video_content_html5_api');
     var video= yui_video.getDOMNode();
     var timestamps = Y.all('.timestamp').get("value");
     yui_video.on('timeupdate', function () {
         var currentTime = video.currentTime;
 
-        if(currentTime > timestamps[0]){
+        if(currentTime > timestamps[i]){
             video.pause();
-            timestamps.shift();
+            i++;
             Y.use("io-base", 'node', 'array-extras', 'querystring-stringify', function(Y) {
                 var cfg, request;
                 var uri = "attemptformrenderer.php"
@@ -420,8 +421,16 @@ M.mod_quizinvideo.init_video = function(Y){
 
     video.addEventListener('seeking', function(){
         var currentTime= video.currentTime;
-        if(currentTime > timestamps[0]){
-            video.currentTime = timestamps[0];
+        if(currentTime > timestamps[i]){
+            video.currentTime = timestamps[i];
+        }
+        else{
+            for(var j = 0; j < i; j++){
+                if(currentTime < timestamps[j]){
+                    i = j;
+                    M.mod_quizinvideo.page_index = i+1;
+                }
+            }
         }
     })
 };
