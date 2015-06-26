@@ -27,12 +27,9 @@ M.mod_quizinvideo = M.mod_quizinvideo || {};
 M.mod_quizinvideo.init_attempt_form = function(Y) {
     M.core_question_engine.init_form(Y, '#responseform');
     var form = Y.one("#responseform");
-    var yui_video = Y.one('#video_content');
+    var yui_video = Y.one('#video_content_html5_api');
     form.setStyle("height", yui_video.getComputedStyle("height"));
     form.setStyle("display", "block");
-    //Y.on('submit', M.mod_quizinvideo.timer.stop, '#responseform');
-    //M.core_formchangechecker.init({formid: 'responseform'});
-    //M.mod_quizinvideo.init_video(Y);
 
     Y.one('#btn_checkForm').on("click", function (e) {
         //write form check code here
@@ -72,12 +69,12 @@ M.mod_quizinvideo.init_attempt_form = function(Y) {
                         videodiv.insert("<div id='formwithanswer'> </div>", 'after');
                         Y.one('div#formwithanswer').setHTML(b.response);
                         var formwithanswer = Y.one("#formwithanswer");
-                        var yui_video = Y.one('#video_content');
+                        var yui_video = Y.one('#video_content_html5_api');
                         formwithanswer.setStyle("height", yui_video.getComputedStyle("height"));
                         formwithanswer.setStyle("display", "block");
                         Y.one('#btn_continuevideo').on("click", function (e) {
                             Y.one("#formwithanswer").remove();
-                            Y.one('#video_content').getDOMNode().play();
+                            Y.one('#video_content_html5_api').getDOMNode().play();
                         });
                     },
                     failure: function () {
@@ -378,7 +375,7 @@ M.mod_quizinvideo.secure_window = {
 
 M.mod_quizinvideo.init_video = function(Y){
     Y.Node.DOM_EVENTS.timeupdate = 1;
-    var yui_video = Y.one('#video_content');
+    var yui_video = Y.one('#video_content_html5_api');
     var video= yui_video.getDOMNode();
     var timestamps = Y.all('.timestamp').get("value");
     var t_len = timestamps.length;
@@ -417,12 +414,7 @@ M.mod_quizinvideo.init_video = function(Y){
                 };
                 request = Y.io(uri, cfg);
             });
-
-
         }
-
-
-
     });
 
     video.addEventListener('seeking', function(){
@@ -439,8 +431,6 @@ M.mod_quizinvideo.init_video = function(Y){
                 break;
             }
         }
-        //console.log(i);
     })
-
 };
 

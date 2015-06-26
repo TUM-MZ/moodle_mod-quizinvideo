@@ -1215,10 +1215,11 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
      */
     private function show_video($attemptobj)
     {
+        $this->page->requires->js('/mod/quizinvideo/videojs/videojs.js');
         $url = $attemptobj->get_quizinvideoobj()->get_quizinvideo_videourl();
         $output = '';
         $output .= html_writer::start_tag('div', array('id'=>'video_div'));
-        $output .= html_writer::start_tag('video', array('src'=> $url, 'id'=>'video_content', 'preload'=>'auto', 'controls'=>'', 'autoplay' => 'autoplay'));
+        $output .= html_writer::start_tag('video', array('src'=> $url, 'class' => 'video-js vjs-default-skin', 'data-setup' => '{ "playbackRates": [0.5, 1, 1.5, 2] }', 'id'=>'video_content', 'preload'=>'auto', 'controls'=>'', 'autoplay' => 'autoplay'));
         $output .= html_writer::end_tag('video');
         $output .= html_writer::end_tag('div');
         return $output;
