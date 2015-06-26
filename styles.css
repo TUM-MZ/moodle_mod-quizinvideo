@@ -973,7 +973,6 @@ table#categoryquestions {
 #page-mod-quizinvideo-edit div#video_div #video_content{
     display: block;
     width: 100%;
-    height: 60vh;
 }
 
 #page-mod-quizinvideo-attempt div[role=main]{
