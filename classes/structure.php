@@ -538,7 +538,7 @@ class structure {
                        AND page > ?
                     ", array($this->get_quizinvideoid(), $page));
         }
-
+        $this->refresh_page_numbers_and_update_db($this->get_quizinvideo());
         $trans->allow_commit();
     }
 
