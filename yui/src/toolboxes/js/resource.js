@@ -374,10 +374,10 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
      */
     copy_timefromvideo : function(ev, button, activity) {
         ev.preventDefault();
-        var video = document.getElementById(CSS.VIDEO);
+        var video = _V_(CSS.VIDEO);
         var page = Y.Moodle.mod_quizinvideo.util.page.getId(activity);
         var spinner = this.add_spinner(activity);
-        var newtimeofvideo = video.currentTime;
+        var newtimeofvideo = video.currentTime();
 
         if (newtimeofvideo !== null && newtimeofvideo !== "") {
             var data = {
@@ -498,8 +498,8 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
         ev.preventDefault();
         var newtimeofvideo= Y.Lang.trim(activity.one(SELECTOR.ACTIVITYFORMTIME + ' ' + SELECTOR.ACTIVITYTIMEOFVIDEO).get('value'));
         var page = Y.Moodle.mod_quizinvideo.util.page.getId(activity);
-        var video = document.getElementById(CSS.VIDEO);
-        var maxtime = video.duration;
+        var video = _V_(CSS.VIDEO);
+        var maxtime = video.duration();
         var spinner = this.add_spinner(activity);
         this.edit_timeofvideo_clear(activity);
         activity.one(SELECTOR.INSTANCETIMEOFVIDEO).setContent(newtimeofvideo);

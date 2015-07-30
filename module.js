@@ -27,7 +27,7 @@ M.mod_quizinvideo.page_index = 1;
 M.mod_quizinvideo.init_attempt_form = function(Y) {
     M.core_question_engine.init_form(Y, '#responseform');
     var form = Y.one("#responseform");
-    var yui_video = Y.one('#video_content_html5_api');
+    var yui_video = Y.one('#video_content').one('*');
     form.setStyle("height", yui_video.getComputedStyle("height"));
     form.setStyle("display", "block");
 
@@ -56,9 +56,8 @@ M.mod_quizinvideo.init_attempt_form = function(Y) {
             query.thispage = page - 1;
             query.timeup = 0;
             query.slots = slots;
-            quoted_query = Y.QueryString.stringify(query);
+            var quoted_query = Y.QueryString.stringify(query);
             uri = "processattempt.php" //The PHP page in which you pass the data to
-            console.log(query);
             cfg = {
                 method: 'POST',  //you want a POST transaction
                 data: quoted_query,  //your data
@@ -69,16 +68,17 @@ M.mod_quizinvideo.init_attempt_form = function(Y) {
                         videodiv.insert("<div id='formwithanswer'> </div>", 'after');
                         Y.one('div#formwithanswer').setHTML(b.response);
                         var formwithanswer = Y.one("#formwithanswer");
-                        var yui_video = Y.one('#video_content_html5_api');
+                        var yui_video = Y.one('#video_content').one("*");
                         formwithanswer.setStyle("height", yui_video.getComputedStyle("height"));
                         formwithanswer.setStyle("display", "block");
                         Y.one('#btn_continuevideo').on("click", function (e) {
                             M.mod_quizinvideo.page_index++;
                             Y.one("#formwithanswer").remove();
 
-                            var vid = Y.one('#video_content_html5_api').getDOMNode();
-                            if(vid.currentTime < vid.duration){
+                            var vid = _V_('#video_content');
+                            if(vid.currentTime() < vid.duration()){
                                 vid.play();
+                                M.mod_quizinvideo.paused = false;
                             }
                         });
                     },
@@ -381,13 +381,13 @@ M.mod_quizinvideo.secure_window = {
 M.mod_quizinvideo.init_video = function(Y){
     Y.Node.DOM_EVENTS.timeupdate = 1;
     var i = 0;
-    var yui_video = Y.one('#video_content_html5_api');
-    var video= yui_video.getDOMNode();
+    var video = _V_("video_content");
+    M.mod_quizinvideo.paused = false;
     var timestamps = Y.all('.timestamp').get("value");
-    yui_video.on('timeupdate', function () {
-        var currentTime = video.currentTime;
-
-        if(currentTime > timestamps[i]){
+    video.on('timeupdate', function () {
+        var currentTime = video.currentTime();
+        if(currentTime > timestamps[i] && !M.mod_quizinvideo.paused ){
+            M.mod_quizinvideo.paused = true;
             video.pause();
             i++;
             Y.use("io-base", 'node', 'array-extras', 'querystring-stringify', function(Y) {
@@ -419,10 +419,10 @@ M.mod_quizinvideo.init_video = function(Y){
         }
     });
 
-    video.addEventListener('seeking', function(){
-        var currentTime= video.currentTime;
+    video.on('seeking', function(){
+        var currentTime= video.currentTime();
         if(currentTime > timestamps[i]){
-            video.currentTime = timestamps[i];
+            video.currentTime(timestamps[i]);
         }
         else{
             for(var j = 0; j < i; j++){
