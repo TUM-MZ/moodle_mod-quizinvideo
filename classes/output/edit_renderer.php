@@ -1090,7 +1090,7 @@ class edit_renderer extends \plugin_renderer_base {
         $this->page->requires->js('/mod/quizinvideo/videojs/video.js');
         $output = '';
         $output .= html_writer::start_tag('div', array('id'=>'video_div'));
-        $output .= html_writer::start_tag('video', array( 'id'=>'video_content','data-setup' => '{}', 'preload'=>'auto', 'controls'=>'', 'class' => 'video-js  vjs-default-skin'));
+        $output .= html_writer::start_tag('video', array( 'id'=>'video_content','data-setup' => '{}', 'preload'=>'auto', 'controls'=>'', 'autoplay' => 'autoplay', 'class' => 'video-js  vjs-default-skin'));
         if(substr( $url, 0, 4 ) === "rtmp")
             $output .= html_writer::start_tag('source', array('src' => $url,'type' => 'rtmp/mp4'));
         else
