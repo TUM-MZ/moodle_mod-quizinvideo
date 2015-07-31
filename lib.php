@@ -999,6 +999,11 @@ function quizinvideo_process_options($quizinvideo) {
         $quizinvideo->name = trim($quizinvideo->name);
     }
 
+    if(!empty($quizinvideo->video)){
+        $quizinvideo->video = trim($quizinvideo->video);
+        $quizinvideo->video = sanitize_url_for_lrz($quizinvideo->video);
+    }
+
     // Password field - different in form to stop browsers that remember passwords
     // getting confused.
     $quizinvideo->password = $quizinvideo->quizinvideopassword;
@@ -1850,4 +1855,19 @@ function quizinvideo_get_completion_state($course, $cm, $userid, $type) {
         }
     }
     return false;
+}
+
+/**
+ * Changes URL for lrz domains
+ *
+ * @param String URL
+ * @return string Updated URL
+ */
+function sanitize_url_for_lrz($url){
+    $lrzString = "rtmp://flash5.lrz.de/tum/";
+    if(strpos($url, $lrzString) === 0){
+        $remainingUrl = str_replace($lrzString,"",$url);
+        $appString ="&" . substr(strrchr($remainingUrl,'.'),1) . ":";
+        return $lrzString . $appString . $remainingUrl;
+    }
 }
