@@ -724,7 +724,7 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
         var spinner = this.add_spinner(activity);
         this.edit_timeofvideo_clear(activity);
         activity.one(SELECTOR.INSTANCETIMEOFVIDEO).setContent(newtimeofvideo);
-        if (newtimeofvideo !== null && newtimeofvideo !== "" && newtimeofvideo !== originaltimeofvideo && newtimeofvideo <= maxtime) {
+        if (newtimeofvideo !== null && newtimeofvideo !== "" && newtimeofvideo !== originaltimeofvideo && newtimeofvideo <= maxtime && newtimeofvideo >= 0) {
             var data = {
                 'class'   : 'resource',
                 'field'   : 'updatetimeofvideo',
@@ -733,7 +733,7 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
                 'id'      : Y.Moodle.mod_quizinvideo.util.page.getId(activity)
             };
             this.send_request(data, spinner, function(response) {
-                if (response.instance_timeofvideo) {
+                if (response.instance_timeofvideo >= 0) {
                     activity.one(SELECTOR.INSTANCETIMEOFVIDEO).setContent(response.instance_timeofvideo.toFixed(2));
                 }
                 else{
