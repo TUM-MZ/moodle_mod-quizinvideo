@@ -1088,13 +1088,21 @@ class edit_renderer extends \plugin_renderer_base {
     private function show_video($url)
     {
         $this->page->requires->js('/mod/quizinvideo/videojs/video.js');
+        $this->page->requires->js('/mod/quizinvideo/videojs/youtube.js');
         $output = '';
+        if (preg_match('/^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$/', $url)) {
+            $youtube = true;
+        } else {
+            $youtube = false;
+        }
         $output .= html_writer::start_tag('div', array('id'=>'video_div'));
-        $output .= html_writer::start_tag('video', array( 'id'=>'video_content','data-setup' => '{}', 'preload'=>'auto', 'controls'=>'', 'autoplay' => 'autoplay', 'class' => 'video-js  vjs-default-skin'));
-        if(substr( $url, 0, 4 ) === "rtmp")
-            $output .= html_writer::start_tag('source', array('src' => $url,'type' => 'rtmp/mp4'));
-        else
-            $output .= html_writer::start_tag('source', array('src' => $url));
+        $output .= html_writer::start_tag('video', array( 'id'=>'video_content','data-setup' => $youtube ? '{"techOrder": ["youtube"], "src": "'.$url.'"}' : '{}', 'preload'=>'auto', 'controls'=>'', 'autoplay' => 'autoplay', 'class' => 'video-js  vjs-default-skin'));
+        if (!$youtube) {
+            if (substr($url, 0, 4) === "rtmp")
+                $output .= html_writer::start_tag('source', array('src' => $url, 'type' => 'rtmp/mp4'));
+            else
+                $output .= html_writer::start_tag('source', array('src' => $url));
+        }
         $output .= html_writer::end_tag('source');
         $output .= html_writer::end_tag('video');
         $output .= html_writer::end_tag('div');
