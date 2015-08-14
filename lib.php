@@ -1870,4 +1870,5 @@ function sanitize_url_for_lrz($url){
         $appString ="&" . substr(strrchr($remainingUrl,'.'),1) . ":";
         return $lrzString . $appString . $remainingUrl;
     }
+    return $url;
 }
