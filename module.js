@@ -386,7 +386,7 @@ M.mod_quizinvideo.init_video = function(Y){
     M.mod_quizinvideo.paused = false;
     var timestamps = Y.all('.timestamp').get("value");
     for (var ts in timestamps){
-        video.markers.add([{ time: ts}]);
+        video.markers.add([{ time: timestamps[ts]}]);
     }
     video.on('timeupdate', function () {
         var currentTime = video.currentTime();
