@@ -381,9 +381,13 @@ M.mod_quizinvideo.secure_window = {
 M.mod_quizinvideo.init_video = function(Y){
     Y.Node.DOM_EVENTS.timeupdate = 1;
     var i = 0;
-    var video = _V_("video_content");
+    var video = videojs("video_content");
+    video.markers({markers:[]});
     M.mod_quizinvideo.paused = false;
     var timestamps = Y.all('.timestamp').get("value");
+    for (var ts in timestamps){
+        video.markers.add([{ time: ts}]);
+    }
     video.on('timeupdate', function () {
         var currentTime = video.currentTime();
         if(currentTime > timestamps[i] && !M.mod_quizinvideo.paused ){
