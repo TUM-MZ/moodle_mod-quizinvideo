@@ -1865,10 +1865,16 @@ function quizinvideo_get_completion_state($course, $cm, $userid, $type) {
  */
 function sanitize_url_for_lrz($url){
     $lrzString = "rtmp://flash5.lrz.de/tum/";
+    $lrzString2 = "rtmp://flash5.lrz-muenchen.de:1935/tum/";
     if(strpos($url, $lrzString) === 0){
         $remainingUrl = str_replace($lrzString,"",$url);
         $appString ="&" . substr(strrchr($remainingUrl,'.'),1) . ":";
         return $lrzString . $appString . $remainingUrl;
+    }
+    else if(strpos($url, $lrzString2) === 0){
+        $remainingUrl = str_replace($lrzString2,"",$url);
+        $appString ="&" . substr(strrchr($remainingUrl,'.'),1) . ":";
+        return $lrzString2 . $appString . $remainingUrl;
     }
     return $url;
 }
