@@ -30,6 +30,7 @@ M.mod_quizinvideo.init_attempt_form = function(Y) {
     var yui_video = Y.one('#video_content').one('*');
     form.setStyle("height", yui_video.getComputedStyle("height"));
     form.setStyle("display", "block");
+    Y.fire(M.core.event.FILTER_CONTENT_UPDATED, {nodes: (Y.all('.formulation'))});
 
     Y.one('#btn_checkForm').on("click", function (e) {
         //write form check code here
@@ -71,6 +72,7 @@ M.mod_quizinvideo.init_attempt_form = function(Y) {
                         var yui_video = Y.one('#video_content').one("*");
                         formwithanswer.setStyle("height", yui_video.getComputedStyle("height"));
                         formwithanswer.setStyle("display", "block");
+                        Y.fire(M.core.event.FILTER_CONTENT_UPDATED, {nodes: (Y.all('.formulation'))});
                         Y.one('#btn_continuevideo').on("click", function (e) {
                             M.mod_quizinvideo.page_index++;
                             Y.one("#formwithanswer").remove();
