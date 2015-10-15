@@ -56,6 +56,17 @@ if ($attemptobj->get_userid() != $USER->id) {
     }
 }
 
+echo "<style>";
+echo '@font-face {';
+echo '    font-family: VideoJS;';
+echo '    src: url(/mod/quizinvideo/videojs/vjs.eot);';
+echo '    src: url(/mod/quizinvideo/videojs/vjs.eot?#iefix) format("embedded-opentype"), url(/mod/quizinvideo/videojs/vjs.woff) format("woff"), url(/mod/quizinvideo/videojs/vjs.ttf) format("truetype"), url(/mod/quizinvideo/videojs/vjs.svg#icomoon) format("svg");';
+echo '    font-weight: 400;';
+echo '    font-style: normal';
+echo '}';
+echo '</style>';
+
+
 // render course navigation block.
 navigation_node::override_active_url($attemptobj->start_attempt_url());
 
