@@ -77,7 +77,7 @@ M.mod_quizinvideo.init_attempt_form = function(Y) {
                             M.mod_quizinvideo.page_index++;
                             Y.one("#formwithanswer").remove();
 
-                            var vid = _V_('#video_content');
+                            var vid = videojs('#video_content');
                             if(vid.currentTime() < vid.duration()){
                                 vid.play();
                                 M.mod_quizinvideo.paused = false;
@@ -384,14 +384,14 @@ M.mod_quizinvideo.init_video = function(Y){
     Y.Node.DOM_EVENTS.timeupdate = 1;
     var i = 0;
     var marker_loaded = false;
+    window.videojs = videojs;
     var video = videojs("video_content");
-
+    video.markers({markers:[]});
     M.mod_quizinvideo.paused = false;
     var timestamps = Y.all('.timestamp').get("value");
 
     video.on('timeupdate', function () {
         if(marker_loaded == false){
-            video.markers({markers:[]});
             for (var ts in timestamps){
                 video.markers.add([{ time: timestamps[ts]}]);
             }
@@ -444,6 +444,7 @@ M.mod_quizinvideo.init_video = function(Y){
                 }
             }
         }
-    })
+    });
+
 };
 
