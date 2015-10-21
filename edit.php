@@ -61,6 +61,16 @@ $quizinvideohasattempts = quizinvideo_has_attempts($quizinvideo->id);
 
 $PAGE->set_url($thispageurl);
 
+echo "<style>";
+echo '@font-face {';
+echo '    font-family: VideoJS;';
+echo '    src: url(/mod/quizinvideo/videojs/vjs.eot);';
+echo '    src: url(/mod/quizinvideo/videojs/vjs.eot?#iefix) format("embedded-opentype"), url(/mod/quizinvideo/videojs/vjs.woff) format("woff"), url(/mod/quizinvideo/videojs/vjs.ttf) format("truetype"), url(/mod/quizinvideo/videojs/vjs.svg#icomoon) format("svg");';
+echo '    font-weight: 400;';
+echo '    font-style: normal';
+echo '}';
+echo '</style>';
+
 // Get the course object and related bits.
 $course = $DB->get_record('course', array('id' => $quizinvideo->course), '*', MUST_EXIST);
 $quizinvideoobj = new quizinvideo($quizinvideo, $cm, $course);
