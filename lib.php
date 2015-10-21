@@ -1869,7 +1869,7 @@ function sanitize_url_for_lrz($url){
     					 "rtmp://flash5.lrz-muenchen.de:1935/tum/",
     					 "rtmp://flash5.lrz.de/vod/");
 
-    foreach ($lrzString as $lrzString) {
+    foreach ($lrzStrings as $lrzString) {
 	    if(strpos($url, $lrzString) === 0){
 	        $remainingUrl = str_replace($lrzString,"",$url);
 	        $appString ="&" . substr(strrchr($remainingUrl,'.'),1) . ":";
