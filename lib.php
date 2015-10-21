@@ -1864,17 +1864,17 @@ function quizinvideo_get_completion_state($course, $cm, $userid, $type) {
  * @return string Updated URL
  */
 function sanitize_url_for_lrz($url){
-    $lrzString = "rtmp://flash5.lrz.de/tum/";
-    $lrzString2 = "rtmp://flash5.lrz-muenchen.de:1935/tum/";
-    if(strpos($url, $lrzString) === 0){
-        $remainingUrl = str_replace($lrzString,"",$url);
-        $appString ="&" . substr(strrchr($remainingUrl,'.'),1) . ":";
-        return $lrzString . $appString . $remainingUrl;
-    }
-    else if(strpos($url, $lrzString2) === 0){
-        $remainingUrl = str_replace($lrzString2,"",$url);
-        $appString ="&" . substr(strrchr($remainingUrl,'.'),1) . ":";
-        return $lrzString2 . $appString . $remainingUrl;
-    }
+    if (strpos($url, '&') != FALSE) return $url;
+    $lrzStrings = array("rtmp://flash5.lrz.de/tum/",
+    					 "rtmp://flash5.lrz-muenchen.de:1935/tum/",
+    					 "rtmp://flash5.lrz.de/vod/");
+
+    foreach ($lrzString as $lrzString) {
+	    if(strpos($url, $lrzString) === 0){
+	        $remainingUrl = str_replace($lrzString,"",$url);
+	        $appString ="&" . substr(strrchr($remainingUrl,'.'),1) . ":";
+	        return $lrzString . $appString . $remainingUrl;
+	    }
+	}
     return $url;
 }
