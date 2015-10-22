@@ -1218,7 +1218,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
         $this->page->requires->js('/mod/quizinvideo/videojs/video.js');
 //        $this->page->requires->js('/mod/quizinvideo/videojs/videojs-ie8.js');
         $this->page->requires->js('/mod/quizinvideo/videojs/videojs-markers.js');
-//        $this->page->requires->js('/mod/quizinvideo/videojs/youtube.js');
+        $this->page->requires->js('/mod/quizinvideo/videojs/youtube.js');
         $url = $attemptobj->get_quizinvideoobj()->get_quizinvideo_videourl();
         $output = '';
         if (preg_match('/^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$/', $url)) {
