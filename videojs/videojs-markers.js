@@ -182,15 +182,15 @@
          markerDiv.on('mouseover', function(){
             var marker = markersMap[$(this).data('marker-key')];
             
-            markerTip.find('.vjs-tip-inner').text(setting.markerTip.text(marker));
+            //markerTip.find('.vjs-tip-inner').text(setting.markerTip.text(marker));
             
             // margin-left needs to minus the padding length to align correctly with the marker
-            markerTip.css({"left" : getPosition(marker) + '%',
-                           "margin-left" : -parseFloat(markerTip.css("width"))/2 - 5 + 'px',
-                           "visibility"  : "visible"});
+            //markerTip.css({"left" : getPosition(marker) + '%',
+            //               "margin-left" : -parseFloat(markerTip.css("width"))/2 - 5 + 'px',
+            //               "visibility"  : "visible"});
             
          }).on('mouseout',function(){
-            markerTip.css("visibility", "hidden");
+            //markerTip.css("visibility", "hidden");
          });
       }
       
