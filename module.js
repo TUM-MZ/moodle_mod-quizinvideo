@@ -401,6 +401,7 @@ M.mod_quizinvideo.init_video = function(Y){
         if(currentTime > timestamps[i] && !M.mod_quizinvideo.paused ){
             M.mod_quizinvideo.paused = true;
             video.pause();
+            video.exitFullscreen();
             i++;
             Y.use("io-base", 'node', 'array-extras', 'querystring-stringify', function(Y) {
                 var cfg, request;
