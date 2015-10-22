@@ -1227,8 +1227,9 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
             $youtube = false;
         }
         $output .= html_writer::start_tag('div', array('id'=>'video_div'));
-        $output .= html_writer::start_tag('video', array( 'id'=>'video_content','data-setup' => $youtube ? '{"techOrder": ["youtube"], "src": "'.$url.'"}' : '{}', 'preload'=>'auto', 'controls'=>'', 'autoplay' => 'autoplay', 'class' => 'video-js  vjs-default-skin'));
-        if (!$youtube) {
+        $output .= html_writer::start_tag('video', array( 'id'=>'video_content','data-setup' => $youtube ? '{"techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "'.$url.'"}]}' : '{}', 'preload'=>'auto', 'controls'=>'', 'autoplay' => 'autoplay', 'class' => 'video-js  vjs-default-skin'));
+        if (!$youtube)
+        {
             if (substr($url, 0, 4) === "rtmp")
                 $output .= html_writer::start_tag('source', array('src' => $url, 'type' => 'rtmp/mp4'));
             else
