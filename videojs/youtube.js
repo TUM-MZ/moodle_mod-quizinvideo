@@ -74,7 +74,7 @@
             var playerVars = {
                 controls: 0,
                 modestbranding: 1,
-                rel: 1,
+                rel: 0,
                 showinfo: 0,
                 loop: this.options_.loop ? 1 : 0
             };
