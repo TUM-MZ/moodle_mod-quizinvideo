@@ -433,6 +433,16 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
     public function attempt_page($attemptobj, $accessmanager, $messages, $id) {
         $output = '';
         $output .= $this->header();
+	$output .= "<style>";
+	$output .= '@font-face {';
+	$output .= '    font-family: VideoJS;';
+	$output .= '    src: url(/mod/quizinvideo/videojs/font/VideoJS.eot);';
+	$output .= '    src: url(/mod/quizinvideo/videojs/font/VideoJS.eot?#iefix) format("embedded-opentype"), url(/mod/quizinvideo/videojs/font/VideoJS.woff) format("woff"), url(/mod/quizinvideo/videojs/font/VideoJS.ttf) format("truetype"), url(/mod/quizinvideo/videojs/font/VideoJS.svg#icomoon) format("svg");';
+	$output .= '    font-weight: 400;';
+	$output .= '    font-style: normal';
+	$output .= '}';
+	$output .= '</style>';
+
         $output .= $this->quizinvideo_notices($messages);
         $output .= $this->show_video($attemptobj);
         $output .= $this->print_hidden_DOMs($attemptobj);
