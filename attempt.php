@@ -44,6 +44,16 @@ $attemptobj = quizinvideo_attempt::create($attemptid);
 //$page = $attemptobj->force_page_number_into_range($page);
 $PAGE->set_url($attemptobj->attempt_url(null));
 
+echo "<style>";
+echo '@font-face {';
+echo '    font-family: VideoJS;';
+echo '    src: url(/mod/quizinvideo/videojs/vjs.eot);';
+echo '    src: url(/mod/quizinvideo/videojs/vjs.eot?#iefix) format("embedded-opentype"), url(/mod/quizinvideo/videojs/vjs.woff) format("woff"), url(/mod/quizinvideo/videojs/vjs.ttf) format("truetype"), url(/mod/quizinvideo/videojs/vjs.svg#icomoon) format("svg");';
+echo '    font-weight: 400;';
+echo '    font-style: normal';
+echo '}';
+echo '</style>';
+
 // Check login.
 require_login($attemptobj->get_course(), false, $attemptobj->get_cm());
 
