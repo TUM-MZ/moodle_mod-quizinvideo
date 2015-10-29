@@ -1,0 +1,26 @@
+{
+  "moodle-mod_quizinvideo-util": {
+    "requires": [
+        "node"
+    ],
+    "use": [
+        "moodle-mod_quizinvideo-util-base"
+    ],
+    "submodules": {
+        "moodle-mod_quizinvideo-util-base": {
+        },
+        "moodle-mod_quizinvideo-util-slot": {
+            "requires": [
+                "node",
+                "moodle-mod_quizinvideo-util-base"
+            ]
+        },
+        "moodle-mod_quizinvideo-util-page": {
+            "requires": [
+                "node",
+                "moodle-mod_quizinvideo-util-base"
+            ]
+        }
+    }
+  }
+}

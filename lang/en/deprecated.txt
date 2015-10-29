@@ -1,0 +1,8 @@
+invalidnumericanswer,mod_quizinvideo
+multiplier,mod_quizinvideo
+invalidnumerictolerance,mod_quizinvideo
+unusedcategorydeleted,mod_quizinvideo
+categories,mod_quizinvideo
+import,mod_quizinvideo
+export,mod_quizinvideo
+category,mod_quizinvideo

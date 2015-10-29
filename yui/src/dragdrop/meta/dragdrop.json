@@ -1,0 +1,19 @@
+{
+    "moodle-mod_quizinvideo-dragdrop": {
+        "requires": [
+            "base",
+            "node",
+            "io",
+            "dom",
+            "dd",
+            "dd-scroll",
+            "moodle-core-dragdrop",
+            "moodle-core-notification",
+            "moodle-mod_quizinvideo-quizinvideobase",
+            "moodle-mod_quizinvideo-util-base",
+            "moodle-mod_quizinvideo-util-page",
+            "moodle-mod_quizinvideo-util-slot",
+            "moodle-course-util"
+        ]
+    }
+}

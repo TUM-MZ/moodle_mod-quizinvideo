@@ -1,0 +1,10 @@
+{
+    "name": "moodle-mod_quizinvideo-quizinvideoquestionbank",
+    "builds": {
+        "moodle-mod_quizinvideo-quizinvideoquestionbank": {
+            "jsfiles": [
+                "quizinvideoquestionbank.js"
+            ]
+        }
+    }
+}

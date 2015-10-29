@@ -1,0 +1,12 @@
+{
+    "name": "moodle-mod_quizinvideo-dragdrop",
+    "builds": {
+        "moodle-mod_quizinvideo-dragdrop": {
+            "jsfiles": [
+                "dragdrop.js",
+                "section.js",
+                "resource.js"
+            ]
+        }
+    }
+}

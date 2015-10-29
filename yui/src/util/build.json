@@ -1,0 +1,21 @@
+{
+  "name": "moodle-mod_quizinvideo-util",
+  "builds": {
+    "moodle-mod_quizinvideo-util-base": {
+      "jsfiles": [
+        "base.js"
+      ]
+    },
+    "moodle-mod_quizinvideo-util-slot": {
+      "jsfiles": [
+        "slot.js"
+      ]
+    }
+    ,
+    "moodle-mod_quizinvideo-util-page": {
+      "jsfiles": [
+        "page.js"
+      ]
+    }
+  }
+}
