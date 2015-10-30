@@ -37,14 +37,15 @@ var CSS = {
     SELECTOR = {
         ACTIONAREA: '.actions',
         ACTIONLINKTEXT : '.actionlinktext',
-        ACTIVITYACTION : 'a.cm-edit-action[data-action], a.editing_maxmark, a.editing_section, input.shuffle_questions, a.editing_timeofvideo, a.copying_timeofvideo',
+        ACTIVITYACTIONSECTTION: ' a.editing_section, input.shuffle_questions',
+        ACTIVITYACTION : 'a.cm-edit-action[data-action], a.editing_maxmark, a.editing_timeofvideo, a.copying_timeofvideo',
         TIMECONTAINER :  'span.instancetimeofvideocontainer',
         ACTIVITYFORM : 'span.instancemaxmarkcontainer form',
         ACTIVITYFORMTIME : 'span.instancetimeofvideocontainer form',
         ACTIVITYINSTANCE : '.' + CSS.ACTIVITYINSTANCE,
         SECTIONINSTANCE : '.sectioninstance',
         ACTIVITYLINK: '.' + CSS.ACTIVITYINSTANCE + ' > a',
-        ACTIVITYLI : 'li.activity',
+        ACTIVITYLI : 'li.activity, li.section',
         ACTIVITYMAXMARK : 'input[name=maxmark]',
         ACTIVITYTIMEOFVIDEO : 'input[name=timeofvideo]',
         COMMANDSPAN : '.commands',
@@ -959,8 +960,8 @@ Y.extend(SECTIONTOOLBOX, TOOLBOX, {
      */
     initializer: function() {
         M.mod_quizinvideo.quizinvideobase.register_module(this);
-        BODY.delegate('key', this.handle_data_action, 'down:enter', SELECTOR.ACTIVITYACTION, this);
-        Y.delegate('click', this.handle_data_action, BODY, SELECTOR.ACTIVITYACTION, this);
+        BODY.delegate('key', this.handle_data_action, 'down:enter', SELECTOR.ACTIVITYACTIONSECTTION, this);
+        Y.delegate('click', this.handle_data_action, BODY, SELECTOR.ACTIVITYACTIONSECTTION, this);
         Y.delegate('change', this.handle_data_action, BODY, SELECTOR.EDITSHUFFLEQUESTIONSACTION, this);
     },
 
@@ -978,7 +979,7 @@ Y.extend(SECTIONTOOLBOX, TOOLBOX, {
         // We need to get the anchor element that triggered this event.
         var node = ev.target;
         if (!node.test('a') && !node.test('input[data-action]')) {
-            node = node.ancestor(SELECTOR.ACTIVITYACTION);
+            node = node.ancestor(SELECTOR.ACTIVITYACTIONSECTTION);
         }
 
         // From the anchor we can get both the activity (added during initialisation) and the action being

@@ -44,8 +44,8 @@ Y.extend(SECTIONTOOLBOX, TOOLBOX, {
      */
     initializer: function() {
         M.mod_quizinvideo.quizinvideobase.register_module(this);
-        BODY.delegate('key', this.handle_data_action, 'down:enter', SELECTOR.ACTIVITYACTION, this);
-        Y.delegate('click', this.handle_data_action, BODY, SELECTOR.ACTIVITYACTION, this);
+        BODY.delegate('key', this.handle_data_action, 'down:enter', SELECTOR.ACTIVITYACTIONSECTTION, this);
+        Y.delegate('click', this.handle_data_action, BODY, SELECTOR.ACTIVITYACTIONSECTTION, this);
         Y.delegate('change', this.handle_data_action, BODY, SELECTOR.EDITSHUFFLEQUESTIONSACTION, this);
     },
 
@@ -63,7 +63,7 @@ Y.extend(SECTIONTOOLBOX, TOOLBOX, {
         // We need to get the anchor element that triggered this event.
         var node = ev.target;
         if (!node.test('a') && !node.test('input[data-action]')) {
-            node = node.ancestor(SELECTOR.ACTIVITYACTION);
+            node = node.ancestor(SELECTOR.ACTIVITYACTIONSECTTION);
         }
 
         // From the anchor we can get both the activity (added during initialisation) and the action being
