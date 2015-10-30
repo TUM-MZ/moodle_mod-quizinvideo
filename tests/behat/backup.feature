@@ -1,6 +1,6 @@
 @mod @mod_quizinvideo
-Feature: Backup and restore of quizinvideozes
-  In order to reuse my quizinvideozes
+Feature: Backup and restore of quizinvideos
+  In order to reuse my quizinvideos
   As a teacher
   I need to be able to back them up and restore them.
 

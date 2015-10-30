@@ -956,7 +956,7 @@ function quizinvideo_update_all_final_grades($quizinvideo) {
  *                      courseid => (array|int) attempts in given course(s)
  *                      userid   => (array|int) attempts for given user(s)
  *                      quizinvideoid   => (array|int) attempts in given quizinvideo(s)
- *                      groupid  => (array|int) quizinvideozes with some override for given group(s)
+ *                      groupid  => (array|int) quizinvideos with some override for given group(s)
  *
  */
 function quizinvideo_update_open_attempts(array $conditions) {
@@ -1758,7 +1758,7 @@ function quizinvideo_process_group_deleted_in_course($courseid) {
     global $DB;
 
     // It would be nice if we got the groupid that was deleted.
-    // Instead, we just update all quizinvideozes with orphaned group overrides.
+    // Instead, we just update all quizinvideos with orphaned group overrides.
     $sql = "SELECT o.id, o.quizinvideo
               FROM {quizinvideo_overrides} o
               JOIN {quizinvideo} quizinvideo ON quizinvideo.id = o.quizinvideo

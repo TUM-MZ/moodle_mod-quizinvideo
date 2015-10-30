@@ -105,7 +105,7 @@ class quizinvideo_statistics_report extends quizinvideo_default_report {
             $nostudentsingroup = true;
 
         } else {
-            // All users who can attempt quizinvideozes and who are in the currently selected group.
+            // All users who can attempt quizinvideos and who are in the currently selected group.
             $groupstudents = get_users_by_capability($this->context,
                     array('mod/quizinvideo:reviewmyattempts', 'mod/quizinvideo:attempt'),
                     '', '', '', '', $currentgroup, '', false);

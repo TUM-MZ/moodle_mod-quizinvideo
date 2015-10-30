@@ -118,7 +118,7 @@ $capabilities = array(
         )
     ),
 
-    // Regrade quizinvideozes.
+    // Regrade quizinvideos.
     'mod/quizinvideo:regrade' => array(
         'riskbitmask' => RISK_SPAM,
         'captype' => 'write',

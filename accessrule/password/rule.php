@@ -51,7 +51,7 @@ class quizinvideoaccess_password extends quizinvideo_access_rule_base {
 
     public function is_preflight_check_required($attemptid) {
         global $SESSION;
-        return empty($SESSION->passwordcheckedquizinvideozes[$this->quizinvideo->id]);
+        return empty($SESSION->passwordcheckedquizinvideos[$this->quizinvideo->id]);
     }
 
     public function add_preflight_check_form_fields(mod_quizinvideo_preflight_check_form $quizinvideoform,
@@ -88,15 +88,15 @@ class quizinvideoaccess_password extends quizinvideo_access_rule_base {
 
     public function notify_preflight_check_passed($attemptid) {
         global $SESSION;
-        $SESSION->passwordcheckedquizinvideozes[$this->quizinvideo->id] = true;
+        $SESSION->passwordcheckedquizinvideos[$this->quizinvideo->id] = true;
     }
 
     public function current_attempt_finished() {
         global $SESSION;
         // Clear the flag in the session that says that the user has already
         // entered the password for this quizinvideo.
-        if (!empty($SESSION->passwordcheckedquizinvideozes[$this->quizinvideo->id])) {
-            unset($SESSION->passwordcheckedquizinvideozes[$this->quizinvideo->id]);
+        if (!empty($SESSION->passwordcheckedquizinvideos[$this->quizinvideo->id])) {
+            unset($SESSION->passwordcheckedquizinvideos[$this->quizinvideo->id]);
         }
     }
 }

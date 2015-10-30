@@ -853,6 +853,7 @@ table.quizinvideoreviewsummary td.cell {
 }
 
 #page-mod-quizinvideo-edit .section .activity .actions {
+    position: absolute;
     white-space: nowrap;
     background: #e6e6e6;
     padding: 0.1em 0;

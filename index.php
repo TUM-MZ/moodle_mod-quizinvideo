@@ -42,7 +42,7 @@ $event = \mod_quizinvideo\event\course_module_instance_list_viewed::create($para
 $event->trigger();
 
 // Print the header.
-$strquizinvideozes = get_string("modulenameplural", "quizinvideo");
+$strquizinvideos = get_string("modulenameplural", "quizinvideo");
 $streditquestions = '';
 $editqcontexts = new question_edit_contexts($coursecontext);
 if ($editqcontexts->have_one_edit_tab_cap('questions')) {
@@ -54,23 +54,23 @@ if ($editqcontexts->have_one_edit_tab_cap('questions')) {
                </div>
              </form>";
 }
-$PAGE->navbar->add($strquizinvideozes);
-$PAGE->set_title($strquizinvideozes);
+$PAGE->navbar->add($strquizinvideos);
+$PAGE->set_title($strquizinvideos);
 $PAGE->set_button($streditquestions);
 $PAGE->set_heading($course->fullname);
 echo $OUTPUT->header();
-echo $OUTPUT->heading($strquizinvideozes, 2);
+echo $OUTPUT->heading($strquizinvideos, 2);
 
 // Get all the appropriate data.
-if (!$quizinvideozes = get_all_instances_in_course("quizinvideo", $course)) {
-    notice(get_string('thereareno', 'moodle', $strquizinvideozes), "../../course/view.php?id=$course->id");
+if (!$quizinvideos = get_all_instances_in_course("quizinvideo", $course)) {
+    notice(get_string('thereareno', 'moodle', $strquizinvideos), "../../course/view.php?id=$course->id");
     die;
 }
 
 // Check if we need the closing date header.
 $showclosingheader = false;
 $showfeedback = false;
-foreach ($quizinvideozes as $quizinvideo) {
+foreach ($quizinvideos as $quizinvideo) {
     if ($quizinvideo->timeclose!=0) {
         $showclosingheader=true;
     }
@@ -129,7 +129,7 @@ $table->align = $align;
 
 // Populate the table with the list of instances.
 $currentsection = '';
-foreach ($quizinvideozes as $quizinvideo) {
+foreach ($quizinvideos as $quizinvideo) {
     $cm = get_coursemodule_from_instance('quizinvideo', $quizinvideo->id);
     $context = context_module::instance($cm->id);
     $data = array();

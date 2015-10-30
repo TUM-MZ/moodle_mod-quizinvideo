@@ -41,7 +41,7 @@ class mod_quizinvideo_overdue_attempt_updater {
      * Do the processing required.
      * @param int $timenow the time to consider as 'now' during the processing.
      * @param int $processto only process attempt with timecheckstate longer ago than this.
-     * @return array with two elements, the number of attempt considered, and how many different quizinvideozes that was.
+     * @return array with two elements, the number of attempt considered, and how many different quizinvideos that was.
      */
     public function update_overdue_attempts($timenow, $processto) {
         global $DB;

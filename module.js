@@ -114,7 +114,7 @@ M.mod_quizinvideo.init_comment_popup = function(Y) {
     Y.on('click', function() { window.close() }, closebutton);
 }
 
-// Code for updating the countdown timer that is used on timed quizinvideozes.
+// Code for updating the countdown timer that is used on timed quizinvideos.
 M.mod_quizinvideo.timer = {
     // YUI object.
     Y: null,

@@ -916,6 +916,37 @@ $string['timeofvideo'] = 'Timestamp of page in video';
 $string['edit_timeofvideo'] = 'Edit timestamp of page in video';
 $string['copy_timeofvideo'] = 'Copy timestamp from video';
 
+
+// introduced in moodle3.0
+$string['addasection'] = 'a new section heading';
+$string['addquestionfrombankatend'] = 'Add from the question bank at the end';
+$string['addrandomquestionatend'] = 'Add a random question at the end';
+$string['canredoquestions'] = 'Allow redo within an attempt';
+$string['canredoquestions_desc'] = 'If enabled, then when students have finished attempting particular question, they will see a Redo question button. This allows them to attempt another version of the same question, without having to submit the entire quiz attempt and start another one. This option is mainly useful for practice quizzes.
+
+This setting only affects questions (for example not Essay questions) and behaviours (for example Immediate feedback, or Interactive with multiple tries) where it is possible for student to finish the question before the attempt is submitted.';
+$string['canredoquestions_help'] = 'If enabled, then when students have finished attempting particular question, they will see a Redo question button. This allows them to attempt another version of the same question, without having to submit the entire quiz attempt and start another one. This option is mainly useful for practice quizzes.
+
+This setting only affects questions (for example not Essay questions) and behaviours (for example Immediate feedback, or Interactive with multiple tries) where it is possible for student to finish the question before the attempt is submitted.';
+$string['canredoquestionsyes'] = 'Students may redo another version of any finished question';
+$string['confirmremovesectionheading'] = 'Are you sure you want to remove the \'{$a}\' section heading?';
+$string['groupoverridesdeleted'] = 'Group overrides deleted';
+$string['initialnumfeedbacks'] = 'Initial number of overall feedback fields';
+$string['initialnumfeedbacks_desc'] = 'When creating a new quiz, provide this many blank overall feedback boxes. Once the quiz has been created, the form shows the number of fields required for the number of feedbacks in the quiz. The setting must be at least 1.';
+$string['marks_help'] = 'The numerical marks for each question, and the overall attempt score.';
+$string['questiondependencyadd'] = 'No restriction on when question {$a->thisq} can be attempted • Click to change';
+$string['questiondependencyfree'] = 'No restriction on this question';
+$string['questiondependencyremove'] = 'Question {$a->thisq} cannot be attempted until the previous question {$a->previousq} has been completed • Click to change';
+$string['questiondependsonprevious'] = 'This question cannot be attempted until the previous question has been completed.';
+$string['redoquestion'] = 'Redo question';
+$string['redoesofthisquestion'] = 'Other questions attempted here: {$a}';
+$string['removeallgroupoverrides'] = 'Delete all group overrides';
+$string['removealluseroverrides'] = 'Delete all user overrides';
+$string['sectionheadingedit'] = 'Edit heading \'{$a}\'';
+$string['sectionheadingremove'] = 'Remove heading \'{$a}\'';
+$string['useroverridesdeleted'] = 'User overrides deleted';
+
+
 // Deprecated since Moodle 2.8.
 
 $string['categories'] = 'Categories';
@@ -926,3 +957,4 @@ $string['invalidnumericanswer'] = 'One of the answers you entered was not a vali
 $string['invalidnumerictolerance'] = 'One of the tolerances you entered was not a valid number.';
 $string['multiplier'] = 'Multiplier';
 $string['unusedcategorydeleted'] = 'This category has been deleted because, after deleting the course, its questions weren\'t used any more.';
+

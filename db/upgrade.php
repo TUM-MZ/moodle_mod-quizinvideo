@@ -560,14 +560,14 @@ function xmldb_quizinvideo_upgrade($oldversion) {
 
         // Use the information in the old quizinvideo.questions column to fill in the
         // new slot and page columns.
-        $numquizinvideozes = $DB->count_records('quizinvideo');
-        if ($numquizinvideozes > 0) {
+        $numquizinvideos = $DB->count_records('quizinvideo');
+        if ($numquizinvideos > 0) {
             $pbar = new progress_bar('quizinvideoquestionstoslots', 500, true);
             $transaction = $DB->start_delegated_transaction();
 
             $numberdone = 0;
-            $quizinvideozes = $DB->get_recordset('quizinvideo', null, 'id', 'id,questions,sumgrades');
-            foreach ($quizinvideozes as $quizinvideo) {
+            $quizinvideos = $DB->get_recordset('quizinvideo', null, 'id', 'id,questions,sumgrades');
+            foreach ($quizinvideos as $quizinvideo) {
                 if ($quizinvideo->questions === '') {
                     $questionsinorder = array();
                 } else {
@@ -683,8 +683,8 @@ function xmldb_quizinvideo_upgrade($oldversion) {
 
                 // Done with this quizinvideo. Update progress bar.
                 $numberdone++;
-                $pbar->update($numberdone, $numquizinvideozes,
-                        "Upgrading quizinvideo structure - {$numberdone}/{$numquizinvideozes}.");
+                $pbar->update($numberdone, $numquizinvideos,
+                        "Upgrading quizinvideo structure - {$numberdone}/{$numquizinvideos}.");
             }
 
             $transaction->allow_commit();

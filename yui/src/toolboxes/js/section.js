@@ -44,7 +44,6 @@ Y.extend(SECTIONTOOLBOX, TOOLBOX, {
      */
     initializer: function() {
         M.mod_quizinvideo.quizinvideobase.register_module(this);
-
         BODY.delegate('key', this.handle_data_action, 'down:enter', SELECTOR.ACTIVITYACTION, this);
         Y.delegate('click', this.handle_data_action, BODY, SELECTOR.ACTIVITYACTION, this);
         Y.delegate('change', this.handle_data_action, BODY, SELECTOR.EDITSHUFFLEQUESTIONSACTION, this);

@@ -2,7 +2,7 @@
 Feature: Attemp a quizinvideo where some questions require that the previous question has been answered.
   As a student
   In order to demonstrate what I know
-  I need to be able to attempt quizinvideozes
+  I need to be able to attempt quizinvideos
 
   Background:
     Given the following "users" exist:

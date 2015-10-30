@@ -4,7 +4,7 @@
     xsi:noNamespaceSchemaLocation="../../../../../lib/xmldb/xmldb.xsd"
 >
   <TABLES>
-    <TABLE NAME="quizinvideo_statistics" COMMENT="table to cache results from analysis done in statistics report for quizinvideozes.">
+    <TABLE NAME="quizinvideo_statistics" COMMENT="table to cache results from analysis done in statistics report for quizinvideos.">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="hashcode" TYPE="char" LENGTH="40" NOTNULL="true" SEQUENCE="false" COMMENT="sha1 hash of serialized qubaids_condition class. Unique for every combination of class name and property."/>

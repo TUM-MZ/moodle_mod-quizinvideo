@@ -16,7 +16,7 @@
 
 
 /**
- * Page to edit quizinvideozes
+ * Page to edit quizinvideos
  *
  * This page generally has two columns:
  * The right column lists all available questions in a chosen category and

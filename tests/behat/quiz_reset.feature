@@ -1,6 +1,6 @@
 @mod @mod_quizinvideo
 Feature: quizinvideo reset
-  In order to reuse past quizinvideozes
+  In order to reuse past quizinvideos
   As a teacher
   I need to remove all previous data.
 

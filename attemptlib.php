@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Back-end code for handling data about quizinvideozes and the current user's attempt.
+ * Back-end code for handling data about quizinvideos and the current user's attempt.
  *
  * There are classes for loading all the information about a quizinvideo and attempts,
  * and for displaying the navigation panel.
@@ -1434,27 +1434,15 @@ class quizinvideo_attempt {
      * Generate the HTML that displayes the question in its current state, with
      * the appropriate display options.
      *
-     * @param int $slot identifies the question in the attempt.
+     * @param int $id the id of a question in this quizinvideo attempt.
      * @param bool $reviewing is the being printed on an attempt or a review page.
-     * @param mod_quizinvideo_renderer $renderer the quizinvideo renderer.
      * @param moodle_url $thispageurl the URL of the page this question is being printed on.
      * @return string HTML for the question in its current state.
      */
-    public function render_question($slot, $reviewing, mod_quizinvideo_renderer $renderer, $thispageurl = null) {
-        if ($this->is_blocked_by_previous_question($slot)) {
-            $placeholderqa = $this->make_blocked_question_placeholder($slot);
-
-            $displayoptions = $this->get_display_options($reviewing);
-            $displayoptions->manualcomment = question_display_options::HIDDEN;
-            $displayoptions->history = question_display_options::HIDDEN;
-            $displayoptions->readonly = true;
-
-            return html_writer::div($placeholderqa->render($displayoptions,
-                    $this->get_question_number($this->get_original_slot($slot))),
-                    'mod_quizinvideo-blocked_question_warning');
-        }
-
-        return $this->render_question_helper($slot, $reviewing, $thispageurl, $renderer, null);
+    public function render_question($slot, $reviewing, $thispageurl = null) {
+        return $this->quba->render_question($slot,
+            $this->get_display_options_with_edit_link($reviewing, $slot, $thispageurl),
+            $this->get_question_number($slot));
     }
 
     /**

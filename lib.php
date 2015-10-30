@@ -58,7 +58,7 @@ define('quizinvideo_ATTEMPTLAST',  '4');
 define('quizinvideo_MAX_EVENT_LENGTH', 5*24*60*60); // 5 days.
 
 /**#@+
- * Options for navigation method within quizinvideozes.
+ * Options for navigation method within quizinvideos.
  */
 define('quizinvideo_NAVMETHOD_FREE', 'free');
 define('quizinvideo_NAVMETHOD_SEQ',  'sequential');
@@ -534,7 +534,7 @@ function quizinvideo_cron() {
 
     list($count, $quizinvideocount) = $overduehander->update_overdue_attempts($timenow, $processto);
 
-    mtrace('  Considered ' . $count . ' attempts in ' . $quizinvideocount . ' quizinvideozes.');
+    mtrace('  Considered ' . $count . ' attempts in ' . $quizinvideocount . ' quizinvideos.');
 
     // Run cron for our sub-plugin types.
     cron_execute_plugin_type('quizinvideo', 'quizinvideo reports');
@@ -829,16 +829,16 @@ function quizinvideo_refresh_events($courseid = 0) {
     global $DB;
 
     if ($courseid == 0) {
-        if (!$quizinvideozes = $DB->get_records('quizinvideo')) {
+        if (!$quizinvideos = $DB->get_records('quizinvideo')) {
             return true;
         }
     } else {
-        if (!$quizinvideozes = $DB->get_records('quizinvideo', array('course' => $courseid))) {
+        if (!$quizinvideos = $DB->get_records('quizinvideo', array('course' => $courseid))) {
             return true;
         }
     }
 
-    foreach ($quizinvideozes as $quizinvideo) {
+    foreach ($quizinvideos as $quizinvideo) {
         quizinvideo_update_events($quizinvideo);
     }
 
@@ -1358,14 +1358,14 @@ function quizinvideo_reset_course_form_defaults($course) {
 function quizinvideo_reset_gradebook($courseid, $type='') {
     global $CFG, $DB;
 
-    $quizinvideozes = $DB->get_records_sql("
+    $quizinvideos = $DB->get_records_sql("
             SELECT q.*, cm.idnumber as cmidnumber, q.course as courseid
             FROM {modules} m
             JOIN {course_modules} cm ON m.id = cm.module
             JOIN {quizinvideo} q ON cm.instance = q.id
             WHERE m.name = 'quizinvideo' AND cm.course = ?", array($courseid));
 
-    foreach ($quizinvideozes as $quizinvideo) {
+    foreach ($quizinvideos as $quizinvideo) {
         quizinvideo_grade_item_update($quizinvideo, 'reset');
     }
 }
@@ -1467,7 +1467,7 @@ function quizinvideo_print_overview($courses, &$htmlarray) {
         return array();
     }
 
-    if (!$quizinvideozes = get_all_instances_in_courses('quizinvideo', $courses)) {
+    if (!$quizinvideos = get_all_instances_in_courses('quizinvideo', $courses)) {
         return;
     }
 
@@ -1475,10 +1475,10 @@ function quizinvideo_print_overview($courses, &$htmlarray) {
     $strquizinvideo = get_string('modulename', 'quizinvideo');
     $strnoattempts = get_string('noattempts', 'quizinvideo');
 
-    // We want to list quizinvideozes that are currently available, and which have a close date.
+    // We want to list quizinvideos that are currently available, and which have a close date.
     // This is the same as what the lesson does, and the dabate is in MDL-10568.
     $now = time();
-    foreach ($quizinvideozes as $quizinvideo) {
+    foreach ($quizinvideos as $quizinvideo) {
         if ($quizinvideo->timeclose >= $now && $quizinvideo->timeopen < $now) {
             // Give a link to the quizinvideo, and the deadline.
             $str = '<div class="quizinvideo overview">' .

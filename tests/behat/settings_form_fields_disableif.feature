@@ -1,6 +1,6 @@
 @mod @mod_quizinvideo
 Feature: Settings form fields disabled if not required
-  In to create quizinvideozes as simply as possible
+  In to create quizinvideos as simply as possible
   As a teacher
   I don't need to to use certain form fields.
 

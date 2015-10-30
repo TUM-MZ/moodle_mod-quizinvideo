@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * The repaginate class will rearrange questions in pages.
  *
- * The quizinvideo setting allows users to write quizinvideozes with one question per page,
+ * The quizinvideo setting allows users to write quizinvideos with one question per page,
  * n questions per page, or all questions on one page.
  *
  * @copyright 2014 The Open University

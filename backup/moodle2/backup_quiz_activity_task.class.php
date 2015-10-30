@@ -75,7 +75,7 @@ class backup_quizinvideo_activity_task extends backup_activity_task {
 
         $base = preg_quote($CFG->wwwroot, '/');
 
-        // Link to the list of quizinvideozes.
+        // Link to the list of quizinvideos.
         $search="/(".$base."\/mod\/quizinvideo\/index.php\?id\=)([0-9]+)/";
         $content= preg_replace($search, '$@quizinvideoINDEX*$2@$', $content);
 

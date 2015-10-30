@@ -56,7 +56,7 @@ class mod_quizinvideo_attempt_walkthrough_from_csv_testcase extends advanced_tes
      * The only test in this class. This is run multiple times depending on how many sets of files there are in fixtures/
      * directory.
      *
-     * @param array $quizinvideosettings of settings read from csv file quizinvideozes.csv
+     * @param array $quizinvideosettings of settings read from csv file quizinvideos.csv
      * @param PHPUnit_Extensions_Database_DataSet_ITable[] $csvdata of data read from csv file "questionsXX.csv",
      *                                                                                  "stepsXX.csv" and "resultsXX.csv".
      * @dataProvider get_data_for_walkthrough
@@ -212,10 +212,10 @@ class mod_quizinvideo_attempt_walkthrough_from_csv_testcase extends advanced_tes
      *                  test_walkthrough_from_csv.
      */
     public function get_data_for_walkthrough() {
-        $quizinvideozes = $this->load_csv_data_file('quizinvideozes');
+        $quizinvideos = $this->load_csv_data_file('quizinvideos');
         $datasets = array();
-        for ($rowno = 0; $rowno < $quizinvideozes->getRowCount(); $rowno++) {
-            $quizinvideosettings = $quizinvideozes->getRow($rowno);
+        for ($rowno = 0; $rowno < $quizinvideos->getRowCount(); $rowno++) {
+            $quizinvideosettings = $quizinvideos->getRow($rowno);
             $dataset = array();
             foreach ($this->files as $file) {
                 if (file_exists($this->get_full_path_of_csv_file($file, $quizinvideosettings['testnumber']))) {

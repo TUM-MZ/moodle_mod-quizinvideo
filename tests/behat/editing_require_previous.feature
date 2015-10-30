@@ -1,6 +1,6 @@
 @mod @mod_quizinvideo
-Feature: Edit quizinvideozes where some questions require the previous one to have been completed
-  In order to create quizinvideozes where later questions can only be seen after earlier ones are answered
+Feature: Edit quizinvideos where some questions require the previous one to have been completed
+  In order to create quizinvideos where later questions can only be seen after earlier ones are answered
   As a teacher
   I need to be able to configure this on the Edit quizinvideo page
 
@@ -117,7 +117,7 @@ Feature: Edit quizinvideozes where some questions require the previous one to ha
     And "No restriction on when question 3 can be attempted • Click to change" "link" should be visible
 
   @javascript
-  Scenario: Question dependency cannot apply to deferred feedback quizinvideozes so UI is hidden
+  Scenario: Question dependency cannot apply to deferred feedback quizinvideos so UI is hidden
     Given the following "activities" exist:
       | activity   | name   | intro              | course | idnumber | preferredbehaviour |
       | quizinvideo       | quizinvideo 1 | quizinvideo 1 description | C1     | quizinvideo1    | deferredfeedback   |
@@ -181,7 +181,7 @@ Feature: Edit quizinvideozes where some questions require the previous one to ha
     Then "be attempted" "link" in the "TF2" "list_item" should not be visible
 
   @javascript
-  Scenario: Question dependency cannot apply to quizinvideozes with sequential navigation so UI is hidden
+  Scenario: Question dependency cannot apply to quizinvideos with sequential navigation so UI is hidden
     Given the following "activities" exist:
       | activity   | name   | intro              | course | idnumber | preferredbehaviour | navmethod  |
       | quizinvideo       | quizinvideo 1 | quizinvideo 1 description | C1     | quizinvideo1    | immediatefeedback  | sequential |

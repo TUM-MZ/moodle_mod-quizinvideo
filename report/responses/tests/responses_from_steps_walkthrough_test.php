@@ -52,7 +52,7 @@ class quizinvideo_report_responses_from_steps_testcase extends mod_quizinvideo_a
     /**
      * Create a quizinvideo add questions to it, walk through quizinvideo attempts and then check results.
      *
-     * @param array $quizinvideosettings settings to override default settings for quizinvideo created by generator. Taken from quizinvideozes.csv.
+     * @param array $quizinvideosettings settings to override default settings for quizinvideo created by generator. Taken from quizinvideos.csv.
      * @param PHPUnit_Extensions_Database_DataSet_ITable[] $csvdata of data read from csv file "questionsXX.csv",
      *                                                                                  "stepsXX.csv" and "responsesXX.csv".
      * @dataProvider get_data_for_walkthrough

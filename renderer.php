@@ -209,7 +209,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
                               mod_quizinvideo_display_options $displayoptions) {
         $output = '';
         foreach ($slots as $slot) {
-            $output .= $attemptobj->render_question($slot, $reviewing, $this,
+            $output .= $attemptobj->render_question($slot, $reviewing,
                     $attemptobj->review_url($slot, $page, $showall));
         }
         return $output;

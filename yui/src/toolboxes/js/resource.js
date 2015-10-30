@@ -60,8 +60,8 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
      */
     initializer: function() {
         M.mod_quizinvideo.quizinvideobase.register_module(this);
-        //Y.delegate('click', this.handle_data_action, BODY, SELECTOR.ACTIVITYACTION, this);
-        //Y.delegate('click', this.handle_data_action, BODY, SELECTOR.DEPENDENCY_LINK, this);
+        BODY.delegate('key', this.handle_data_action, 'down:enter', SELECTOR.ACTIVITYACTION, this);
+        Y.delegate('click', this.handle_data_action, BODY, SELECTOR.ACTIVITYACTION, this);
     },
 
     /**

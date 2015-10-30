@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2015102300;
+$plugin->version   = 2015102301;
 $plugin->requires  = 2015050500;
 $plugin->component = 'mod_quizinvideo';
 $plugin->cron      = 60;

@@ -41,7 +41,7 @@ class restore_quizinvideo_activity_structure_step extends restore_questions_acti
     protected $sectioncreated = false;
 
     /**
-     * @var bool when restoring old quizinvideozes (2.8 or before) this records the
+     * @var bool when restoring old quizinvideos (2.8 or before) this records the
      * shufflequestionsoption quizinvideo option which has moved to the quizinvideo_sections table.
      */
     protected $legacyshufflequestionsoption = false;

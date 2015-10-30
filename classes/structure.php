@@ -253,7 +253,7 @@ class structure {
     }
 
     /**
-     * quizinvideozes can only be repaginated if they have not been attempted, the
+     * quizinvideos can only be repaginated if they have not been attempted, the
      * questions are not shuffled, and there are two or more questions.
      * @return bool whether this quizinvideo can be repaginated.
      */
@@ -262,7 +262,7 @@ class structure {
     }
 
     /**
-     * quizinvideozes can only be edited if they have not been attempted.
+     * quizinvideos can only be edited if they have not been attempted.
      * @return bool whether the quizinvideo can be edited.
      */
     public function can_be_edited() {
