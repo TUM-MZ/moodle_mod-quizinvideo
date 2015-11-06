@@ -2134,6 +2134,22 @@ function quizinvideo_get_timeofvideo($quizinvideoid, $page){
 }
 
 /**
+ * Get section of video for a page of a quizinvideo.
+ * @param int $quizinvideoid the id of the quizinvideo.
+ * @param int $page the page whose time of video needs to be returned.
+ */
+function quizinvideo_get_sectionofvideo($quizinvideoid, $page){
+    global $DB;
+    $section_name = $DB->get_record_sql("select heading from {quizinvideo_sections} where
+                                firstslot= (select min(slot) from {quizinvideo_slots} where quizinvideoid =". $quizinvideoid. " and page = ".$page." ) and quizinvideoid =".$quizinvideoid);
+    if($section_name)
+        return $section_name->heading;
+    else
+        return null;
+
+}
+
+/**
  * Set time of video for a page of a quizinvideo.
  * @param int $quizinvideoid the id of the quizinvideo.
  * @param int $page the page whose time of video needs to be returned.

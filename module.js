@@ -386,11 +386,11 @@ M.mod_quizinvideo.init_video = function(Y){
     video.markers({markers:[]});
     M.mod_quizinvideo.paused = false;
     var timestamps = Y.all('.timestamp').get("value");
-
+    var timestamp_titles = Y.all('.timestamp_title').get("value");
     video.on('timeupdate', function () {
         if(marker_loaded == false){
             for (var ts in timestamps){
-                video.markers.add([{ time: timestamps[ts]}]);
+                video.markers.add([{ time: timestamps[ts], text: timestamp_titles[ts]}]);
             }
             marker_loaded = true;
         }

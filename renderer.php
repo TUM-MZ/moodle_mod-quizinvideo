@@ -469,10 +469,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
      * Ouputs the form for making an attempt
      *
      * @param quizinvideo_attempt $attemptobj
-     * @param int $page Current page number
-     * @param array $slots Array of integers relating to questions
      * @param int $id ID of the attempt
-     * @param int $nextpage Next page number
      */
     public function attempt_form($attemptobj, $id) {
         $output = '';
@@ -1293,9 +1290,18 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
         for($i = 0; $i < $num_pages; $i++){
             $page = $i + 1;
             $time = quizinvideo_get_timeofvideo($attemptobj->get_quizinvideo()->id, $page);
+            $section_name = quizinvideo_get_sectionofvideo($attemptobj->get_quizinvideo()->id, $page);
             if($time) {
                 $output .= html_writer::empty_tag('input', array('type' => 'hidden', 'class' => 'timestamp',
                     'value' => $time, 'id' => 'timestamp' . $page));
+            }
+            if($section_name) {
+                $output .= html_writer::empty_tag('input', array('type' => 'hidden', 'class' => 'timestamp_title',
+                    'value' => $section_name, 'id' => 'timestamp_title' . $page));
+            }
+            else{
+                $output .= html_writer::empty_tag('input', array('type' => 'hidden', 'class' => 'timestamp_title',
+                    'value' => null, 'id' => 'timestamp_title' . $page));
             }
         }
         return $output;

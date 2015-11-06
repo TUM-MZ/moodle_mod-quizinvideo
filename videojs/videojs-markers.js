@@ -14,7 +14,7 @@
       markerTip: {
          display: true,
          text: function(marker) {
-            return "Break: "+ marker.text;
+            return marker.text;
          },
          time: function(marker) {
             return marker.time;
@@ -29,7 +29,7 @@
          style: {
             'width':'100%',
             'height': '20%',
-            'background-color': 'rgba(0,0,0,0.7)',
+            'background-color': 'red',
             'color': 'white',
             'font-size': '17px'
          }
@@ -181,16 +181,20 @@
          
          markerDiv.on('mouseover', function(){
             var marker = markersMap[$(this).data('marker-key')];
-            
-            //markerTip.find('.vjs-tip-inner').text(setting.markerTip.text(marker));
-            
-            // margin-left needs to minus the padding length to align correctly with the marker
-            //markerTip.css({"left" : getPosition(marker) + '%',
-            //               "margin-left" : -parseFloat(markerTip.css("width"))/2 - 5 + 'px',
-            //               "visibility"  : "visible"});
+
+             if (marker.text){
+
+                 markerTip.find('.vjs-tip-inner').text(setting.markerTip.text(marker));
+
+                 // margin-left needs to minus the padding length to align correctly with the marker
+                 markerTip.css({"left" : getPosition(marker) + '%',
+                     "margin-left" : -parseFloat(markerTip.css("width"))/2 - 5 + 'px',
+                     "visibility"  : "visible"
+                 });
+             }
             
          }).on('mouseout',function(){
-            //markerTip.css("visibility", "hidden");
+            markerTip.css("visibility", "hidden");
          });
       }
       
