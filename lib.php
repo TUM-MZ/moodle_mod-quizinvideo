@@ -1007,7 +1007,7 @@ function quizinvideo_process_options($quizinvideo) {
     // quizinvideo url
     if(!empty($quizinvideo->video)){
         $quizinvideo->video = trim($quizinvideo->video);
-        $quizinvideo->video = sanitize_url_for_lrz($quizinvideo->video);
+        $quizinvideo->video = process_rtmp_urls($quizinvideo);
     }
 
     // Password field - different in form to stop browsers that remember passwords
@@ -1890,18 +1890,18 @@ function quizinvideo_get_completion_state($course, $cm, $userid, $type) {
 
 
 /**
- * Changes URL for lrz domains
+ * Changes URL for rtmp domains
  *
- * @param String URL
+ * @param Object quizinvideo object
  * @return string Updated URL
  */
-function sanitize_url_for_lrz($url){
+function process_rtmp_urls($quizinvideoobj){
+    $url = $quizinvideoobj->video;
     if (strpos($url, '&') != FALSE) return $url;
-    $lrzStrings = array("rtmp://flash5.lrz.de/tum/",
-        "rtmp://flash5.lrz-muenchen.de:1935/tum/",
-        "rtmp://flash5.lrz.de/vod/");
+    $lrzStrings = explode( ',', $quizinvideoobj->rtmpurls);
 
     foreach ($lrzStrings as $lrzString) {
+        $lrzString = trim($lrzString);
         if(strpos($url, $lrzString) === 0){
             $remainingUrl = str_replace($lrzString,"",$url);
             $appString ="&" . substr(strrchr($remainingUrl,'.'),1) . ":";
