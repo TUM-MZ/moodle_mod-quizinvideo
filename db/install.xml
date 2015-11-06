@@ -10,7 +10,6 @@
         <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Foreign key reference to the course this quizinvideo is part of."/>
         <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="quizinvideo name."/>
         <FIELD NAME="video" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="quizinvideo video location."/>
-        <FIELD NAME="rtmpurls" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="quizinvideo video rtmp server list."/>
         <FIELD NAME="intro" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="quizinvideo introduction text."/>
         <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="quizinvideo intro text format."/>
         <FIELD NAME="timeopen" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="The time when this quizinvideo opens. (0 = no restriction.)"/>

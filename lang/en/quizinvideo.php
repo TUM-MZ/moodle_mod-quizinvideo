@@ -916,6 +916,7 @@ $string['timeofvideo'] = 'Timestamp of page in video';
 $string['edit_timeofvideo'] = 'Edit timestamp of page in video';
 $string['copy_timeofvideo'] = 'Copy timestamp from video';
 $string['rtmp_urls'] = 'RTMP server url list';
+$string['rtmp_urls_desc'] = 'RTMP server url list, comma separated';
 
 // introduced in moodle3.0
 $string['addasection'] = 'a new section heading';

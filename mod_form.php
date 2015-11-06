@@ -86,7 +86,6 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
         $mform->addRule('video', null, 'required', null, 'client');
         $mform->addRule('video', get_string('maximumchars', '', 2048), 'maxlength', 2048, 'client');
 
-        $mform->addElement('textarea', 'rtmpurls', get_string("rtmp_urls", "quizinvideo"), 'wrap="virtual" rows="3" cols="50"');
         // Introduction.
         $this->standard_intro_elements(get_string('introduction', 'quizinvideo'));
 

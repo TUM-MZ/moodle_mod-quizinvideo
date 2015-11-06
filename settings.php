@@ -59,6 +59,10 @@ if ($ADMIN->fulltree) {
     // Introductory explanation that all the settings are defaults for the add quizinvideo form.
     $quizinvideosettings->add(new admin_setting_heading('quizinvideointro', '', get_string('configintro', 'quizinvideo')));
 
+    // RTMP url list
+    $quizinvideosettings->add(new admin_setting_configtextarea('quizinvideo/rtmpurls',
+            get_string('rtmp_urls','quizinvideo'), get_string('rtmp_urls_desc','quizinvideo'), null));
+
     // Time limit.
     $quizinvideosettings->add(new admin_setting_configduration_with_advanced('quizinvideo/timelimit',
             get_string('timelimit', 'quizinvideo'), get_string('configtimelimitsec', 'quizinvideo'),

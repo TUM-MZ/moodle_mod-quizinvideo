@@ -901,21 +901,6 @@ function xmldb_quizinvideo_upgrade($oldversion) {
         upgrade_mod_savepoint(true, 2015032303, 'quizinvideo');
     }
 
-    if ($oldversion < 2015102303) {
-
-        // Define field overduehandling to be added to quizinvideo.
-        $table = new xmldb_table('quizinvideo');
-        $field = new xmldb_field('rtmpurls', XMLDB_TYPE_TEXT, null, null, null, null, null, null);
-
-        // Conditionally launch add field overduehandling.
-        if (!$dbman->field_exists($table, $field)) {
-            $dbman->add_field($table, $field);
-        }
-
-        // quizinvideo savepoint reached.
-        upgrade_mod_savepoint(true, 2015102303, 'quizinvideo');
-    }
-
     // Moodle v2.9.0 release upgrade line.
     // Put any upgrade step following this.
 

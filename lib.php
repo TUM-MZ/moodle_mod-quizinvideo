@@ -1898,7 +1898,8 @@ function quizinvideo_get_completion_state($course, $cm, $userid, $type) {
 function process_rtmp_urls($quizinvideoobj){
     $url = $quizinvideoobj->video;
     if (strpos($url, '&') != FALSE) return $url;
-    $lrzStrings = explode( ',', $quizinvideoobj->rtmpurls);
+
+    $lrzStrings = explode( ',', get_config('quizinvideo', 'rtmpurls'));
 
     foreach ($lrzStrings as $lrzString) {
         $lrzString = trim($lrzString);
