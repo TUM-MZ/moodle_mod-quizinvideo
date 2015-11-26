@@ -199,6 +199,16 @@ echo '    font-style: normal';
 echo '}';
 echo '</style>';
 
+echo "<style>";
+echo '@font-face {';
+echo '    font-family: VideoJS;';
+echo '    src: url(/mod/quizinvideo/videojs/font/VideoJS.eot);';
+echo '    src: url(/mod/quizinvideo/videojs/font/VideoJS.eot?#iefix) format("embedded-opentype"), url(/mod/quizinvideo/videojs/font/VideoJS.woff) format("woff"), url(/mod/quizinvideo/videojs/font/VideoJS.ttf) format("truetype"), url(/mod/quizinvideo/videojs/font/VideoJS.svg#icomoon) format("svg");';
+echo '    font-weight: 400;';
+echo '    font-style: normal';
+echo '}';
+echo '</style>';
+
 // Initialise the JavaScript.
 $quizinvideoeditconfig = new stdClass();
 $quizinvideoeditconfig->url = $thispageurl->out(true, array('qbanktool' => '0'));
