@@ -806,7 +806,7 @@ function xmldb_quizinvideo_upgrade($oldversion) {
     // Moodle v2.8.0 release upgrade line.
     // Put any upgrade step following this.
 
-    if ($oldversion < 2015030500) {
+    if ($oldversion < 2015102306) {
         // Define field requireprevious to be added to quizinvideo_slots.
         $table = new xmldb_table('quizinvideo_slots');
         $field = new xmldb_field('requireprevious', XMLDB_TYPE_INTEGER, '4', null, XMLDB_NOTNULL, null, 0, 'page');
@@ -816,11 +816,6 @@ function xmldb_quizinvideo_upgrade($oldversion) {
             $dbman->add_field($table, $field);
         }
 
-        // quizinvideo savepoint reached.
-        upgrade_mod_savepoint(true, 2015030500, 'quizinvideo');
-    }
-
-    if ($oldversion < 2015030900) {
         // Define field canredoquestions to be added to quizinvideo.
         $table = new xmldb_table('quizinvideo');
         $field = new xmldb_field('canredoquestions', XMLDB_TYPE_INTEGER, '4', null, XMLDB_NOTNULL, null, 0, 'preferredbehaviour');
@@ -830,11 +825,6 @@ function xmldb_quizinvideo_upgrade($oldversion) {
             $dbman->add_field($table, $field);
         }
 
-        // quizinvideo savepoint reached.
-        upgrade_mod_savepoint(true, 2015030900, 'quizinvideo');
-    }
-
-    if ($oldversion < 2015032300) {
 
         // Define table quizinvideo_sections to be created.
         $table = new xmldb_table('quizinvideo_sections');
@@ -858,11 +848,7 @@ function xmldb_quizinvideo_upgrade($oldversion) {
             $dbman->create_table($table);
         }
 
-        // quizinvideo savepoint reached.
-        upgrade_mod_savepoint(true, 2015032300, 'quizinvideo');
-    }
 
-    if ($oldversion < 2015032301) {
 
         // Create a section for each quizinvideo.
         $DB->execute("
@@ -872,11 +858,7 @@ function xmldb_quizinvideo_upgrade($oldversion) {
                        FROM {quizinvideo}
                 ", array(''));
 
-        // quizinvideo savepoint reached.
-        upgrade_mod_savepoint(true, 2015032301, 'quizinvideo');
-    }
 
-    if ($oldversion < 2015032302) {
 
         // Define field shufflequestions to be dropped from quizinvideo.
         $table = new xmldb_table('quizinvideo');
@@ -887,18 +869,14 @@ function xmldb_quizinvideo_upgrade($oldversion) {
             $dbman->drop_field($table, $field);
         }
 
-        // quizinvideo savepoint reached.
-        upgrade_mod_savepoint(true, 2015032302, 'quizinvideo');
-    }
 
-    if ($oldversion < 2015032303) {
 
         // Drop corresponding admin settings.
         unset_config('shufflequestions', 'quizinvideo');
         unset_config('shufflequestions_adv', 'quizinvideo');
 
         // quizinvideo savepoint reached.
-        upgrade_mod_savepoint(true, 2015032303, 'quizinvideo');
+        upgrade_mod_savepoint(true, 2015102306, 'quizinvideo');
     }
 
     // Moodle v2.9.0 release upgrade line.
