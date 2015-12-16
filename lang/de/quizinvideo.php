@@ -291,7 +291,7 @@ $string['emailconfirmsmall'] = 'Danke für die Übermittlung Ihrer Antworten zu 
 $string['emailconfirmsubject'] = 'Bestätigung der Quiz-in-Video-Lösungen für {$a->quizinvideoname}';
 $string['emailnotifybody'] = 'Guten Tag {$a->username},
 
-{$a->studentname} hat das Quiz-in-Video 
+{$a->studentname} hat das Quiz-in-Video
 \'{$a->quizinvideoname}\' ({$a->quizinvideourl})
 im Kurs \'{$a->coursename}\' beendet.
 
@@ -928,9 +928,10 @@ $string['xhtml'] = 'XHTML';
 $string['youneedtoenrol'] = 'Sie können das Quiz-in-Video nur durchführen, wenn Sie in diesem Kurs als Teilnehmer/in eingetragen sind.';
 $string['yourfinalgradeis'] = 'Ihre Gesamtbewertung für dieses Quiz-in-Video: {$a}';
 $string['video'] = 'Video';
-$string['timeofvideo'] = 'Zeitstempel für die Seite im Video';
+$string['timeofvideo'] = 'Zeitstempel';
+$string['timeofvideo_tooltip'] = 'Zeitstempel für die Seite im Video';
 $string['edit_timeofvideo'] = 'Zeitstempel für die Seite im Video bearbeiten';
-$string['copy_timeofvideo'] = 'Zeitstempel für die Seite im Video kopieren';
+$string['copy_timeofvideo'] = 'Den aktuellen Zeitstempel übernehmen';
 
 // Deprecated since Moodle 2.8.
 
