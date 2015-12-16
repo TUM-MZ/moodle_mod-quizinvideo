@@ -25,6 +25,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 $subplugins = array(
-    'quizinvideo' => 'mod/quizinvideo/report',
+    'quizinvideoreport' => 'mod/quizinvideo/report',
     'quizinvideoaccess' => 'mod/quizinvideo/accessrule',
 );
