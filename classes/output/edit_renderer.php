@@ -481,15 +481,16 @@ class edit_renderer extends \plugin_renderer_base {
      */
     public function time_of_video_div($quizinvideo, $page) {
         $time = quizinvideo_get_timeofvideo($quizinvideo->id, $page);
-        if($time == null){
-            $output = html_writer::span('',
+        $output = html_writer::span(get_string('timeofvideo', 'quizinvideo').":", 'timeofvideolabel');
+        if($time == null) {
+            $output .= html_writer::span('',
                 'instance_timeofvideo',
-                array('title' => get_string('timeofvideo', 'quizinvideo')));
+                array('title' => get_string('timeofvideo_tooltip', 'quizinvideo')));
         }
-        else{
-            $output = html_writer::span($time,
+        else {
+            $output .= html_writer::span($time,
                 'instance_timeofvideo',
-                array('title' => get_string('timeofvideo', 'quizinvideo')));
+                array('title' => get_string('timeofvideo_tooltip', 'quizinvideo')));
         }
 
 
@@ -506,17 +507,9 @@ class edit_renderer extends \plugin_renderer_base {
             )
         );
 
-        $output .= html_writer::span(
-            html_writer::link(
-                new \moodle_url('#'),
-                $this->pix_icon('t/copy', '', 'moodle', array('class' => 'editicon visibleifjs', 'title' => '')),
-                array(
-                    'class' => 'copying_timeofvideo',
-                    'data-action' => 'copytimeofvideo',
-                    'title' => get_string('copy_timeofvideo', 'quizinvideo'),
-                )
-            )
-        );
+        $output .= "<button class='copying_timeofvideo', data-action='copytimeofvideo' title='".get_string('copy_timeofvideo', 'quizinvideo')."'>";
+        $output .= $this->pix_icon('t/copy', '', 'moodle', array('class' => 'editicon visibleifjs', 'title' => ''));
+        $output .= get_string('copy_timeofvideo', 'quizinvideo')."</button>";
         return html_writer::span($output, 'instancetimeofvideocontainer');
     }
 

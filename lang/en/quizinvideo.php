@@ -912,9 +912,10 @@ $string['xhtml'] = 'XHTML';
 $string['youneedtoenrol'] = 'You need to enrol in this course before you can attempt this quizinvideo';
 $string['yourfinalgradeis'] = 'Your final grade for this quizinvideo is {$a}.';
 $string['video'] = 'Video';
-$string['timeofvideo'] = 'Timestamp of page in video';
+$string['timeofvideo'] = 'Timestamp';
+$string['timeofvideo_tooltip'] = 'Timestamp of the page in video';
 $string['edit_timeofvideo'] = 'Edit timestamp of page in video';
-$string['copy_timeofvideo'] = 'Copy timestamp from video';
+$string['copy_timeofvideo'] = 'Use current the timestamp';
 $string['rtmp_urls'] = 'RTMP server url list';
 $string['rtmp_urls_desc'] = 'RTMP server url list, comma separated';
 

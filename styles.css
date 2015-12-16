@@ -668,8 +668,15 @@ table.quizinvideoreviewsummary td.cell {
     padding: 0.2em;
     height: 1em;
 }
+
+#page-mod-quizinvideo-edit ul.slots li.section li.activity .instancetimeofvideocontainer .timeofvideolabel {
+    margin-right: 4px;
+}
+
 #page-mod-quizinvideo-edit ul.slots li.section li.activity .instancetimeofvideocontainer .editicon {
     width: 13px;
+    margin-bottom: -2px;
+    margin-right: 2px;
 }
 
 #page-mod-quizinvideo-edit ul.slots li.section li.activity .instancetimeofvideocontainer.infoitem {
