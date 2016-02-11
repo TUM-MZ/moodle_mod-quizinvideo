@@ -916,6 +916,7 @@ $string['timeofvideo'] = 'Timestamp';
 $string['timeofvideo_tooltip'] = 'Timestamp of the page in video';
 $string['edit_timeofvideo'] = 'Edit timestamp of page in video';
 $string['copy_timeofvideo'] = 'Use current the timestamp';
+$string['seek_totimestamp'] = 'Seek to the question';
 $string['rtmp_urls'] = 'RTMP server url list';
 $string['rtmp_urls_desc'] = 'RTMP server url list, comma separated';
 

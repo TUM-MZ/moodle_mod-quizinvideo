@@ -932,6 +932,7 @@ $string['timeofvideo'] = 'Zeitstempel';
 $string['timeofvideo_tooltip'] = 'Zeitstempel für die Seite im Video';
 $string['edit_timeofvideo'] = 'Zeitstempel für die Seite im Video bearbeiten';
 $string['copy_timeofvideo'] = 'Den aktuellen Zeitstempel übernehmen';
+$string['seek_totimestamp'] = 'Zum Fragezeitpunkt springen';
 
 // Deprecated since Moodle 2.8.
 

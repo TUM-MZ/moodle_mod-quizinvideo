@@ -105,6 +105,10 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
                 //this user wishes to copy timestamp from video
                 this.copy_timefromvideo(ev, node, activity, action);
                 break;
+            case 'seektotimestamp':
+                // The user wishes to seek to the questions timestamp
+                this.seek_totimestamp(ev, node, activity, action);
+                break;
             case 'delete':
                 // The user is deleting the activity.
                 this.delete_with_confirmation(ev, node, activity, action);
@@ -360,6 +364,23 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
         }
     },
 
+    /**
+     * Seek to the timestamp of the selected question
+     * @protected
+     * @method seek_to_timestamp
+     * @param {EventFacade} ev The event that was fired
+     * @param {Node} activity The activity node that this action will be performed on.
+     * @param {String} action The action that has been requested.
+     * @return Boolean
+     */
+    seek_totimestamp: function(ev, button, activity) {
+        ev.preventDefault();
+        var video = videojs(CSS.VIDEO);
+        var newTime = parseFloat(activity.one(SELECTOR.INSTANCETIMEOFVIDEO).getContent());
+        video.currentTime(newTime);
+        video.pause();
+    },
+
 
     /**
      * Copy the time from video for the resource
@@ -400,7 +421,7 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
      * Edit the timeofvideo for the resource
      *
      * @protected
-     * @method edit_maxmark
+     * @method edit_timeofvideo 
      * @param {EventFacade} ev The event that was fired.
      * @param {Node} button The button that triggered this action.
      * @param {Node} activity The activity node that this action will be performed on.

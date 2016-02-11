@@ -36,7 +36,7 @@ var CSS = {
         ACTIONAREA: '.actions',
         ACTIONLINKTEXT : '.actionlinktext',
         ACTIVITYACTIONSECTTION: ' a.editing_section, input.shuffle_questions',
-    ACTIVITYACTION : 'a.cm-edit-action[data-action], a.editing_maxmark, a.editing_timeofvideo, a.copying_timeofvideo',
+    ACTIVITYACTION : 'a.cm-edit-action[data-action], a.editing_maxmark, a.editing_timeofvideo, a.copying_timeofvideo, a.seek_totimestamp',
         TIMECONTAINER :  'span.instancetimeofvideocontainer',
         ACTIVITYFORM : 'span.instancemaxmarkcontainer form',
         ACTIVITYFORMTIME : 'span.instancetimeofvideocontainer form',
