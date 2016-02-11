@@ -224,6 +224,8 @@ for ($pageiter = 1; $pageiter <= $numberoflisteners; $pageiter++) {
 
 $PAGE->requires->data_for_js('quizinvideo_edit_config', $quizinvideoeditconfig);
 $PAGE->requires->js('/question/qengine.js');
+$PAGE->requires->js_init_call('M.mod_quizinvideo.init_video', null, false, quizinvideo_get_js_module());
+
 
 // Questions wrapper start.
 echo html_writer::start_tag('div', array('class' => 'mod-quizinvideo-edit-content'));
