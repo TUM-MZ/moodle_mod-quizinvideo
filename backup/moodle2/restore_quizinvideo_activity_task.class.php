@@ -72,11 +72,11 @@ class restore_quizinvideo_activity_task extends restore_activity_task {
     public static function define_decode_rules() {
         $rules = array();
 
-        $rules[] = new restore_decode_rule('quizinvideoVIEWBYID',
+        $rules[] = new restore_decode_rule('QUIZINVIDEOVIEWBYID',
                 '/mod/quizinvideo/view.php?id=$1', 'course_module');
-        $rules[] = new restore_decode_rule('quizinvideoVIEWBYQ',
-                '/mod/quizinvideo/view.php?q=$1', 'quizinvideo');
-        $rules[] = new restore_decode_rule('quizinvideoINDEX',
+        $rules[] = new restore_decode_rule('QUIZINVIDEOVIEWBYQ',
+                '/mod/quizinvideo/view.php?q=$1', 'QUIZINVIDEO');
+        $rules[] = new restore_decode_rule('QUIZINVIDEOINDEX',
                 '/mod/quizinvideo/index.php?id=$1', 'course');
 
         return $rules;

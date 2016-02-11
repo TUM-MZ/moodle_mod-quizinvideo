@@ -77,15 +77,15 @@ class backup_quizinvideo_activity_task extends backup_activity_task {
 
         // Link to the list of quizinvideos.
         $search="/(".$base."\/mod\/quizinvideo\/index.php\?id\=)([0-9]+)/";
-        $content= preg_replace($search, '$@quizinvideoINDEX*$2@$', $content);
+        $content= preg_replace($search, '$@QUIZINVIDEOINDEX*$2@$', $content);
 
         // Link to quizinvideo view by moduleid.
         $search="/(".$base."\/mod\/quizinvideo\/view.php\?id\=)([0-9]+)/";
-        $content= preg_replace($search, '$@quizinvideoVIEWBYID*$2@$', $content);
+        $content= preg_replace($search, '$@QUIZINVIDEOVIEWBYID*$2@$', $content);
 
         // Link to quizinvideo view by quizinvideoid.
         $search="/(".$base."\/mod\/quizinvideo\/view.php\?q\=)([0-9]+)/";
-        $content= preg_replace($search, '$@quizinvideoVIEWBYQ*$2@$', $content);
+        $content= preg_replace($search, '$@QUIZINVIDEOVIEWBYQ*$2@$', $content);
 
         return $content;
     }
