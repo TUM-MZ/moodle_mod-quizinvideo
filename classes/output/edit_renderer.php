@@ -25,7 +25,6 @@
 namespace mod_quizinvideo\output;
 defined('MOODLE_INTERNAL') || die();
 
-use core\progress\null;
 use \mod_quizinvideo\structure;
 use \html_writer;
 
@@ -481,6 +480,9 @@ class edit_renderer extends \plugin_renderer_base {
      */
     public function time_of_video_div($quizinvideo, $page) {
         $time = quizinvideo_get_timeofvideo($quizinvideo->id, $page);
+        $time_minutes = floor($time / 60);
+        $time_seconds = str_pad($time % 60, 2, "0", STR_PAD_LEFT);
+        $time_string = "". $time_minutes .":". $time_seconds;
         $output = html_writer::span(get_string('timeofvideo', 'quizinvideo').":", 'timeofvideolabel');
         if($time == null) {
             $output .= html_writer::span('',
@@ -488,7 +490,7 @@ class edit_renderer extends \plugin_renderer_base {
                 array('title' => get_string('timeofvideo_tooltip', 'quizinvideo')));
         }
         else {
-            $output .= html_writer::span($time,
+            $output .= html_writer::span($time_string,
                 'instance_timeofvideo',
                 array('title' => get_string('timeofvideo_tooltip', 'quizinvideo')));
         }

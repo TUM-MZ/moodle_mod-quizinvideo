@@ -376,11 +376,21 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
     seek_totimestamp: function(ev, button, activity) {
         ev.preventDefault();
         var video = videojs(CSS.VIDEO);
-        var newTime = parseFloat(activity.one(SELECTOR.INSTANCETIMEOFVIDEO).getContent());
+        var timeString = activity.one(SELECTOR.INSTANCETIMEOFVIDEO).getContent();
+        var timeArray = timeString.split(":");
+        var newTime = parseInt(timeArray[0]) * 60 + parseInt(timeArray[1]);
         video.currentTime(newTime);
         video.pause();
     },
 
+    /*
+      Format timestamp from seconds
+    */
+    format_timestamp : function(seconds) {
+        var video_minutes = Math.floor(seconds / 60);
+        var video_seconds = seconds % 60;
+        return video_minutes + ":" + (video_seconds < 10 ? "0" : "") + video_seconds;
+    },
 
     /**
      * Copy the time from video for the resource
@@ -410,7 +420,9 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
             };
             this.send_request(data, spinner, function(response) {
                 if (response.instance_timeofvideo) {
-                    activity.one(SELECTOR.INSTANCETIMEOFVIDEO).setContent(response.instance_timeofvideo.toFixed(2));
+                    var timeofvideo = Math.floor(parseFloat(response.instance_timeofvideo, 10));
+                    activity.one(SELECTOR.INSTANCETIMEOFVIDEO)
+                      .setContent(this.format_timestamp(timeofvideo));
                 }
             });
         }
@@ -421,7 +433,7 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
      * Edit the timeofvideo for the resource
      *
      * @protected
-     * @method edit_timeofvideo 
+     * @method edit_timeofvideo
      * @param {EventFacade} ev The event that was fired.
      * @param {Node} button The button that triggered this action.
      * @param {Node} activity The activity node that this action will be performed on.
@@ -517,7 +529,15 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
     edit_timeofvideo_submit : function(ev, activity, originaltimeofvideo) {
         // We don't actually want to submit anything.
         ev.preventDefault();
-        var newtimeofvideo= Y.Lang.trim(activity.one(SELECTOR.ACTIVITYFORMTIME + ' ' + SELECTOR.ACTIVITYTIMEOFVIDEO).get('value'));
+        var newtimeofvideo;
+        var newtimeofvideo_content = Y.Lang.trim(activity.one(SELECTOR.ACTIVITYFORMTIME + ' ' + SELECTOR.ACTIVITYTIMEOFVIDEO).get('value'));
+        var timeArray = newtimeofvideo_content.split(":");
+        if (timeArray.length == 1) {
+          // assume seconds
+          newtimeofvideo = parseInt(timeArray[0]);
+        } else {
+          newtimeofvideo = parseInt(timeArray[0]) * 60 + parseInt(timeArray[1]);
+        }
         var page = Y.Moodle.mod_quizinvideo.util.page.getId(activity);
         var video = videojs(CSS.VIDEO);
         var maxtime = video.duration();
@@ -534,7 +554,9 @@ Y.extend(RESOURCETOOLBOX, TOOLBOX, {
             };
             this.send_request(data, spinner, function(response) {
                 if (response.instance_timeofvideo >= 0) {
-                    activity.one(SELECTOR.INSTANCETIMEOFVIDEO).setContent(response.instance_timeofvideo.toFixed(2));
+                    var timeofvideo = Math.floor(parseFloat(response.instance_timeofvideo));
+                    activity.one(SELECTOR.INSTANCETIMEOFVIDEO)
+                      .setContent(this.format_timestamp(timeofvideo));
                 }
                 else{
                     activity.one(SELECTOR.INSTANCETIMEOFVIDEO).setContent(originaltimeofvideo);
