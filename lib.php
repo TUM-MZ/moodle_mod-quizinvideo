@@ -1905,7 +1905,12 @@ function process_rtmp_urls($quizinvideoobj){
         $lrzString = trim($lrzString);
         if(strpos($url, $lrzString) === 0){
             $remainingUrl = str_replace($lrzString,"",$url);
-            $appString ="&" . substr(strrchr($remainingUrl,'.'),1) . ":";
+	    $video_format = substr(strrchr($remainingUrl,'.'),1) . ":";
+            if (substr($remainingUrl, 0, strlen($video_format)) === "$video_format") {
+                $appString = "&";
+            } else {
+                $appString = "&" . $video_format;
+            }
             return $lrzString . $appString . $remainingUrl;
         }
     }
