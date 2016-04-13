@@ -40,7 +40,7 @@ class backup_quizinvideo_activity_structure_step extends backup_questions_activi
 
         // Define each element separated.
         $quizinvideo = new backup_nested_element('quizinvideo', array('id'), array(
-            'name', 'intro', 'introformat', 'timeopen', 'timeclose', 'timelimit',
+            'name', 'video', 'intro', 'introformat', 'timeopen', 'timeclose', 'timelimit',
             'overduehandling', 'graceperiod', 'preferredbehaviour', 'canredoquestions', 'attempts_number',
             'attemptonlast', 'grademethod', 'decimalpoints', 'questiondecimalpoints',
             'reviewattempt', 'reviewcorrectness', 'reviewmarks',
