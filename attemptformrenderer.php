@@ -56,5 +56,6 @@ $output .= html_writer::end_tag('div');
 $output .= html_writer::end_tag('div');
 $output .= html_writer::end_tag('form');
 
+$output .= $PAGE->requires->get_end_code();
 
 echo $output;

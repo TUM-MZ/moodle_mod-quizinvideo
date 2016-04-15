@@ -417,6 +417,15 @@ M.mod_quizinvideo.init_video = function(Y){
                     on:{
                         success:function(a, b){
                             Y.one("#video_div").insert(b.response, 'after');
+                            Y.one("#video_div").ancestor().all('script').each(function(scriptEl) {
+                                // add new script elements to head so they get executed
+                                var delieveredScriptNode = scriptEl.getDOMNode();
+                                var newScriptEl = document.createElement('script');
+                                newScriptEl.type = 'text/javascript';
+                                if (!delieveredScriptNode.innerHTML) return;
+                                newScriptEl.innerHTML = delieveredScriptNode.innerHTML;
+                                document.head.appendChild(newScriptEl);
+                            });
                             M.mod_quizinvideo.init_attempt_form(Y);
                         },
                         failure:function(){
