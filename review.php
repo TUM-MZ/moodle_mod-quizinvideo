@@ -258,12 +258,7 @@ $output = $PAGE->get_renderer('mod_quizinvideo');
 
 if($processing_attempt){
     echo $output->review_page($attemptobj, $slots, $page, false, $lastpage, $options, $summarydata);
-    if(($page + 1) < $attemptobj->get_num_pages()){
-        $attemptobj->set_state();
-    }
-    else if(($page + 1) == $attemptobj->get_num_pages()){
-        $attemptobj->set_state(quizinvideo_attempt::FINISHED, time());
-    }
+    $attemptobj->set_state();
 }
 else
     echo $output->review_page_full($attemptobj, $slots, $page, true, $lastpage, $options, $summarydata);
