@@ -237,10 +237,10 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
 //                mod_quizinvideo_display_options::DURING, true);
         $this->add_review_options_group($mform, $quizinvideoconfig, 'immediately',
                 mod_quizinvideo_display_options::IMMEDIATELY_AFTER);
-//        $this->add_review_options_group($mform, $quizinvideoconfig, 'open',
-//                mod_quizinvideo_display_options::LATER_WHILE_OPEN);
-//        $this->add_review_options_group($mform, $quizinvideoconfig, 'closed',
-//                mod_quizinvideo_display_options::AFTER_CLOSE);
+        $this->add_review_options_group($mform, $quizinvideoconfig, 'open',
+                mod_quizinvideo_display_options::LATER_WHILE_OPEN);
+        $this->add_review_options_group($mform, $quizinvideoconfig, 'closed',
+                mod_quizinvideo_display_options::AFTER_CLOSE);
 
         foreach ($behaviours as $behaviour => $notused) {
             $unusedoptions = question_engine::get_behaviour_unused_display_options($behaviour);
