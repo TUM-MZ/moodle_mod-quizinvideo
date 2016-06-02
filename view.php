@@ -237,7 +237,17 @@ if (isguestuser()) {
     echo $output->view_page_notenrolled($course, $quizinvideo, $cm, $context, $viewobj->infomessages);
 } else {
 //    echo $output->view_page($course, $quizinvideo, $cm, $context, $viewobj);
-    redirect($CFG->wwwroot . '/mod/quizinvideo/startattempt.php?cmid=' . $id . '&sesskey=' . sesskey());
+    $accessmanager = $quizinvideoobj->get_access_manager($timenow);
+    $messages = $accessmanager->prevent_access();
+    if (!$quizinvideoobj->is_preview_user() && $messages) {
+        $lastattempt = end($viewobj->attemptobjs);
+        redirect($CFG->wwwroot . '/mod/quizinvideo/review.php?attempt=' . $lastattempt->get_attempt()->id . '&sesskey=' . sesskey());
+    } else {
+        if ($lastattempt = end($viewobj->attemptobjs)) {
+            $lastattempt->set_state();
+        }
+        redirect($CFG->wwwroot . '/mod/quizinvideo/startattempt.php?cmid=' . $id . '&sesskey=' . sesskey());
+    }
 }
 
 echo $OUTPUT->footer();
