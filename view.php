@@ -240,8 +240,12 @@ if (isguestuser()) {
     $accessmanager = $quizinvideoobj->get_access_manager($timenow);
     $messages = $accessmanager->prevent_access();
     if (!$quizinvideoobj->is_preview_user() && $messages) {
-        $lastattempt = end($viewobj->attemptobjs);
-        redirect($CFG->wwwroot . '/mod/quizinvideo/review.php?attempt=' . $lastattempt->get_attempt()->id . '&sesskey=' . sesskey());
+        if ($lastattempt = end($viewobj->attemptobjs)) {
+            redirect($CFG->wwwroot . '/mod/quizinvideo/review.php?attempt=' . $lastattempt->get_attempt()->id . '&sesskey=' . sesskey());
+        } else {
+            print_error('attempterror', 'quizinvideo', $quizinvideoobj->view_url(),
+                $output->access_messages($messages));
+        }
     } else {
         if ($lastattempt = end($viewobj->attemptobjs)) {
             $lastattempt->set_state();
