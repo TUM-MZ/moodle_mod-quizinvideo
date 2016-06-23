@@ -241,7 +241,7 @@ if (isguestuser()) {
     $messages = $accessmanager->prevent_access();
     if (!$quizinvideoobj->is_preview_user() && $messages) {
         if ($lastattempt = end($viewobj->attemptobjs)) {
-            redirect($CFG->wwwroot . '/mod/quizinvideo/review.php?attempt=' . $lastattempt->get_attempt()->id . '&sesskey=' . sesskey());
+            redirect($quizinvideoobj->review_url($lastattempt->get_attempt()->id, true));
         } else {
             print_error('attempterror', 'quizinvideo', $quizinvideoobj->view_url(),
                 $output->access_messages($messages));
@@ -250,7 +250,7 @@ if (isguestuser()) {
         if ($lastattempt = end($viewobj->attemptobjs)) {
             $lastattempt->set_state();
         }
-        redirect($CFG->wwwroot . '/mod/quizinvideo/startattempt.php?cmid=' . $id . '&sesskey=' . sesskey());
+        redirect($quizinvideoobj->start_attempt_url());
     }
 }
 
