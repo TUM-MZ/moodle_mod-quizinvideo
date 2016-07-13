@@ -138,16 +138,6 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
         $mform->addElement('hidden', 'grade', $currentgrade);
         $mform->setType('grade', PARAM_FLOAT);
 
-        // Number of attempts.
-        $attemptoptions = array('0' => get_string('unlimited'));
-        for ($i = 1; $i <= quizinvideo_MAX_ATTEMPT_OPTION; $i++) {
-            $attemptoptions[$i] = $i;
-        }
-        $mform->addElement('select', 'attempts', get_string('attemptsallowed', 'quizinvideo'),
-                $attemptoptions);
-        $mform->setAdvanced('attempts', $quizinvideoconfig->attempts_adv);
-        $mform->setDefault('attempts', $quizinvideoconfig->attempts);
-
         // Grading method.
         $mform->addElement('select', 'grademethod', get_string('grademethod', 'quizinvideo'),
                 quizinvideo_get_grading_options());
