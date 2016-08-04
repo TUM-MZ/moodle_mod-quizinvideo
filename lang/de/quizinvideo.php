@@ -839,6 +839,12 @@ $string['shuffle'] = 'Mischen';
 $string['shuffleanswers'] = 'Antworten mischen';
 $string['shuffledrandomly'] = 'Zufälllige Reihenfolge';
 $string['shufflequestions'] = 'Fragen mischen';
+$string['shufflequestions_help'] = 'If you turn this on, then every time the quiz is attempted, the order of the questions in this section will be shuffled into a different random order.
+
+This can make it harder for students to share answers, but it also makes it harder for students discuss a particular question with you.';
+$string['shufflequestions_help'] = 'Wenn diese Option ausgewählt ist, wird die Reihenfolge der Fragen bei jedem Versuch zufällig sein.
+
+Auf diese Weise ist es schwieriger für Studenten, die Antworten auf die Fragen untereinander zu teilen. Auf der anderen Seite ist es auch komplizierter die Aufgaben mit dem Lehrer zu diskutieren.';
 $string['shufflequestionsselected'] = 'Es wurde die zufällige Fragenreihenfolge gewählt. Dadurch können einige Funktion zur Anordnung der Fragen nicht genutzt werden. Sie können dies in {$a} ändern.';
 $string['shufflewithin'] = 'Antworten innerhalb der Fragen mischen';
 $string['shufflewithin_help'] = '<h2>Antworten innerhalb der Fragen mischen</h2><p>Mit dieser Option werden die Antworten innerhalb einzelner Fragen bei jedem Versuch zufällig gemischt, vorausgesetzt, diese Option ist auch in den Fragen-Einstellungen aktiviert.</p><p>Absicht dieser Funktion ist es, den Teilnehmenden das Kopieren voneinander zu erschweren.</p><p>Die Funktion hat nur dann Auswirkungen, wenn Fragen aus mehreren Teilen bestehen (Multiple-Choice- oder Zuordnungsfragen). Bei Multiple-Choice-Fragen werden die Antworten nur gemischt, wenn diese Option auf &quot;Ja&quot; gestellt ist. Bei Zuordnungsfragen werden die Antworten immer gemischt. Die Funktion bewirkt dann, dass die Frage-Antwort-Paare auch gemischt werden.</p><p>Die Option hat keinen Bezug zur Zufallsfragenfunktion.</p>';
