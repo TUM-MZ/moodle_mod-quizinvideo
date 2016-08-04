@@ -78,6 +78,7 @@ class mod_quizinvideo_mod_form extends moodleform_mod {
 
         // Video.
         $mform->addElement('text', 'video', get_string('video', 'quizinvideo'), array('size'=>'64'));
+        $mform->addHelpButton('video', 'videosources', 'mod_quizinvideo');
         if (!empty($CFG->formatstringstriptags)) {
             $mform->setType('video', PARAM_TEXT);
         } else {

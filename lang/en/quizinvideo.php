@@ -912,6 +912,11 @@ $string['xhtml'] = 'XHTML';
 $string['youneedtoenrol'] = 'You need to enrol in this course before you can attempt this quizinvideo';
 $string['yourfinalgradeis'] = 'Your final grade for this quizinvideo is {$a}.';
 $string['video'] = 'Video';
+$string['videosources'] = 'Acceptable video sources';
+$string['videosources_help'] = "Acceptable sources are: \n 
+* direct URLs to HTML5 video supported formats (i.e. h264, VP8 in mp4 containers)\n 
+* RTMP URLs, may need explicit ampersand (&) to denote RTMP server part (see http://blog.videojs.com/Video-js-4-2-0-released-RTMP-CSS-designer-and-stability/#RTMP-Support)\n
+* youtube URLs";
 $string['timeofvideo'] = 'Timestamp';
 $string['timeofvideo_tooltip'] = 'Timestamp of the page in video';
 $string['edit_timeofvideo'] = 'Edit timestamp of page in video';

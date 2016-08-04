@@ -928,6 +928,11 @@ $string['xhtml'] = 'XHTML';
 $string['youneedtoenrol'] = 'Sie können das Quiz-in-Video nur durchführen, wenn Sie in diesem Kurs als Teilnehmer/in eingetragen sind.';
 $string['yourfinalgradeis'] = 'Ihre Gesamtbewertung für dieses Quiz-in-Video: {$a}';
 $string['video'] = 'Video';
+$string['videosources'] = 'Zulässige Videoformate';
+$string['videosources_help'] = "Folgende Videoquellen werden angenommen: \n 
+* direkte URLs zu HTML5-Videos, z.B. MP4
+* RTMP URLs. Benutzen Sie ein kaufmännisches 'und' (&), um den Server-Teil des URL von dem Video-Teil zu trennen (mehr Info:  http://blog.videojs.com/Video-js-4-2-0-released-RTMP-CSS-designer-and-stability/#RTMP-Support)
+* URLs zu youtube-Videos";
 $string['timeofvideo'] = 'Zeitstempel';
 $string['timeofvideo_tooltip'] = 'Zeitstempel für die Seite im Video';
 $string['edit_timeofvideo'] = 'Zeitstempel für die Seite im Video bearbeiten';
