@@ -226,14 +226,15 @@ if (!$viewobj->quizinvideohasquestions) {
 $viewobj->showbacktocourse = ($viewobj->buttontext === '' &&
     course_get_format($course)->has_view_page());
 
-//echo $OUTPUT->header();
 
 if (isguestuser()) {
     // Guests can't do a quizinvideo, so offer them a choice of logging in or going back.
+    echo $OUTPUT->header();
     echo $output->view_page_guest($course, $quizinvideo, $cm, $context, $viewobj->infomessages);
 } else if (!isguestuser() && !($canattempt || $canpreview
         || $viewobj->canreviewmine)) {
     // If they are not enrolled in this course in a good enough role, tell them to enrol.
+    echo $OUTPUT->header();
     echo $output->view_page_notenrolled($course, $quizinvideo, $cm, $context, $viewobj->infomessages);
 } else {
 //    echo $output->view_page($course, $quizinvideo, $cm, $context, $viewobj);
@@ -243,6 +244,7 @@ if (isguestuser()) {
         if ($lastattempt = end($viewobj->attemptobjs)) {
             redirect($quizinvideoobj->review_url($lastattempt->get_attempt()->id, true));
         } else {
+            echo $OUTPUT->header();
             print_error('attempterror', 'quizinvideo', $quizinvideoobj->view_url(),
                 $output->access_messages($messages));
         }
