@@ -416,6 +416,8 @@ M.mod_quizinvideo.init_video = function(Y){
                     },
                     on:{
                         success:function(a, b){
+                            // RegExp to find the script block which redefines require parameters (require variable)
+                            var testRequireParams = RegExp('^var require = {(.|\n)*};', 'gm');
                             Y.one("#video_div").insert(b.response, 'after');
                             Y.one("#video_div").ancestor().all('script').each(function(scriptEl) {
                                 // add new script elements to head so they get executed
@@ -423,8 +425,10 @@ M.mod_quizinvideo.init_video = function(Y){
                                 var newScriptEl = document.createElement('script');
                                 newScriptEl.type = 'text/javascript';
                                 if (!delieveredScriptNode.innerHTML) return;
-                                newScriptEl.innerHTML = delieveredScriptNode.innerHTML;
-                                document.head.appendChild(newScriptEl);
+                                // Do not redefine the require parameters
+                                if (testRequireParams.test(delieveredScriptNode.innerHTML)) return;
+                                newScriptEl.innerHTML = '// -- inserted -- \n' + delieveredScriptNode.innerHTML;
+                                document.body.appendChild(newScriptEl);
                             });
                             M.mod_quizinvideo.init_attempt_form(Y);
                         },
