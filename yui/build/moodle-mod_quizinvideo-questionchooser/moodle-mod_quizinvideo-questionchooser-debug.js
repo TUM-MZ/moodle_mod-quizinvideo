@@ -3,7 +3,7 @@ YUI.add('moodle-mod_quizinvideo-questionchooser', function (Y, NAME) {
 var CSS = {
     ADDNEWQUESTIONBUTTONS: 'ul.menu a.addquestion',
     CREATENEWQUESTION: 'div.createnewquestion',
-    CHOOSERDIALOGUE: 'div.chooserdialogue',
+    CHOOSERDIALOGUE: 'div.chooserdialoguebody',
     CHOOSERHEADER: 'div.choosertitle'
 };
 
