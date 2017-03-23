@@ -2416,3 +2416,7 @@ and the native poster can take over */
     padding: 9px;
     text-align: center
 }
+
+.path-mod-quizinvideo .mod-quizinvideo-edit-content {
+    margin-bottom: 10rem;
+}
