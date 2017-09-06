@@ -1250,6 +1250,7 @@ class mod_quizinvideo_renderer extends plugin_renderer_base {
      */
     private function show_video($attemptobj)
     {
+        $this->page->requires->js('/mod/quizinvideo/videojs/jquery.js');
         $this->page->requires->js('/mod/quizinvideo/videojs/video.js');
         $this->page->requires->js('/mod/quizinvideo/videojs/videojs-markers.js');
         $this->page->requires->js('/mod/quizinvideo/videojs/youtube.js');
