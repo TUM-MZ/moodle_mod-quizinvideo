@@ -748,10 +748,16 @@ table.quizinvideoreviewsummary td.cell {
 #page-mod-quizinvideo-edit ul.slots li.section li.activity .editing_maxmark {
     margin: 0 2px;
 }
+#page-mod-quizinvideo-edit .section .activity .editing_move {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
 #page-mod-quizinvideo-edit ul.slots li.section.only-has-one-slot li.activity .editing_move,
 #page-mod-quizinvideo-edit ul.slots li.section.only-has-one-slot li.activity .editing_delete {
     visibility: hidden;
 }
+
 
 #page-mod-quizinvideo-edit ul.slots li.section li.activity .question_dependency_wrapper {
     position: absolute;
@@ -786,11 +792,17 @@ table.quizinvideoreviewsummary td.cell {
     left: 5em;
     width: 100%;
 }
+
 #page-mod-quizinvideo-edit.dir-rtl ul.slots li.section li.activity .activityinstance {
     left: auto;
     right: 5em;
 }
-
+#page-mod-quizinvideo-edit ul.slots .activityinstance > a {
+    text-indent: 0;
+}
+#page-mod-quizinvideo-edit ul.slots li.section li.activity .mod-indent-outer {
+    padding-left: 22px;
+}
 #page-mod-quizinvideo-edit.dir-rtl ul.slots li.section li.activity .mod-indent-outer {
     padding-left: 0;
     padding-right: 22px;

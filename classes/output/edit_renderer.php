@@ -509,11 +509,11 @@ class edit_renderer extends \plugin_renderer_base {
             )
         );
 
-        $output .= "<a class='copying_timeofvideo' data-action='copytimeofvideo'><button type='submit'>";
+        $output .= "<a class='copying_timeofvideo' data-action='copytimeofvideo'><button class='btn btn-secondary m-b-1' type='submit'>";
         $output .= $this->pix_icon('t/copy', '', 'moodle', array('class' => 'editicon visibleifjs', 'title' => ''));
         $output .= get_string('copy_timeofvideo', 'quizinvideo')."</button></a>";
 
-        $output .= "<a class='seek_totimestamp' data-action='seektotimestamp'><button type='submit'>";
+        $output .= "<a class='seek_totimestamp' data-action='seektotimestamp'><button class='btn btn-secondary m-b-1' type='submit'>";
         $output .= $this->pix_icon('t/collapsed', '', 'moodle', array('class' => 'editicon visibleifjs', 'title' => ''));
         $output .= get_string('seek_totimestamp', 'quizinvideo')."</button></a>";
         return html_writer::span($output, 'instancetimeofvideocontainer');
